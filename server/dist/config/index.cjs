@@ -26,7 +26,7 @@ module.exports = __toCommonJS(config_exports);
 var import_dotenv = require("dotenv");
 (0, import_dotenv.config)();
 var url = process.env.DATABASE_URL;
-var port = process.env.port;
+var port = process.env.PORT;
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   port,

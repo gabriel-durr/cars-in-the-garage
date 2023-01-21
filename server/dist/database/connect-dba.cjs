@@ -25,7 +25,7 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/database/connect-dba.ts
 var connect_dba_exports = {};
 __export(connect_dba_exports, {
-  connectMongo: () => connectMongo
+  connectDb: () => connectDb
 });
 module.exports = __toCommonJS(connect_dba_exports);
 
@@ -33,21 +33,24 @@ module.exports = __toCommonJS(connect_dba_exports);
 var import_dotenv = require("dotenv");
 (0, import_dotenv.config)();
 var url = process.env.DATABASE_URL;
-var port = process.env.port;
+var port = process.env.PORT;
 
 // src/database/connect-dba.ts
 var import_mongoose = __toESM(require("mongoose"), 1);
-function connectMongo() {
-  import_mongoose.default.set("strictQuery", false);
-  import_mongoose.default.connect(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  });
-  const db = import_mongoose.default.connection;
-  db.on("error", (error) => console.log(error));
-  db.once("open", () => console.log("Connected to MongoDB"));
-}
+var connectDb = async () => {
+  try {
+    import_mongoose.default.set("strictQuery", false);
+    await import_mongoose.default.connect(url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+    console.log("MongoDB Connected");
+  } catch (err) {
+    console.log(err);
+    console.log("Error connecting to the database, server not started");
+  }
+};
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  connectMongo
+  connectDb
 });

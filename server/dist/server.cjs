@@ -21,20 +21,23 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 var import_dotenv = require("dotenv");
 (0, import_dotenv.config)();
 var url = process.env.DATABASE_URL;
-var port = process.env.port;
+var port = process.env.PORT;
 
 // src/database/connect-dba.ts
 var import_mongoose = __toESM(require("mongoose"), 1);
-function connectMongo() {
-  import_mongoose.default.set("strictQuery", false);
-  import_mongoose.default.connect(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  });
-  const db = import_mongoose.default.connection;
-  db.on("error", (error) => console.log(error));
-  db.once("open", () => console.log("Connected to MongoDB"));
-}
+var connectDb = async () => {
+  try {
+    import_mongoose.default.set("strictQuery", false);
+    await import_mongoose.default.connect(url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+    console.log("MongoDB Connected");
+  } catch (err) {
+    console.log(err);
+    console.log("Error connecting to the database, server not started");
+  }
+};
 
 // src/models/car-schema.ts
 var mongoose2 = __toESM(require("mongoose"), 1);
@@ -130,15 +133,15 @@ var deleteCar = (req, res) => {
 // src/server.ts
 var import_express = __toESM(require("express"), 1);
 var import_cors = __toESM(require("cors"), 1);
+var port2 = port || 3333;
 var app = (0, import_express.default)();
+connectDb().then(
+  () => app.listen(port2, () => console.log(`Server running ${port2} \u26A1`))
+);
 app.use(import_express.default.json());
 app.use((0, import_cors.default)());
-app.get("/cars", getAllCars);
+app.get("/", getAllCars);
 app.post("/car", createNewCar);
 app.put("/car/:id", updateAllToCar);
 app.patch("/car/:id", updateSpecificToCar);
 app.delete("/car/:id", deleteCar);
-app.listen(port, () => {
-  console.log("Server running \u26A1");
-});
-connectMongo();
