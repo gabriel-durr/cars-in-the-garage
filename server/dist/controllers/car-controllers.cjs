@@ -56,8 +56,8 @@ var import_uuid = require("uuid");
 var getAllCars = (req, res) => {
   CarDba.find({}, (err, allCars) => {
     if (err)
-      return res.status(500).send(err);
-    return res.status(200).json({ data: allCars });
+      return res.status(500).json(err);
+    return res.status(200).json({ allCars });
   });
 };
 var createNewCar = (req, res) => {

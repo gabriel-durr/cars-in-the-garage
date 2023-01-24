@@ -55,8 +55,6 @@ const updateSpecificToCar = (req: Request, res: Response) => {
 		params: {id},
 	} = req;
 
-	console.log(id);
-
 	CarDba.findByIdAndUpdate(id, body, {upsert: false, new: true}, (err, car) => {
 		if (err) return res.status(404).send(`Carro ${car.model} não encontrado.`);
 		return res.send(`Carro ${car.model} foi atualizado com sucesso!`);

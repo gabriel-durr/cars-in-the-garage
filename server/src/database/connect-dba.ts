@@ -4,10 +4,7 @@ import mongoose from "mongoose";
 const connectDb = async () => {
 	try {
 		mongoose.set("strictQuery", false);
-		await mongoose.connect(url, {
-			useNewUrlParser: true,
-			useUnifiedTopology: true,
-		} as {});
+		await mongoose.connect(url);
 		console.log("MongoDB Connected");
 	} catch (err) {
 		console.log(err);

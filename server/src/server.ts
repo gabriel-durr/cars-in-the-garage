@@ -21,7 +21,7 @@ connectDb().then(() =>
 app.use(express.json());
 app.use(cors());
 
-app.get("/", getAllCars);
+app.get("/cars", getAllCars);
 app.post("/car", createNewCar);
 app.put("/car/:id", updateAllToCar);
 app.patch("/car/:id", updateSpecificToCar);

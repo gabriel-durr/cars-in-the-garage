@@ -62,8 +62,8 @@ var import_uuid = require("uuid");
 var getAllCars = (req, res) => {
   CarDba.find({}, (err, allCars) => {
     if (err)
-      return res.status(500).send(err);
-    return res.status(200).json({ data: allCars });
+      return res.status(500).json(err);
+    return res.status(200).json({ allCars });
   });
 };
 var createNewCar = (req, res) => {
@@ -140,7 +140,7 @@ connectDb().then(
 );
 app.use(import_express.default.json());
 app.use((0, import_cors.default)());
-app.get("/", getAllCars);
+app.get("/cars", getAllCars);
 app.post("/car", createNewCar);
 app.put("/car/:id", updateAllToCar);
 app.patch("/car/:id", updateSpecificToCar);
