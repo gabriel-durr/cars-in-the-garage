@@ -1,10 +1,10 @@
 import {extendTheme} from "@chakra-ui/react";
 
 const colors = {
-	brand: {
-		900: "#276C23",
-		800: "#153e75",
-		700: "#2a69ac",
+	my: {
+		100: "#5967b8",
+		200: "#ef2159",
+		300: "#a9d4af",
 	},
 };
 const fonts = {

@@ -5,9 +5,9 @@ type DescriptionProps = {
 	description: string;
 };
 
-export const CardDescription = ({description}: DescriptionProps) => {
+export const CarDescription = ({description}: DescriptionProps) => {
 	const [isExpanded, setIsExpanded] = useState(false);
-	const shortText = description.slice(0, 164);
+	const shortText = description.slice(0, 158);
 	const fullText = description;
 
 	const handleReadMore = () => {

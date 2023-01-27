@@ -1,8 +1,7 @@
+import {Cars} from "./types";
 import {CarsCard} from "./components/cars-card";
 import {getCars} from "./services/requests";
-import garageImg from "../public/garage.jpg";
-import {AddNewCard} from "./components/add-new-card";
-import {Cars} from "./types";
+import {AddNewCar} from "./components/add-new-car";
 
 import {useEffect, useState} from "react";
 import {Flex, Box, Spinner} from "@chakra-ui/react";
@@ -10,6 +9,7 @@ import {Flex, Box, Spinner} from "@chakra-ui/react";
 function App() {
 	const [cars, setCars] = useState<Cars[]>([]);
 	const [loading, setLoading] = useState(false);
+	const [message, setMessage] = useState<string>("");
 
 	useEffect(() => {
 		(async function () {
@@ -42,7 +42,7 @@ function App() {
 				filter="blur(12px)"
 				pos="absolute"
 				bgSize="cover"
-				bgImg={garageImg}
+				bgImg="/garage.jpg"
 			/>
 			{cars.map(car => (
 				<CarsCard
@@ -57,9 +57,11 @@ function App() {
 					year={car.year}
 					description={car.description}
 					owner={car.owner}
+					message={message}
+					setMessage={setMessage}
 				/>
 			))}
-			<AddNewCard />
+			<AddNewCar />
 		</Flex>
 	);
 }

@@ -7,7 +7,7 @@ type OwnerProps = {
 	phone: string;
 };
 
-export const CardOwner = ({name, avatar, email, phone}: OwnerProps) => {
+export const CarOwner = ({name, avatar, email, phone}: OwnerProps) => {
 	return (
 		<Flex direction="column" gap="6" w="full">
 			<Heading

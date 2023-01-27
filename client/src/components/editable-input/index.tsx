@@ -1,3 +1,4 @@
+import {EditableControls} from "./editable-controls";
 import React from "react";
 import {
 	Editable,
@@ -6,7 +7,6 @@ import {
 	EditableTextarea,
 	EditableInput as EditableInputChakra,
 } from "@chakra-ui/react";
-import {EditableControls} from "./editable-controls";
 
 type EditableProps = {
 	defaultValue: any;
@@ -40,6 +40,7 @@ export const EditableInput = ({
 			/>
 
 			<Input
+				textAlign="left"
 				ref={inputRef}
 				fontSize={textSize}
 				defaultValue={defaultValue}

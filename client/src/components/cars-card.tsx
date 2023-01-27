@@ -1,6 +1,6 @@
-import {CardDescription} from "./card-description";
-import {CardOwner} from "./card-owner";
-import {CardHeaderContent} from "./card-header-content";
+import {CarDescription} from "./car-description";
+import {CarOwner} from "./car-owner";
+import {CarHeaderContent} from "./car-header-content";
 import {Cars} from "./../types";
 
 import {
@@ -10,10 +10,13 @@ import {
 	Divider,
 	CardFooter,
 } from "@chakra-ui/react";
-import {CardInfo} from "./card-info";
-import {CardCarousel} from "./card-carousel";
+import {CarInfo} from "./car-info";
+import {CarCarousel} from "./car-carousel";
 
-type CarsCardProps = Cars;
+type CarsCardProps = Cars & {
+	message: string;
+	setMessage: (message: string) => void;
+};
 
 export const CarsCard = ({
 	_id,
@@ -26,6 +29,8 @@ export const CarsCard = ({
 	model,
 	brandIcon,
 	brand,
+	message,
+	setMessage,
 }: CarsCardProps) => {
 	return (
 		<Card
@@ -37,10 +42,10 @@ export const CarsCard = ({
 			borderColor="gray.300"
 			boxShadow="1px -1px 2px #7676dd9e, -12px 10px 10px #71729b76"
 			rounded="lg">
-			<CardCarousel banners={image} />
+			<CarCarousel banners={image} />
 
 			<CardHeader>
-				<CardHeaderContent
+				<CarHeaderContent
 					_id={_id}
 					image={image}
 					brand={brand}
@@ -51,19 +56,21 @@ export const CarsCard = ({
 					owner={owner}
 					model={model}
 					brandIcon={brandIcon}
+					message={message}
+					setMessage={setMessage}
 				/>
-				<CardInfo speed={speed} year={year} price={price} />
+				<CarInfo speed={speed} year={year} price={price} />
 			</CardHeader>
 			<CardBody
 				display="flex"
 				flexDir="column"
 				alignItems="flex-start"
 				justifyContent="space-around">
-				<CardDescription description={description} />
+				<CarDescription description={description} />
 				<Divider />
 			</CardBody>
 			<CardFooter>
-				<CardOwner
+				<CarOwner
 					name={owner.name}
 					avatar={owner.avatar}
 					email={owner.email}

@@ -8,7 +8,7 @@ type CarouselProps = {
 	banners: string[];
 };
 
-export const CardCarousel = ({banners}: CarouselProps) => {
+export const CarCarousel = ({banners}: CarouselProps) => {
 	const [currentImage, setCurrentImage] = useState(0);
 	const [direction, setDirection] = useState<number>(0);
 

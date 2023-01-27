@@ -1,5 +1,5 @@
 import {EditableInput} from "./editable-input";
-import {formatBitcoin} from "../utils/formatBitcoin";
+import {formatBitcoin} from "../utils/format-bitcoin";
 import {updateCar} from "./../services/requests";
 
 import React, {useRef} from "react";
@@ -14,44 +14,69 @@ import {
 	ModalCloseButton,
 	ModalHeader,
 	FormLabel,
+	useToast,
 } from "@chakra-ui/react";
 
 type EditProps = {
-	isOpen: boolean;
-	onOpen: () => void;
-	onClose: () => void;
 	_id: string;
 	description: string;
 	price: string;
+	isOpenUp: boolean;
+	onCloseUp: () => void;
+	message: string;
+	setMessage: (message: string) => void;
 };
 
 export const ModalUpdate = ({
-	isOpen,
-	onClose,
-	onOpen,
 	_id,
 	description,
 	price,
+	isOpenUp,
+	onCloseUp,
+	message,
+	setMessage,
 }: EditProps) => {
 	const inputPrice = useRef<HTMLInputElement>(null);
 	const inputDescription = useRef<HTMLInputElement>(null);
 
+	const toast = useToast();
+
 	async function handleSubmit(event: React.FormEvent<unknown>) {
 		event.preventDefault();
 
-		let priceValue = inputPrice.current?.value.toString();
-		let description = inputDescription.current?.value;
+		let priceValue = formatBitcoin(inputPrice.current?.value.toString());
+		let descriptionValue = inputDescription.current?.value;
 
-		const price = formatBitcoin(priceValue);
-		console.log(description);
+		if (!priceValue || !descriptionValue) {
+			toast({
+				title: "Os campos não podem ficar vázios",
+				status: "warning",
+				isClosable: true,
+				position: "top",
+			});
+			return;
+		}
 
-		const res = await updateCar(_id, {price, description});
-		console.log(res);
+		const res = await updateCar(_id, {
+			price: priceValue,
+			description: descriptionValue,
+		});
+
+		setMessage(res);
+
+		toast({
+			title: message,
+			status: "success",
+			isClosable: true,
+			position: "top",
+		});
+
+		onCloseUp();
 	}
 
 	return (
 		<>
-			<Modal isOpen={isOpen} onClose={onClose} size="3xl">
+			<Modal isOpen={isOpenUp} onClose={onCloseUp} size="3xl">
 				<ModalOverlay />
 				<ModalContent>
 					<ModalHeader
@@ -73,10 +98,11 @@ export const ModalUpdate = ({
 						<form>
 							<FormControl onSubmit={handleSubmit} mb="12">
 								<FormLabel
+									textTransform="uppercase"
 									textAlign="center"
 									color="#5400e6"
 									fontSize="0.96rem">
-									PREÇO
+									preço
 								</FormLabel>
 								<EditableInput
 									defaultValue={price}
@@ -89,10 +115,11 @@ export const ModalUpdate = ({
 
 							<FormControl>
 								<FormLabel
+									textTransform="uppercase"
 									color="#5400e6"
 									textAlign="center"
 									fontSize="0.96rem">
-									DESCRIÇÃO
+									descrição
 								</FormLabel>
 								<EditableInput
 									defaultValue={description}
@@ -106,6 +133,7 @@ export const ModalUpdate = ({
 					<ModalFooter justifyContent="center">
 						<Button
 							textTransform="uppercase"
+							shadow="sm"
 							h="8"
 							w="32"
 							type="submit"

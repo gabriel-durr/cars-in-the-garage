@@ -1,16 +1,21 @@
-import {CardEdit} from "./card-edit";
+import {CarEdit} from "./car-edit";
 import {Cars} from "../types";
 
 import {Heading, HStack, VStack, Image} from "@chakra-ui/react";
 
-type CardHeaderProps = Cars;
+type CardHeaderProps = Cars & {
+	message: string;
+	setMessage: (message: string) => void;
+};
 
-export const CardHeaderContent = ({
+export const CarHeaderContent = ({
 	_id,
 	description,
 	price,
 	model,
 	brandIcon,
+	message,
+	setMessage,
 }: CardHeaderProps) => {
 	return (
 		<VStack gap="4" align="center">
@@ -20,7 +25,13 @@ export const CardHeaderContent = ({
 					<Image w="28px" src={brandIcon} alt={model} />
 				</HStack>
 
-				<CardEdit _id={_id} description={description} price={price} />
+				<CarEdit
+					_id={_id}
+					description={description}
+					price={price}
+					message={message}
+					setMessage={setMessage}
+				/>
 			</HStack>
 		</VStack>
 	);

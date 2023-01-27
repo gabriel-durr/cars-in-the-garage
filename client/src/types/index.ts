@@ -1,3 +1,5 @@
+import {UseFormRegister, FieldErrorsImpl} from "react-hook-form";
+
 /**
  * Represents a car object
  * @typedef {Object} Cars
@@ -32,4 +34,14 @@ export type Cars = {
 		name: string;
 		phone: string;
 	};
+};
+
+export type FormInputs = {
+	select: string;
+	description: string;
+};
+
+export type HookFormProps = {
+	register: UseFormRegister<FormInputs>;
+	errors: Partial<FieldErrorsImpl<FormInputs>>;
 };

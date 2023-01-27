@@ -29,4 +29,13 @@ async function updateCar(carId: string, updates: PartialCar): Promise<string> {
 	}
 }
 
-export {getCars, updateCar};
+async function deleteCar(carId: string): Promise<string> {
+	try {
+		const response = await api.delete(`car/${carId}`);
+		return response.data;
+	} catch (error) {
+		throw error;
+	}
+}
+
+export {getCars, updateCar, deleteCar};
