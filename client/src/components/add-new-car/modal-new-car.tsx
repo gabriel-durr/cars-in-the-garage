@@ -1,4 +1,4 @@
-import {FormInputs} from "./../../types";
+import {FormInputs} from "./../../@types";
 import {InputInfos} from "./input-infos";
 import {SelectBrand} from "./select-brand";
 import {TextareaDescription} from "./textarea-description";

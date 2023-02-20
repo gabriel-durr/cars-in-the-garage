@@ -1,9 +1,9 @@
 import {validateImageCount} from "../../utils/validate-image-count";
 import ImageUploader from "react-images-upload";
 
-interface UploadImagesProps {
+type UploadImagesProps = {
 	setImageUrls: (imageUrls: string[]) => void;
-}
+};
 export const UploadImages = ({setImageUrls}: UploadImagesProps) => {
 	function onDrop(pictures: File[]) {
 		let imgUrls: string[] = [];
@@ -19,6 +19,8 @@ export const UploadImages = ({setImageUrls}: UploadImagesProps) => {
 		});
 		setImageUrls(imgUrls);
 	}
+
+	//TODO conseguimos transformar as imagens do upload eum url base64, e em seguida adicionada em array. Porém temos que fazer com que exista as miniaturas das imagens enviadas para ux do usuário
 
 	return (
 		<ImageUploader

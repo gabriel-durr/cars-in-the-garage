@@ -1,21 +1,24 @@
 import * as mongoose from "mongoose";
 
 const carSchema = new mongoose.Schema({
-	_id: {type: String, required: true},
-	image: [{type: String, required: true}],
+	images: [{type: String, required: true}],
 	model: {type: String, required: true},
 	year: {type: Number, required: true},
 	speed: {type: String, required: true},
-	brand: {type: String, required: true},
-	brandIcon: {type: String, required: true},
 	price: {type: String, required: true},
 	description: {type: String, required: true},
-	owner: {
-		avatar: {type: String, required: true},
-		name: {type: String, required: true},
-		email: {type: String},
-		phone: {type: String},
-	},
 });
 
-export const CarDba = mongoose.model("cars", carSchema);
+const userSchema = new mongoose.Schema(
+	{
+		name: {type: String, required: true},
+		email: {type: String, required: true},
+		password: {type: String, required: true},
+		avatar: {type: String},
+		phone: {type: String},
+		cars: [carSchema],
+	},
+	{versionKey: false}
+);
+
+export const User = mongoose.model("User", userSchema);

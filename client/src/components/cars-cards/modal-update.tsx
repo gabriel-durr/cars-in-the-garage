@@ -1,6 +1,6 @@
 import {EditableInput} from "./editable-input";
-import {formatBitcoin} from "../utils/format-bitcoin";
-import {updateCar} from "./../services/requests";
+import {formatBitcoin} from "../../utils/format-bitcoin";
+import {updateCar} from "../../api/requests";
 
 import React, {useRef} from "react";
 import {
@@ -23,8 +23,6 @@ type EditProps = {
 	price: string;
 	isOpenUp: boolean;
 	onCloseUp: () => void;
-	message: string;
-	setMessage: (message: string) => void;
 };
 
 export const ModalUpdate = ({
@@ -33,8 +31,6 @@ export const ModalUpdate = ({
 	price,
 	isOpenUp,
 	onCloseUp,
-	message,
-	setMessage,
 }: EditProps) => {
 	const inputPrice = useRef<HTMLInputElement>(null);
 	const inputDescription = useRef<HTMLInputElement>(null);
@@ -62,10 +58,8 @@ export const ModalUpdate = ({
 			description: descriptionValue,
 		});
 
-		setMessage(res);
-
 		toast({
-			title: message,
+			title: "oi",
 			status: "success",
 			isClosable: true,
 			position: "top",

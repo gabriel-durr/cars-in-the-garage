@@ -1,4 +1,4 @@
-import {HookFormProps} from "../../types";
+import {HookFormProps} from "../../@types";
 
 import {FormControl, FormLabel, Textarea} from "@chakra-ui/react";
 

@@ -1,5 +1,5 @@
 import {api} from "./axios";
-import {Cars} from "./../types";
+import {Cars} from "../@types";
 
 type Data = {
 	allCars: Cars[];

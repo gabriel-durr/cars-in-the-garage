@@ -17,17 +17,9 @@ type CardEditProps = {
 	_id: string;
 	description: string;
 	price: string;
-	message: string;
-	setMessage: (message: string) => void;
 };
 
-export const CarEdit = ({
-	_id,
-	description,
-	price,
-	message,
-	setMessage,
-}: CardEditProps) => {
+export const CarEdit = ({_id, description, price}: CardEditProps) => {
 	const {
 		isOpen: isOpenDel,
 		onOpen: onOpenDel,
@@ -71,8 +63,6 @@ export const CarEdit = ({
 						price={price}
 						isOpenUp={isOpenUp}
 						onCloseUp={onCloseUp}
-						message={message}
-						setMessage={setMessage}
 					/>
 				</MenuItem>
 
@@ -85,8 +75,6 @@ export const CarEdit = ({
 						isOpenDel={isOpenDel}
 						onCloseDel={onCloseDel}
 						onOpenDel={onOpenDel}
-						message={message}
-						setMessage={setMessage}
 					/>
 				</MenuItem>
 			</MenuList>

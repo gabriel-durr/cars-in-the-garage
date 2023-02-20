@@ -1,7 +1,9 @@
 import {config} from "dotenv";
+
 config();
 
-const url = process.env.DATABASE_URL;
-const port = process.env.PORT;
+const dbaUrl = process.env.DATABASE_URL;
+const portDevOrProduction =
+	process.env.NODE_ENV === "production" ? process.env.PORT : 3333;
 
-export {url, port};
+export {dbaUrl, portDevOrProduction};

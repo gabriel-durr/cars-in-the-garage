@@ -1,4 +1,4 @@
-import {deleteCar} from "../services/requests";
+import {deleteCar} from "../../api/requests";
 
 import {useRef} from "react";
 import {
@@ -18,8 +18,6 @@ type CarDeleteProps = {
 	isOpenDel: boolean;
 	onOpenDel: () => void;
 	onCloseDel: () => void;
-	message: string;
-	setMessage: (message: string) => void;
 };
 
 export const CarDelete = ({
@@ -27,18 +25,15 @@ export const CarDelete = ({
 	isOpenDel,
 	onOpenDel,
 	onCloseDel,
-	message,
-	setMessage,
 }: CarDeleteProps) => {
 	const cancelRef = useRef(null);
 	const toast = useToast();
 
 	async function confirmDelete() {
 		const res = await deleteCar(specificId);
-		setMessage(res);
 
 		toast({
-			title: message,
+			title: "hi",
 			status: "warning",
 			isClosable: true,
 			position: "top",

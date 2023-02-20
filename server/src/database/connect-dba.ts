@@ -1,10 +1,10 @@
-import {url} from "../config";
+import {dbaUrl} from "../config";
 import mongoose from "mongoose";
 
 const connectDb = async () => {
 	try {
 		mongoose.set("strictQuery", false);
-		await mongoose.connect(url);
+		await mongoose.connect(dbaUrl);
 		console.log("MongoDB Connected");
 	} catch (err) {
 		console.log(err);

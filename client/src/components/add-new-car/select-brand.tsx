@@ -1,8 +1,10 @@
-import {HookFormProps} from "../../types";
-import {carBrands} from "../../utils/car-brands";
+import {HookFormProps} from "../../@types";
+import {carBrands} from "../../utils/car-static-data";
 
 import {ChangeEvent, useState} from "react";
 import {Select, FormControl, Box, Image, HStack, Text} from "@chakra-ui/react";
+
+//TODO fazer um _hover ao passsar em cada item do select para que a imagem do carro seja exibida como preview antes de clicar
 
 type Brand = {
 	name: string;
