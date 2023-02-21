@@ -1,9 +1,11 @@
 import {User} from "../models/user-cars-schema";
+import {SECRET} from "../config";
+import {verifyToken} from "../validators/verify-token";
 
 import jwt from "jsonwebtoken";
 import {Request, Response} from "express";
 
-export const refreshToken = async (req: Request, res: Response) => {
+const refreshToken = async (req: Request, res: Response) => {
 	const authHeader = req.headers["authorization"];
 	const refreshToken = authHeader && authHeader.split(" ")[1];
 
@@ -11,32 +13,35 @@ export const refreshToken = async (req: Request, res: Response) => {
 		return res.status(4001).json({msg: "Token não informado!"});
 
 	try {
-		const secret = process.env.SECRET;
-		const decoded = jwt.verify(refreshToken, secret) as {
-			id: string;
-			email: string;
-		};
+		const userId = verifyToken(refreshToken);
 
-		if (!decoded) return res.status(404).json({msg: "Refresh Token inválido"});
+		if (!userId) return res.status(401).json({msg: "Refresh Token inválido"});
 
-		const user = await User.findById(decoded.id);
-		if (!user)
-			return res.status(404).json({msg: "Token - Usuário não encontrado"});
+		const user = await User.findById(userId);
+		if (!user) return res.status(404).json({msg: " Usuário não encontrado"});
 
-		const newToken = jwt.sign({id: user._id, email: user.email}, secret, {
-			expiresIn: "15m",
+		const newToken = jwt.sign({id: user._id, email: user.email}, SECRET, {
+			expiresIn: "17m",
 		});
 
-		const newRefreshToken = jwt.sign({id: user._id, email: user.email}, secret);
+		const newRefreshToken = jwt.sign(
+			{id: user._id, email: user.email},
+			SECRET,
+			{expiresIn: "20m"}
+		);
 
 		return res.status(200).json({
 			msg: "Token atualizado com sucesso!",
-			userId: user._id,
+			userId,
 			newToken,
 			newRefreshToken,
 		});
 	} catch (error) {
 		console.log(error);
-		return res.sendStatus(500);
+		return res
+			.status(500)
+			.json({msg: "Erro no servidor, tente novamente mais tarde."});
 	}
 };
+
+export {refreshToken};

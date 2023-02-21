@@ -1,14 +1,7 @@
 import {portDevOrProduction} from "./config";
 import {connectDb} from "./database/connect-dba";
-import {checkToken} from "./middlewares/check-token";
-import {refreshToken} from "./controllers/refresh-token-controller";
-import {createNewCar, updateCar, removeCar} from "./controllers/car-controller";
-
-import {
-	userRegister,
-	userLogin,
-	getUserCars,
-} from "./controllers/user-controllers";
+import {authRoutes} from "./routes/auth.routes";
+import {userRoutes} from "./routes/user.routes";
 
 import express from "express";
 import cors from "cors";
@@ -24,15 +17,8 @@ connectDb().then(() =>
 app.use(express.json());
 app.use(cors());
 
-// USER ROUTES
-app.post("/auth/register", userRegister);
-app.post("/auth/login", userLogin);
+// AUTH ROUTES & REFRESH TOKEN
+app.use("/auth", authRoutes);
 
-// REFRESH JWT TOKEN
-app.post("/auth/refresh", refreshToken);
-
-// CAR ROUTES
-app.get("/user/:userId", checkToken, getUserCars);
-app.post("/user/:userId", checkToken, createNewCar);
-app.put("/user/:userId/:carId", checkToken, updateCar);
-app.delete("/user/:userId/:carId", checkToken, removeCar);
+// USER-CAR ROUTES
+app.use("/user", userRoutes);

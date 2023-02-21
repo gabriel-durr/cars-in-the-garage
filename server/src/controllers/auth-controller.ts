@@ -4,7 +4,7 @@ import * as bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import {Request, Response} from "express";
 
-const userRegister = async (req: Request, res: Response) => {
+const authRegister = async (req: Request, res: Response) => {
 	const {name, email, password} = req.body;
 
 	try {
@@ -37,7 +37,7 @@ const userRegister = async (req: Request, res: Response) => {
 	}
 };
 
-const userLogin = async (req: Request, res: Response) => {
+const authLogin = async (req: Request, res: Response) => {
 	const {email, password} = req.body;
 
 	try {
@@ -50,10 +50,12 @@ const userLogin = async (req: Request, res: Response) => {
 
 		const secret = process.env.SECRET;
 		const acessToken = jwt.sign({id: user._id, email: user.email}, secret, {
-			expiresIn: "15m",
+			expiresIn: "17m",
 		});
 
-		const refreshToken = jwt.sign({id: user._id, email: user.email}, secret);
+		const refreshToken = jwt.sign({id: user._id, email: user.email}, secret, {
+			expiresIn: "20m",
+		});
 
 		return res.status(200).json({
 			msg: "Autenticação realizada com sucesso!",
@@ -67,19 +69,4 @@ const userLogin = async (req: Request, res: Response) => {
 	}
 };
 
-const getUserCars = async (req: Request, res: Response) => {
-	const {userId} = req.params;
-
-	try {
-		const user = await User.findById(userId, "-password -_id");
-
-		if (!user) return res.status(404).json({msg: "Usuário não encontrado!"});
-
-		return res.status(200).json(user);
-	} catch (error) {
-		console.log(error);
-		res.status(500).json({msg: "Erro no servidor!"});
-	}
-};
-
-export {userRegister, userLogin, getUserCars};
+export {authRegister, authLogin};

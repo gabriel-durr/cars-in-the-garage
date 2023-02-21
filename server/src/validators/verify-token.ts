@@ -1,12 +1,21 @@
+import {SECRET} from "../config";
+
 import jwt from "jsonwebtoken";
 
-export function verifyToken(token: string): string | null {
-	const SECRET = process.env.SECRET;
+type VerifyTokenType = string;
 
+type JwtTokenProps = {
+	id: string;
+	email: string;
+};
+
+function verifyToken(refreshToken: VerifyTokenType): VerifyTokenType | null {
 	try {
-		const decoded = jwt.verify(token, SECRET) as {id: string};
+		const decoded = jwt.verify(refreshToken, SECRET) as JwtTokenProps;
 		return decoded.id;
 	} catch (error) {
 		return null;
 	}
 }
+
+export {verifyToken};

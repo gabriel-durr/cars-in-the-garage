@@ -3,6 +3,21 @@ import {User} from "../models/user-cars-schema";
 import {v4 as uuidV4} from "uuid";
 import {Request, Response} from "express";
 
+const getUser = async (req: Request, res: Response) => {
+	const {userId} = req.params;
+
+	try {
+		const user = await User.findById(userId, "-password -_id");
+
+		if (!user) return res.status(404).json({msg: "Usuário não encontrado!"});
+
+		return res.status(200).json(user);
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({msg: "Erro no servidor!"});
+	}
+};
+
 const createNewCar = async (req: Request, res: Response) => {
 	const {
 		body: car,
@@ -77,4 +92,4 @@ const removeCar = async (req: Request, res: Response) => {
 	}
 };
 
-export {createNewCar, updateCar, removeCar};
+export {getUser, createNewCar, updateCar, removeCar};
