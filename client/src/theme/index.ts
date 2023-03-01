@@ -2,9 +2,10 @@ import {extendTheme} from "@chakra-ui/react";
 
 const colors = {
 	my: {
-		100: "#5967b8",
-		200: "#ef2159",
-		300: "#a9d4af",
+		purple: "#5967b8",
+		red_love: "#ef2159",
+		green_light: "#a9d4af",
+		mustard: "#f7a716",
 	},
 };
 const fonts = {
@@ -21,7 +22,7 @@ const fonts = {
 const styles = {
 	global: {
 		body: {
-			bg: "gray.400",
+			bg: "gray.200",
 			color: "gray.700",
 			fontSize: "0.88rem",
 		},

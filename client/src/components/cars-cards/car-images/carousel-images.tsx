@@ -1,14 +1,14 @@
-import {AnimatePresence, motion} from "framer-motion";
 import {Image} from "@chakra-ui/react";
+import {AnimatePresence, motion} from "framer-motion";
 
 type ImagesProps = {
-	banners: string[];
+	images: string[];
 	currentImage: number;
 	direction: number;
 };
 
 export const CarouselImages = ({
-	banners,
+	images,
 	currentImage,
 	direction,
 }: ImagesProps) => {
@@ -43,15 +43,17 @@ export const CarouselImages = ({
 	return (
 		<AnimatePresence initial={false} custom={direction}>
 			<Image
+				w="100%"
 				variants={variants}
 				initial="initial"
 				animate="animate"
 				exit="exit"
 				custom={direction}
-				key={banners[currentImage]}
+				pointerEvents="none"
+				key={images[currentImage]}
 				objectFit="cover"
 				as={motion.img}
-				src={banners[currentImage]}
+				src={images[currentImage]}
 			/>
 		</AnimatePresence>
 	);

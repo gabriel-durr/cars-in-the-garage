@@ -1,4 +1,4 @@
-import {verifyToken} from "../validators/verify-token";
+import {verifyTokenFn} from "../validators/verify-token";
 
 import {NextFunction, Request, Response} from "express";
 
@@ -14,7 +14,8 @@ export const checkToken = async (
 		return res.status(401).json({msg: "Token não fornecido"});
 	}
 
-	const userId = verifyToken(accessToken);
+	const userId = verifyTokenFn(accessToken);
+
 	if (userId) {
 		req.userId = userId;
 		return next();

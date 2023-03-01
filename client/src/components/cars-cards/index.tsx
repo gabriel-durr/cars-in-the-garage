@@ -1,47 +1,102 @@
-import {Cars} from "../../@types";
-import {CarOwner} from "./car-owner";
+import {User} from "../../@types";
 import {CarInfo} from "./car-info";
+import {CarOwner} from "./car-owner";
 import {CarImages} from "./car-images";
-import {cars} from "../../utils/car-static-data";
 import {CarDescription} from "./car-description";
 import {CarHeaderContent} from "./car-header-content";
 
+import {motion, Variants} from "framer-motion";
+import {useState, useRef, useEffect, useCallback, WheelEvent} from "react";
 import {
+	Flex,
 	Card,
 	CardBody,
 	CardHeader,
 	Divider,
 	CardFooter,
+	HStack,
 } from "@chakra-ui/react";
 
-export const CarsCards = () => {
+export type CarsCardsProps = {
+	user: User;
+};
+
+export const CarsCards = ({user}: CarsCardsProps) => {
+	const [currentIndex, setCurrentIndex] = useState(0);
+
+	const containerRef = useRef<HTMLDivElement>(null);
+	const itemRef = useRef<HTMLDivElement>(null);
+
+	const handleScroll = useCallback(
+		(event: WheelEvent<HTMLDivElement>) => {
+			const direction = event.deltaY > 0 ? 1 : -1;
+			let newIndex = currentIndex + direction;
+			if (newIndex < 0) {
+				newIndex = user.cars.length - 1;
+			} else if (newIndex >= user.cars.length) {
+				newIndex = 0;
+			}
+			setCurrentIndex(newIndex);
+
+			const container = containerRef.current;
+			const item = itemRef.current;
+
+			if (container && item) {
+				const itemWidth = item.offsetWidth;
+				const containerWidth = container.offsetWidth;
+				const scrollLeft =
+					itemWidth * newIndex - (containerWidth - itemWidth) / 2;
+				container.scrollTo({left: scrollLeft, behavior: "smooth"});
+			}
+		},
+		[currentIndex, user.cars.length]
+	);
+
+	const carVariants: Variants = {
+		visible: {
+			opacity: 1,
+			scale: 0.95,
+			x: 0,
+			transition: {
+				duration: 0.4,
+			},
+			boxShadow: "4px -1px 2px #bec4ff2d, -4px 4px 1px #bec4ff2d",
+		},
+		hidden: {
+			opacity: 0.2,
+			scale: 0.7,
+			userSelect: "none",
+			pointerEvents: "none",
+		},
+	};
+
 	return (
-		<>
-			{cars.map((car: Cars) => (
+		<Flex
+			as={motion.div}
+			ref={containerRef}
+			bg="blackAlpha.400"
+			overflow="hidden"
+			flex="1"
+			onWheel={handleScroll}
+			boxShadow="sm">
+			{user.cars.map((car, index) => (
 				<Card
 					key={car._id}
-					transform="perspective(240px) rotateX(0.1deg) rotateY(1deg)"
-					w="420px"
-					h="740px"
-					borderWidth="1px"
-					borderStyle="solid"
-					borderColor="gray.300"
-					boxShadow="1px -1px 2px #7676dd9e, -12px 10px 10px #71729b76"
+					as={motion.div}
+					ref={itemRef}
+					minW="40%"
+					variants={carVariants}
+					animate={index === currentIndex ? "visible" : "hidden"}
 					rounded="lg">
-					<CarImages banners={car.image} />
+					<CarImages images={car.images} />
 
 					<CardHeader>
 						<CarHeaderContent
 							_id={car._id}
-							image={car.image}
-							brand={car.brand}
-							description={car.description}
-							speed={car.speed}
-							price={car.price}
-							year={car.year}
-							owner={car.owner}
-							model={car.model}
 							brandIcon={car.brandIcon}
+							description={car.description}
+							model={car.model}
+							price={car.price}
 						/>
 						<CarInfo speed={car.speed} year={car.year} price={car.price} />
 					</CardHeader>
@@ -54,15 +109,10 @@ export const CarsCards = () => {
 						<Divider />
 					</CardBody>
 					<CardFooter>
-						<CarOwner
-							name={car.owner.name}
-							avatar={car.owner.avatar}
-							email={car.owner.email}
-							phone={car.owner.phone}
-						/>
+						<CarOwner name={user.name} email={user.email} />
 					</CardFooter>
 				</Card>
 			))}
-		</>
+		</Flex>
 	);
 };

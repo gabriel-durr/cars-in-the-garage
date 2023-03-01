@@ -1,7 +1,8 @@
+import {SECRET} from "../config";
 import {User} from "../models/user-cars-schema";
 
-import * as bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import * as bcrypt from "bcrypt";
 import {Request, Response} from "express";
 
 const authRegister = async (req: Request, res: Response) => {
@@ -29,7 +30,7 @@ const authRegister = async (req: Request, res: Response) => {
 
 			return res
 				.status(201)
-				.json({msg: `Usuário criado ${user.name} com sucesso!`});
+				.json({msg: `${name}, sua conta foi criada com sucesso!`});
 		});
 	} catch (error) {
 		console.log(error);
@@ -44,17 +45,19 @@ const authLogin = async (req: Request, res: Response) => {
 		const user = await User.findOne({email});
 		const checkPassword = await bcrypt.compare(password, user.password);
 
-		if (!user) return res.status(404).json({msg: "Usuário não encontrado!"});
 		if (!checkPassword)
-			return res.status(401).json({msg: "Email ou Senha inválidos"});
+			return res.status(400).json({
+				msg: "O email ou senha inseridos são inválidos. Por favor, verifique suas credenciais e tente novamente",
+			});
 
-		const secret = process.env.SECRET;
-		const acessToken = jwt.sign({id: user._id, email: user.email}, secret, {
+		if (!user) return res.status(404).json({msg: "Usuário não encontrado!"});
+
+		const acessToken = jwt.sign({id: user._id, email: user.email}, SECRET, {
 			expiresIn: "17m",
 		});
 
-		const refreshToken = jwt.sign({id: user._id, email: user.email}, secret, {
-			expiresIn: "20m",
+		const refreshToken = jwt.sign({id: user._id, email: user.email}, SECRET, {
+			expiresIn: "17h",
 		});
 
 		return res.status(200).json({

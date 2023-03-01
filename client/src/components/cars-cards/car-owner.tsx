@@ -1,45 +1,39 @@
-import {Flex, HStack, VStack, Heading, Text, Avatar} from "@chakra-ui/react";
+import {Flex, HStack, VStack, Heading, Text} from "@chakra-ui/react";
 
 type OwnerProps = {
 	name: string;
-	avatar: string;
 	email: string;
-	phone: string;
 };
 
-export const CarOwner = ({name, avatar, email, phone}: OwnerProps) => {
+//TODO Proprietário para + informações do carro e acrescentar no Squema da API
+
+export const CarOwner = ({name, email}: OwnerProps) => {
 	return (
-		<Flex direction="column" gap="6" w="full">
+		<Flex direction="column" gap="2" w="full">
 			<Heading
+				alignSelf="start"
 				w="min-content"
 				size="xs"
 				textTransform="uppercase"
 				borderBottom="1px solid #6f6f6f40">
 				Proprietário
 			</Heading>
-			<HStack w="100%" justify="space-between">
+			<HStack w="90%" justify="space-between">
 				<VStack color="gray.800" fontSize="0.8rem" w="100%" align="start">
-					<Text>
-						<Text fontWeight="bold" as="span">
-							Nome:{" "}
+					<Text as="strong">
+						Nome:{" "}
+						<Text as="span" fontWeight="medium">
+							{name}
 						</Text>
-						{name}
 					</Text>
-					<Text>
-						<Text fontWeight="bold" as="span">
-							Email:{" "}
+
+					<Text as="strong">
+						E-mail:{" "}
+						<Text as="span" fontWeight="medium">
+							{email}
 						</Text>
-						{email}
-					</Text>
-					<Text>
-						<Text fontWeight="bold" as="span">
-							Telefone:{" "}
-						</Text>
-						{phone}
 					</Text>
 				</VStack>
-
-				<Avatar size="md" name="Segun Adebayo" src={avatar} />
 			</HStack>
 		</Flex>
 	);

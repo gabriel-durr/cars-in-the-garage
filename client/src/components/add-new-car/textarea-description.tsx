@@ -1,8 +1,8 @@
-import {HookFormProps} from "../../@types";
+import {HookFormNewCarProps} from "../../@types";
 
 import {FormControl, FormLabel, Textarea} from "@chakra-ui/react";
 
-type TextAreaProps = HookFormProps;
+type TextAreaProps = HookFormNewCarProps;
 
 export const TextareaDescription = ({register, errors}: TextAreaProps) => {
 	return (

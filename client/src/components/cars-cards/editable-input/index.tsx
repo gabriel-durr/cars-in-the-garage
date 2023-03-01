@@ -1,5 +1,6 @@
 import {EditableControls} from "./editable-controls";
-import React from "react";
+
+import {UseFormRegisterReturn} from "react-hook-form";
 import {
 	Editable,
 	EditablePreview,
@@ -9,26 +10,26 @@ import {
 } from "@chakra-ui/react";
 
 type EditableProps = {
+	register: UseFormRegisterReturn;
 	defaultValue: any;
 	textSize: string | number;
 	isPreviewFocus?: boolean;
-	inputRef: React.RefObject<HTMLInputElement>;
 	inputType?: "number" | "button";
 	isTextArea?: boolean;
 };
 
 export const EditableInput = ({
+	register,
+	inputType,
 	defaultValue,
 	textSize,
 	isPreviewFocus,
-	inputRef,
-	inputType,
 	isTextArea,
 }: EditableProps) => {
 	return (
 		<Editable
-			textAlign="center"
 			defaultValue={defaultValue}
+			textAlign="center"
 			fontSize={textSize}
 			isPreviewFocusable={isPreviewFocus}>
 			<EditablePreview
@@ -40,13 +41,12 @@ export const EditableInput = ({
 			/>
 
 			<Input
+				{...register}
+				type={inputType}
 				textAlign="left"
-				ref={inputRef}
 				fontSize={textSize}
-				defaultValue={defaultValue}
 				h={isTextArea ? 28 : 12}
 				as={isTextArea ? EditableTextarea : EditableInputChakra}
-				type={inputType}
 			/>
 			<EditableControls />
 		</Editable>

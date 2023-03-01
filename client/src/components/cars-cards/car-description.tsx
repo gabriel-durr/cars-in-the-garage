@@ -1,5 +1,6 @@
-import {useState} from "react";
-import {Box, Button, VStack, Text} from "@chakra-ui/react";
+import {useState, WheelEvent} from "react";
+import {motion} from "framer-motion";
+import {Button, VStack, Text} from "@chakra-ui/react";
 
 type DescriptionProps = {
 	description: string;
@@ -14,10 +15,17 @@ export const CarDescription = ({description}: DescriptionProps) => {
 		setIsExpanded(!isExpanded);
 	};
 
+	const handleDescriptionScroll = (event: WheelEvent<HTMLDivElement>) => {
+		event.stopPropagation();
+	};
+
 	return (
 		<VStack
-			h="120px"
+			as={motion.div}
+			onWheel={isExpanded ? handleDescriptionScroll : undefined}
+			h="142px"
 			w="100%"
+			py="2"
 			spacing="2"
 			overflowY={isExpanded ? "scroll" : "unset"}
 			sx={{

@@ -1,4 +1,4 @@
-import {FormInputs} from "./../../@types";
+import {FormNewCarInputs} from "./../../@types";
 import {InputInfos} from "./input-infos";
 import {SelectBrand} from "./select-brand";
 import {TextareaDescription} from "./textarea-description";
@@ -32,9 +32,9 @@ export const ModalNewCar = ({isOpen, onOpen, onClose}: ModalNewCarProps) => {
 		register,
 		handleSubmit,
 		formState: {errors},
-	} = useForm<FormInputs>();
+	} = useForm<FormNewCarInputs>();
 
-	function handleOnSubmit<FormInputs>(data: FormInputs) {
+	function handleOnSubmit<FormNewCarInputs>(data: FormNewCarInputs) {
 		// lógica de submit aqui
 		console.log(data);
 	}

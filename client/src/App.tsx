@@ -1,54 +1,58 @@
-import {CarsCards} from "./components/cars-cards";
-import {AddNewCar} from "./components/add-new-car";
-
-import {useEffect, useState} from "react";
-import {useQuery} from "@tanstack/react-query";
-import {api} from "./api/axios";
-import {Flex, Box, Spinner} from "@chakra-ui/react";
+import {Flex, Text, Box, Image, Heading} from "@chakra-ui/react";
+import {LoadingAnimation} from "./components/loading-animation";
 
 function App() {
-	const [loading, setLoading] = useState(false);
+	const isLoading = false;
 
-	const {data, isLoading, isError} = useQuery(["user-cars"], () =>
-		api
-			.post("/auth/login", {email: "larissa@email.com", password: "123"})
-			.then(res => res.data)
-	);
-
-	//TODO criar um Contexto que irá distribuir o estado que contém lista de carros, além das outras funções para utilizar na aplicação e remover o prop drilling react da app
-
-	console.log(data);
-
-	// if (isLoading) {
-	// 	return (
-	// 		<Spinner
-	// 			pos="absolute"
-	// 			thickness="4px"
-	// 			speed="0.65s"
-	// 			emptyColor="gray.200"
-	// 			color="blue.500"
-	// 			size="lg">
-	// 			Loading...
-	// 		</Spinner>
-	// 	);
-	// }
+	if (isLoading) {
+		return <LoadingAnimation />;
+	}
 
 	return (
-		<Flex w="100vw" h="100vh" justify="space-around" align="center" bg="#000">
-			<Box
-				backgroundBlendMode="multiply"
-				w="100%"
-				h="100%"
-				bg="purple.400"
-				filter="blur(12px)"
+		<Flex pos="relative" w="100%">
+			<Box pos="absolute" left="72" top="14" w="440px">
+				<Heading as="h1" size="md" pb="12" textTransform="uppercase">
+					Bem-vindo à sua garagem de carros!
+				</Heading>
+				<Text fontSize="0.91rem" color="gray.800">
+					Aproveite a liberdade de criar carros com a nossa garagem online! Com
+					apenas alguns cliques, você pode escolher o modelo e todos os detalhes
+					do seu carro dos sonhos.
+					{<br />} {<br />} E o melhor de tudo é que você pode criar quantos
+					quiser! Venha dar asas à sua imaginação e crie já o seu carro
+					exclusivo na nossa garagem virtual.
+				</Text>
+			</Box>
+
+			<Image
 				pos="absolute"
-				bgSize="cover"
-				bgImg="/garage.jpg"
+				left="72"
+				top="350"
+				border="10px solid #000"
+				w="570px"
+				objectFit="contain"
+				src="single-car-home.png"
 			/>
 
-			<CarsCards />
+			<Image
+				pos="absolute"
+				zIndex="-1"
+				transform="translate(88%, 10%)"
+				w="900px"
+				src="car-home.png"
+				shadow="dark-lg"
+				objectFit="cover"
+			/>
 
-			<AddNewCar />
+			<Image
+				pos="absolute"
+				right="0"
+				top="160"
+				border="8px solid #fff"
+				w="480px"
+				objectFit="contain"
+				src="two-cars-home.png"
+			/>
 		</Flex>
 	);
 }

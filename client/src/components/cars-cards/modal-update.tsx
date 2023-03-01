@@ -1,8 +1,9 @@
+import {FormEditInputs} from "../../@types";
 import {EditableInput} from "./editable-input";
+import {useUserData} from "../../hooks/use-user-data";
 import {formatBitcoin} from "../../utils/format-bitcoin";
-import {updateCar} from "../../api/requests";
 
-import React, {useRef} from "react";
+import {useForm} from "react-hook-form";
 import {
 	Modal,
 	Button,
@@ -15,6 +16,8 @@ import {
 	ModalHeader,
 	FormLabel,
 	useToast,
+	VStack,
+	Text,
 } from "@chakra-ui/react";
 
 type EditProps = {
@@ -32,39 +35,42 @@ export const ModalUpdate = ({
 	isOpenUp,
 	onCloseUp,
 }: EditProps) => {
-	const inputPrice = useRef<HTMLInputElement>(null);
-	const inputDescription = useRef<HTMLInputElement>(null);
+	const {
+		register,
+		handleSubmit,
+		formState: {errors, isValid, isDirty},
+	} = useForm<FormEditInputs>({
+		values: {price, description},
+	});
 
 	const toast = useToast();
+	const {updateCar} = useUserData();
 
-	async function handleSubmit(event: React.FormEvent<unknown>) {
-		event.preventDefault();
+	const errorExists = !!Object.keys(errors).length;
+	const isDesableButton = !isDirty || errorExists;
 
-		let priceValue = formatBitcoin(inputPrice.current?.value.toString());
-		let descriptionValue = inputDescription.current?.value;
+	const registerPrice = register("price", {
+		minLength: {value: 5, message: "O preço deve ter no minimo 5 caracters"},
+	});
+	const registerDescription = register("description", {
+		minLength: {
+			value: 12,
+			message: "A descrição deve ter no minimo 12 caracters",
+		},
+	});
 
-		if (!priceValue || !descriptionValue) {
-			toast({
-				title: "Os campos não podem ficar vázios",
-				status: "warning",
-				isClosable: true,
-				position: "top",
-			});
-			return;
-		}
-
-		const res = await updateCar(_id, {
-			price: priceValue,
-			description: descriptionValue,
+	async function onHandleSubmit({price, description}: FormEditInputs) {
+		let priceValue = formatBitcoin(price);
+		const msg = await updateCar.mutateAsync({
+			carId: _id,
+			carData: {description: description, price: priceValue},
 		});
-
 		toast({
-			title: "oi",
+			title: msg,
 			status: "success",
 			isClosable: true,
 			position: "top",
 		});
-
 		onCloseUp();
 	}
 
@@ -89,8 +95,8 @@ export const ModalUpdate = ({
 						}}
 					/>
 					<ModalBody>
-						<form>
-							<FormControl onSubmit={handleSubmit} mb="12">
+						<VStack as="form">
+							<FormControl mb="12" textAlign="center">
 								<FormLabel
 									textTransform="uppercase"
 									textAlign="center"
@@ -99,15 +105,18 @@ export const ModalUpdate = ({
 									preço
 								</FormLabel>
 								<EditableInput
+									register={registerPrice}
 									defaultValue={price}
 									inputType="number"
 									isPreviewFocus
 									textSize="sm"
-									inputRef={inputPrice}
 								/>
+								<Text color="red.800" pt="4">
+									{errors.price && errors.price.message}
+								</Text>
 							</FormControl>
 
-							<FormControl>
+							<FormControl textAlign="center">
 								<FormLabel
 									textTransform="uppercase"
 									color="#5400e6"
@@ -116,22 +125,26 @@ export const ModalUpdate = ({
 									descrição
 								</FormLabel>
 								<EditableInput
+									register={registerDescription}
 									defaultValue={description}
 									isTextArea
 									textSize="sm"
-									inputRef={inputDescription}
 								/>
+								<Text color="red.800" pt="4">
+									{errors.description && errors.description?.message}
+								</Text>
 							</FormControl>
-						</form>
+						</VStack>
 					</ModalBody>
 					<ModalFooter justifyContent="center">
 						<Button
+							onClick={handleSubmit(onHandleSubmit)}
+							isDisabled={isDesableButton}
 							textTransform="uppercase"
 							shadow="sm"
 							h="8"
 							w="32"
-							type="submit"
-							onClick={handleSubmit}>
+							type="submit">
 							Enviar
 						</Button>
 					</ModalFooter>

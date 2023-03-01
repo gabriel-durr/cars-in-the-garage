@@ -1,5 +1,5 @@
-import {BsSpeedometer, BsCalendar3} from "react-icons/bs";
 import {SiBitcoincash} from "react-icons/si";
+import {BsSpeedometer, BsCalendar3} from "react-icons/bs";
 import {HStack, VStack, Icon, Text} from "@chakra-ui/react";
 
 type InfoProps = {

@@ -12,8 +12,8 @@ export const AddNewCar = () => {
 	return (
 		<VStack
 			transform="perspective(240px) rotateX(0.1deg) rotateY(1deg)"
-			w="420px"
-			h="740px"
+			w="26.25rem"
+			h="42.375rem"
 			bg="whiteAlpha.700"
 			borderWidth="1px"
 			borderStyle="solid"

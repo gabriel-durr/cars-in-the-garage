@@ -9,13 +9,13 @@ type JwtTokenProps = {
 	email: string;
 };
 
-function verifyToken(refreshToken: VerifyTokenType): VerifyTokenType | null {
+function verifyTokenFn(refreshToken: VerifyTokenType): VerifyTokenType | null {
 	try {
-		const decoded = jwt.verify(refreshToken, SECRET) as JwtTokenProps;
-		return decoded.id;
+		const {id: userId} = jwt.verify(refreshToken, SECRET) as JwtTokenProps;
+		return userId;
 	} catch (error) {
 		return null;
 	}
 }
 
-export {verifyToken};
+export {verifyTokenFn};

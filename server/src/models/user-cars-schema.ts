@@ -1,8 +1,12 @@
 import * as mongoose from "mongoose";
 
+//TODO Adicionar created_at no usuario para ter a data de criação dele, porem remover esse dado das querys
+
 const carSchema = new mongoose.Schema({
+	model: {type: String, require: true},
+	brand: {type: String, require: true},
+	brandIcon: {type: String, require: true},
 	images: [{type: String, required: true}],
-	model: {type: String, required: true},
 	year: {type: Number, required: true},
 	speed: {type: String, required: true},
 	price: {type: String, required: true},

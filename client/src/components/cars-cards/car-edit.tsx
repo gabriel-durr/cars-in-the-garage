@@ -1,5 +1,5 @@
-import {ModalUpdate} from "./modal-update";
 import {CarDelete} from "./car-delete";
+import {ModalUpdate} from "./modal-update";
 
 import {RepeatIcon, DeleteIcon} from "@chakra-ui/icons";
 import {BsThreeDotsVertical} from "react-icons/bs";
@@ -20,6 +20,7 @@ type CardEditProps = {
 };
 
 export const CarEdit = ({_id, description, price}: CardEditProps) => {
+	const [specificId, setSpecificId] = useState("");
 	const {
 		isOpen: isOpenDel,
 		onOpen: onOpenDel,
@@ -31,8 +32,6 @@ export const CarEdit = ({_id, description, price}: CardEditProps) => {
 		onClose: onCloseUp,
 		onOpen: onOpenUp,
 	} = useDisclosure();
-
-	const [specificId, setSpecificId] = useState("");
 
 	function openAlert() {
 		onOpenDel();

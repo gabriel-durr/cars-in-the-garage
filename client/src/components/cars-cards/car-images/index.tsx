@@ -5,10 +5,10 @@ import {useState} from "react";
 import {Flex} from "@chakra-ui/react";
 
 type CarouselProps = {
-	banners: string[];
+	images: string[];
 };
 
-export const CarImages = ({banners}: CarouselProps) => {
+export const CarImages = ({images}: CarouselProps) => {
 	const [currentImage, setCurrentImage] = useState(0);
 	const [direction, setDirection] = useState<number>(0);
 
@@ -16,17 +16,18 @@ export const CarImages = ({banners}: CarouselProps) => {
 		<Flex
 			pos="relative"
 			w="100%"
-			h="300px"
+			h="240px"
 			justify="center"
 			overflow="hidden"
 			bgGradient="linear-gradient(90deg, #f5f7fa 0%, #c3cfe2 100%)">
 			<CarouselImages
-				banners={banners}
+				images={images}
 				currentImage={currentImage}
 				direction={direction}
 			/>
+
 			<CarouselControls
-				banners={banners}
+				images={images}
 				setDirection={setDirection}
 				currentImage={currentImage}
 				setCurrentImage={setCurrentImage}

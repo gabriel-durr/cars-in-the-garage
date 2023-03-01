@@ -1,6 +1,5 @@
 import {User} from "../models/user-cars-schema";
 
-import {v4 as uuidV4} from "uuid";
 import {Request, Response} from "express";
 
 const getUser = async (req: Request, res: Response) => {
@@ -20,14 +19,9 @@ const getUser = async (req: Request, res: Response) => {
 
 const createNewCar = async (req: Request, res: Response) => {
 	const {
-		body: car,
+		body: newCar,
 		params: {userId},
 	} = req;
-
-	const newCar = {
-		carId: uuidV4(),
-		...car,
-	};
 
 	const user = await User.findById(userId, "-password -id");
 
@@ -63,9 +57,9 @@ const updateCar = async (req: Request, res: Response) => {
 			user.cars[carIndex][key] = carUpdate[key];
 		});
 
-		const updatedUser = await user.save();
+		await user.save();
 
-		return res.status(200).json(updatedUser);
+		return res.status(200).json({msg: "Carro Atualizado com sucesso!"});
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({msg: "Erro no servidor."});

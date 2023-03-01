@@ -1,4 +1,4 @@
-import App from "./App";
+import Pages from "./routes";
 import {theme} from "./theme";
 import {queryClient} from "./api/react-query";
 
@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>
 		<QueryClientProvider client={queryClient}>
 			<ChakraProvider theme={theme}>
-				<App />
+				<Pages />
 			</ChakraProvider>
 			<ReactQueryDevtools initialIsOpen={false} />
 		</QueryClientProvider>

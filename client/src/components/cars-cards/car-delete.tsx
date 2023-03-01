@@ -1,4 +1,4 @@
-import {deleteCar} from "../../api/requests";
+import {useUserData} from "../../hooks/use-user-data";
 
 import {useRef} from "react";
 import {
@@ -29,16 +29,17 @@ export const CarDelete = ({
 	const cancelRef = useRef(null);
 	const toast = useToast();
 
+	const {deleteCar} = useUserData();
+
 	async function confirmDelete() {
-		const res = await deleteCar(specificId);
+		const msg = await deleteCar.mutateAsync({carId: specificId});
 
 		toast({
-			title: "hi",
+			title: msg,
 			status: "warning",
 			isClosable: true,
 			position: "top",
 		});
-
 		onCloseDel();
 	}
 

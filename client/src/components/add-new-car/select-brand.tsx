@@ -1,5 +1,5 @@
-import {HookFormProps} from "../../@types";
-import {carBrands} from "../../utils/car-static-data";
+import {HookFormNewCarProps} from "../../@types";
+import {carBrands} from "../../utils/car-brands";
 
 import {ChangeEvent, useState} from "react";
 import {Select, FormControl, Box, Image, HStack, Text} from "@chakra-ui/react";
@@ -11,7 +11,7 @@ type Brand = {
 	logo: string;
 };
 
-type SelectBrandProps = HookFormProps;
+type SelectBrandProps = HookFormNewCarProps;
 
 export const SelectBrand = ({register, errors}: SelectBrandProps) => {
 	const [brand, setBrand] = useState({} as Brand);

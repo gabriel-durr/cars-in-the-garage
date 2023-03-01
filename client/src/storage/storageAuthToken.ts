@@ -1,24 +1,42 @@
 const localStorage = window.localStorage;
+const markName = "@my-cars";
 
-const saveTokenToLocalStorage = (acessToken: string, refreshToken: string) => {
-	localStorage.setItem("acessToken", acessToken);
-	localStorage.setItem("refreshToken", refreshToken);
+type SaveTokenTypesProps = {
+	acessToken: string;
+	refreshToken: string;
+	userId?: string;
 };
 
-const getTokenFromLocalStorage = () => {
-	const acessToken = localStorage.getItem("acessToken");
-	const refreshToken = localStorage.getItem("refreshToken");
+type getTokenPreferenceTypes = "acessToken" | "refreshToken" | "userId" | "all";
 
-	return {acessToken, refreshToken};
+const saveTokenAndUserId = ({
+	acessToken,
+	refreshToken,
+	userId,
+}: SaveTokenTypesProps) => {
+	localStorage.setItem(`${markName}_acessToken`, acessToken);
+	localStorage.setItem(`${markName}_refreshToken`, refreshToken);
+
+	if (userId) localStorage.setItem(`${markName}_userId`, userId);
 };
 
-const removeTokenFromLocalStorage = () => {
-	localStorage.removeItem("acessToken");
-	localStorage.removeItem("refreshToken");
+const getTokensOrUserId = (preference: getTokenPreferenceTypes) => {
+	const dataLocalStorage = {
+		acessToken: localStorage.getItem(`${markName}_acessToken`),
+		refreshToken: localStorage.getItem(`${markName}_refreshToken`),
+		userId: localStorage.getItem(`${markName}_userId`),
+	};
+
+	const preferenceSelected =
+		preference === "all" ? dataLocalStorage : dataLocalStorage[preference];
+
+	return preferenceSelected;
 };
 
-export {
-	saveTokenToLocalStorage,
-	getTokenFromLocalStorage,
-	removeTokenFromLocalStorage,
+const removeTokenAndUserId = () => {
+	localStorage.removeItem(`${markName}_acessToken`);
+	localStorage.removeItem(`${markName}_refreshToken`);
+	localStorage.removeItem(`${markName}_userId`);
 };
+
+export {saveTokenAndUserId, getTokensOrUserId, removeTokenAndUserId};

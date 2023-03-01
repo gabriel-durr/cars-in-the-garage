@@ -5,16 +5,16 @@ type CarouselControls = {
 	setCurrentImage: (index: number) => void;
 	setDirection: (dir: number) => void;
 	currentImage: number;
-	banners: string[];
+	images: string[];
 };
 
 export const CarouselControls = ({
 	currentImage,
 	setCurrentImage,
 	setDirection,
-	banners,
+	images,
 }: CarouselControls) => {
-	const lastIndex = banners.length - 1;
+	const lastIndex = images.length - 1;
 	const prevIndex = currentImage - 1;
 	const firstIndex = 0;
 	const nextIndex = currentImage + 1;
@@ -49,7 +49,7 @@ export const CarouselControls = ({
 				aria-label="Prev Button"
 				onClick={handlePrevious}
 			/>
-			{banners.map((_, index) => (
+			{images.map((_, index) => (
 				<Text as="span" key={index} color="blue.100">
 					{index === currentImage ? "●" : "○"}
 				</Text>
