@@ -1,9 +1,10 @@
-import {motion} from "framer-motion";
-import {VStack, Image, useDisclosure} from "@chakra-ui/react";
 import {ModalNewCar} from "./modal-new-car";
 
+import {motion} from "framer-motion";
+import {VStack, Image, useDisclosure} from "@chakra-ui/react";
+
 export const AddNewCar = () => {
-	const {isOpen, onOpen, onClose} = useDisclosure();
+	const {isOpen, onOpen, onClose, isControlled} = useDisclosure();
 
 	function handleOpenModal() {
 		onOpen();
@@ -11,9 +12,8 @@ export const AddNewCar = () => {
 
 	return (
 		<VStack
-			transform="perspective(240px) rotateX(0.1deg) rotateY(1deg)"
 			w="26.25rem"
-			h="42.375rem"
+			h="41.70rem"
 			bg="whiteAlpha.700"
 			borderWidth="1px"
 			borderStyle="solid"
@@ -22,6 +22,7 @@ export const AddNewCar = () => {
 			rounded="lg"
 			justify="center">
 			<ModalNewCar isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
+
 			<Image
 				as={motion.img}
 				cursor="pointer"

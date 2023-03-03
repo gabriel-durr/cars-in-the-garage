@@ -6,6 +6,8 @@ const colors = {
 		red_love: "#ef2159",
 		green_light: "#a9d4af",
 		mustard: "#f7a716",
+		error: "#b13026",
+		title_form: "#5400e6",
 	},
 };
 const fonts = {

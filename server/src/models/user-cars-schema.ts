@@ -4,7 +4,6 @@ import * as mongoose from "mongoose";
 
 const carSchema = new mongoose.Schema({
 	model: {type: String, require: true},
-	brand: {type: String, require: true},
 	brandIcon: {type: String, require: true},
 	images: [{type: String, required: true}],
 	year: {type: Number, required: true},

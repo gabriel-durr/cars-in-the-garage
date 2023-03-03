@@ -1,4 +1,4 @@
-import {FormAuthInputs} from "../../@types";
+import {FormAuthInputs} from "../../@types/form-types";
 import {useAuth} from "../../hooks/use-auth";
 
 import {useState} from "react";
@@ -83,7 +83,7 @@ export const SignUp = ({setAuthAlternate}: SignUpProps) => {
 							},
 						})}
 					/>
-					<Text color="red.800" pt="4">
+					<Text pt="4" color="my.error" fontSize="0.8rem">
 						{errors.name && errors.name.message}
 					</Text>
 				</FormControl>
@@ -100,7 +100,7 @@ export const SignUp = ({setAuthAlternate}: SignUpProps) => {
 							},
 						})}
 					/>
-					<Text color="red.800" pt="4">
+					<Text pt="4" color="my.error" fontSize="0.8rem">
 						{errors.email && errors.email.message}
 					</Text>
 				</FormControl>
@@ -132,7 +132,7 @@ export const SignUp = ({setAuthAlternate}: SignUpProps) => {
 							/>
 						</InputRightElement>
 					</InputGroup>
-					<Text color="red.800" pt="4">
+					<Text color="my.error" pt="4">
 						{errors?.password && errors.password.message}
 					</Text>
 				</FormControl>
@@ -146,13 +146,15 @@ export const SignUp = ({setAuthAlternate}: SignUpProps) => {
 								? "Esconder confirmação de senha"
 								: "Mostrar senha confirmação de senha"
 						}
-						{...register("confirm_password", {
+						{...register("confirmPassword", {
 							required: "Confirme a Senha!",
 							validate: value =>
 								value === password || "As senhas não coincidem",
 						})}
 					/>
-					{errors?.confirm_password && errors.confirm_password.message}
+					<Text pt="4" color="my.error" fontSize="0.8rem">
+						{errors?.confirmPassword && errors.confirmPassword.message}
+					</Text>
 				</FormControl>
 			</VStack>
 

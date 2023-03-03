@@ -6,7 +6,7 @@ import {CarDescription} from "./car-description";
 import {CarHeaderContent} from "./car-header-content";
 
 import {motion, Variants} from "framer-motion";
-import {useState, useRef, useEffect, useCallback, WheelEvent} from "react";
+import {useState, useRef, useCallback, WheelEvent} from "react";
 import {
 	Flex,
 	Card,
@@ -55,7 +55,7 @@ export const CarsCards = ({user}: CarsCardsProps) => {
 	const carVariants: Variants = {
 		visible: {
 			opacity: 1,
-			scale: 0.95,
+			scale: 0.96,
 			x: 0,
 			transition: {
 				duration: 0.4,
@@ -74,10 +74,10 @@ export const CarsCards = ({user}: CarsCardsProps) => {
 		<Flex
 			as={motion.div}
 			ref={containerRef}
+			onWheel={handleScroll}
 			bg="blackAlpha.400"
 			overflow="hidden"
 			flex="1"
-			onWheel={handleScroll}
 			boxShadow="sm">
 			{user.cars.map((car, index) => (
 				<Card

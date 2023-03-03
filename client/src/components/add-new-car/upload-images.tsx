@@ -1,34 +1,154 @@
-import {validateImageCount} from "../../utils/validate-image-count";
-import ImageUploader from "react-images-upload";
+import {FormUploadImageProps} from "../../@types/form-types";
 
-type UploadImagesProps = {
-	setImageUrls: (imageUrls: string[]) => void;
-};
-export const UploadImages = ({setImageUrls}: UploadImagesProps) => {
-	function onDrop(pictures: File[]) {
-		let imgUrls: string[] = [];
-		if (!validateImageCount(pictures)) {
-			return;
-		}
-		pictures.forEach(picture => {
-			let reader = new FileReader();
-			reader.readAsDataURL(picture);
-			reader.onloadend = function () {
-				imgUrls.push(reader.result as string);
-			};
-		});
-		setImageUrls(imgUrls);
-	}
+import {useState} from "react";
+import {FcProcess, FcCancel} from "react-icons/fc";
+import ImageUploading, {ImageListType} from "react-images-uploading";
+import {
+	Image,
+	HStack,
+	Button,
+	Flex,
+	IconButton,
+	VStack,
+	Text,
+} from "@chakra-ui/react";
 
-	//TODO conseguimos transformar as imagens do upload eum url base64, e em seguida adicionada em array. Porém temos que fazer com que exista as miniaturas das imagens enviadas para ux do usuário
+type UploadImagesProps = FormUploadImageProps;
+
+export const UploadImages = ({setValue, errors}: UploadImagesProps) => {
+	const [images, setImages] = useState<ImageListType>([]);
+	const maxNumber = 4;
+
+	const onChange = (
+		imageList: ImageListType,
+		addUpdateIndex: number[] | undefined
+	) => {
+		const images = imageList.map(img => img.dataURL) as string[];
+
+		setValue("images", images);
+
+		setImages(imageList);
+	};
 
 	return (
-		<ImageUploader
-			withIcon={true}
-			buttonText="Escolha as imagens"
-			onChange={onDrop}
-			imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-			maxFileSize={5242880}
-		/>
+		<>
+			<ImageUploading
+				multiple
+				value={images}
+				onChange={onChange}
+				acceptType={["jpg", "jpeg", "gif", "png"]}
+				maxNumber={maxNumber}>
+				{({
+					imageList,
+					onImageUpload,
+					onImageUpdate,
+					onImageRemove,
+					isDragging,
+					dragProps,
+					onImageRemoveAll,
+					errors: errorsImageUpload,
+				}) => (
+					<Flex gap="12" pos="relative">
+						<VStack justify="center">
+							{imageList.length < 4 ? (
+								<Button
+									h="6.25rem"
+									w="17.5rem"
+									border="1px dotted #0c0703"
+									bg="blackAlpha.200"
+									variant="unstyled"
+									borderBottom="1px solid #b7a710"
+									onClick={() => onImageUpload()}
+									{...dragProps}>
+									<HStack boxSize="100%" align="center">
+										<Image src="/upload-image.svg" h="100%" />
+										<Text
+											fontSize="1.01rem"
+											textTransform="uppercase"
+											color={isDragging ? "my.red_love" : "my.title_form"}>
+											Clique ou Arraste
+										</Text>
+									</HStack>
+								</Button>
+							) : (
+								<Button
+									variant="unstyled"
+									fontSize="0.9rem"
+									bg="red.400"
+									_hover={{
+										bg: "red.500",
+										transition: "background .4s",
+									}}
+									color="#fff"
+									p="2"
+									onClick={onImageRemoveAll}>
+									Remover Imagens
+								</Button>
+							)}
+						</VStack>
+
+						{imageList.map((image, index) => (
+							<VStack
+								pos="relative"
+								bg="#000"
+								border="1px solid #c7a914"
+								justify="space-evenly"
+								h="6.25rem"
+								w="8rem"
+								key={index}>
+								<Image
+									objectFit="contain"
+									src={image.dataURL}
+									alt=""
+									boxSize="100%"
+								/>
+								<HStack pos="absolute" bottom="2">
+									<IconButton
+										aria-label=""
+										size="xs"
+										icon={<FcProcess />}
+										onClick={() => onImageUpdate(index)}>
+										Atualizar
+									</IconButton>
+									<IconButton
+										aria-label=""
+										size="xs"
+										icon={<FcCancel />}
+										onClick={() => onImageRemove(index)}>
+										Remover
+									</IconButton>
+								</HStack>
+							</VStack>
+						))}
+
+						<HStack
+							pos="absolute"
+							justify="center"
+							spacing="6"
+							bottom="-8"
+							w="100%"
+							textAlign="center">
+							<Text
+								color="my.error"
+								fontSize="0.8rem"
+								textTransform="uppercase">
+								{errors.images && errors.images.message}
+							</Text>
+							<Text
+								color="my.error"
+								whiteSpace="nowrap"
+								fontSize="0.8rem"
+								textTransform="uppercase">
+								{errorsImageUpload?.maxFileSize &&
+									"É permitido no máximo 4 Imagens"}
+
+								{errorsImageUpload?.acceptType &&
+									"Só é permitido imagens no formato: jpg, jpeg, gif, png"}
+							</Text>
+						</HStack>
+					</Flex>
+				)}
+			</ImageUploading>
+		</>
 	);
 };

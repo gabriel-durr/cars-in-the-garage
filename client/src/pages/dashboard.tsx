@@ -1,12 +1,13 @@
-import {AddNewCar} from "../components/add-new-car";
 import {CarsCards} from "../components/cars-cards";
 import {useUserData} from "../hooks/use-user-data";
+import {AddNewCar} from "../components/add-new-car";
 import {LoadingAnimation} from "../components/loading-animation";
 import scrollAnimation from "../animations/scroll-mouse-animarion.json";
 
-import {Box, Flex} from "@chakra-ui/react";
 import Lottie from "lottie-react";
-import {useEffect, useState} from "react";
+import {motion} from "framer-motion";
+import {useState} from "react";
+import {Flex, Heading, VStack} from "@chakra-ui/react";
 
 export const Dashboard = () => {
 	const {user, isLoading} = useUserData();
@@ -14,18 +15,24 @@ export const Dashboard = () => {
 
 	if (isLoading) return <LoadingAnimation />;
 
-	async function test() {
-		setIsAnimation(true);
-		await new Promise(resolve => setTimeout(resolve, 7000));
+	function test() {
 		setIsAnimation(false);
 	}
 
-	useEffect(() => {
-		test();
-	}, []);
+	const scrollVariants = {
+		visible: {
+			opacity: 1,
+		},
+		hidden: {
+			opacity: 0,
+		},
+	};
 
 	return (
 		<Flex
+			as={motion.div}
+			variants={scrollVariants}
+			onWheel={isAnimation ? test : undefined}
 			boxSize="100%"
 			bgSize="cover"
 			bgImg="/garage.jpg"
@@ -37,9 +44,16 @@ export const Dashboard = () => {
 			p="6">
 			<CarsCards user={user} />
 			{isAnimation && (
-				<Box pos="absolute" boxSize="400px">
-					<Lottie animationData={scrollAnimation} />
-				</Box>
+				<VStack
+					pos="absolute"
+					boxSize="377px"
+					align="center"
+					textAlign="center">
+					<Heading fontFamily="Roboto Slab" color="#fff">
+						Use o Scroll para mover os carros
+					</Heading>
+					<Lottie animationData={scrollAnimation} style={{width: "80%"}} />
+				</VStack>
 			)}
 
 			<AddNewCar />

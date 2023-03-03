@@ -1,4 +1,4 @@
-import {FormAuthInputs} from "../../@types";
+import {FormAuthInputs} from "../../@types/form-types";
 import {useAuth} from "../../hooks/use-auth";
 
 import {useForm} from "react-hook-form";
@@ -73,7 +73,7 @@ export const SignIn = ({setAuthAlternate}: SignInProps) => {
 							},
 						})}
 					/>
-					<Text color="red.800" pt="4">
+					<Text color="my.error" pt="4">
 						{errors?.email && errors.email.message}
 					</Text>
 				</FormControl>
@@ -85,7 +85,7 @@ export const SignIn = ({setAuthAlternate}: SignInProps) => {
 							required: "Senha obrigatória!",
 						})}
 					/>
-					<Text color="red.800" pt="4">
+					<Text color="my.error" pt="4">
 						{errors?.password && errors.password.message}
 					</Text>
 				</FormControl>

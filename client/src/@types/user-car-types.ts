@@ -1,5 +1,3 @@
-import {UseFormRegister, FieldErrorsImpl} from "react-hook-form";
-
 /**
  * Represents a car object
  * @typedef {Object} User
@@ -20,7 +18,6 @@ import {UseFormRegister, FieldErrorsImpl} from "react-hook-form";
 type Car = {
 	_id: string;
 	model: string;
-	brand: string;
 	brandIcon: string;
 	images: string[];
 	year: number;
@@ -34,26 +31,4 @@ export type User = {
 	email: string;
 	avatar: string;
 	cars: Car[];
-};
-
-export type FormNewCarInputs = {
-	select: string;
-	description: string;
-};
-
-export type HookFormNewCarProps = {
-	register: UseFormRegister<FormNewCarInputs>;
-	errors: Partial<FieldErrorsImpl<FormNewCarInputs>>;
-};
-
-export type FormAuthInputs = {
-	name: string;
-	email: string;
-	password: string;
-	confirm_password: string;
-};
-
-export type FormEditInputs = {
-	price: string;
-	description: string;
 };

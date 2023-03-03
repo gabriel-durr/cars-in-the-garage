@@ -1,4 +1,4 @@
-import {User} from "../@types";
+import {User} from "../@types/user-car-types";
 import {useQuery, useQueryClient, useMutation} from "@tanstack/react-query";
 import {
 	getUserAndCars,

@@ -1,27 +1,83 @@
-import {FormControl, HStack, FormLabel, Input} from "@chakra-ui/react";
+import {speedList} from "../../utils/speed-list";
+import {FormPriceProps} from "../../@types/form-types";
 
-export const InputInfos = () => {
-	function testFn() {}
+import {
+	FormControl,
+	HStack,
+	FormLabel,
+	Input,
+	Select,
+	Text,
+} from "@chakra-ui/react";
+import {CarYear} from "./car-year";
 
-	//TODO Fazer validação dos inputs usando react-hook-form, seguir mesmo padrão dos outros inputs utilizando {...register} e importando as tipagens do form que estão na pasta types
+type InputsInfosProps = FormPriceProps;
 
+export const InputInfos = ({register, errors}: InputsInfosProps) => {
 	return (
-		<FormControl isRequired>
-			<HStack>
-				<FormLabel textTransform="uppercase" color="#5400e6" fontSize="0.96rem">
-					Modelo
-				</FormLabel>
-				<Input />
-				<FormLabel textTransform="uppercase" color="#5400e6" fontSize="0.96rem">
-					Ano
-				</FormLabel>
-				<Input type="date" datatype="yyyy" /> //TODO Fazer com que esse input de
-				data, permita a seleção apenas de anos e mes/dia
-				<FormLabel textTransform="uppercase" color="#5400e6" fontSize="0.96rem">
-					Velocidade
-				</FormLabel>
-				<Input type="" />
-			</HStack>
-		</FormControl>
+		<HStack
+			justify="space-between"
+			w="100%"
+			textTransform="uppercase"
+			color="my.title_form"
+			fontSize="0.96rem">
+			<FormControl isRequired pos="relative">
+				<FormLabel>Modelo</FormLabel>
+				<Input
+					{...register("model", {
+						required: "Informe o nome do Modelo do carro",
+					})}
+				/>
+				<Text pos="absolute" pt="0.7rem" color="my.error" fontSize="0.8rem">
+					{errors.model && errors.model.message}
+				</Text>
+			</FormControl>
+
+			<FormControl isRequired pos="relative">
+				<FormLabel>Preço</FormLabel>
+
+				<Input
+					{...register("price", {
+						required: "Informe o Preço do carro",
+						minLength: {
+							value: 4,
+							message: "Preço ter pelo menos 4 Caracteres",
+						},
+					})}
+				/>
+				<Text
+					pos="absolute"
+					pl="1"
+					pt="0.7rem"
+					color="my.error"
+					fontSize="0.8rem">
+					{errors.price && errors.price.message}
+				</Text>
+			</FormControl>
+
+			<FormControl isRequired pos="relative">
+				<FormLabel>Velocidade</FormLabel>
+				<Select
+					color="gray.800"
+					fontWeight="medium"
+					fontSize="0.97rem"
+					{...register("speed", {
+						required: "Informe a velocidade do carro",
+					})}
+					placeholder="Selecionar Velocidade">
+					{speedList.map(speed => (
+						<option value={speed}>{speed}</option>
+					))}
+				</Select>
+				<Text
+					pos="absolute"
+					pl="1"
+					pt="0.7rem"
+					color="my.error"
+					fontSize="0.8rem">
+					{errors.speed && errors.speed.message}
+				</Text>
+			</FormControl>
+		</HStack>
 	);
 };
