@@ -1,13 +1,14 @@
+import {CarYear} from "./car-year";
+import {useForm} from "react-hook-form";
 import {InputInfos} from "./input-infos";
 import {SelectBrand} from "./select-brand";
 import {UploadImages} from "./upload-images";
-import {useUserData} from "../../hooks/use-user-data";
+import {useUserData} from "@hooks/use-user-data";
+import {FormNewCarInputs} from "@typings/form-types";
 import {TextareaDescription} from "./textarea-description";
-import {FormNewCarInputs} from "./../../@types/form-types";
-import {customFormValidations} from "../../utils/custom-form-validations";
+import {customFormValidations} from "@utils/custom-form-validations";
 
 import {useEffect} from "react";
-import {useForm} from "react-hook-form";
 import {
 	Modal,
 	ModalOverlay,
@@ -21,7 +22,6 @@ import {
 	HStack,
 	useToast,
 } from "@chakra-ui/react";
-import {CarYear} from "./car-year";
 
 type ModalNewCarProps = {
 	isOpen: boolean;

@@ -1,4 +1,4 @@
-import {useUserData} from "../../hooks/use-user-data";
+import {useUserData} from "@hooks/use-user-data";
 
 import {useRef} from "react";
 import {

@@ -1,7 +1,7 @@
-import {FormEditInputs} from "../../@types";
 import {EditableInput} from "./editable-input";
-import {useUserData} from "../../hooks/use-user-data";
-import {formatBitcoin} from "../../utils/format-bitcoin";
+import {useUserData} from "@hooks/use-user-data";
+import {FormEditInputs} from "@typings/form-types";
+import {formatBitcoin} from "@utils/format-bitcoin";
 
 import {useForm} from "react-hook-form";
 import {

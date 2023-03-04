@@ -1,5 +1,5 @@
 import {getNewAccessToken} from "./requests/token";
-import {getTokensOrUserId} from "../storage/storageAuthToken";
+import {getTokensOrUserId} from "@storage/storageAuthToken";
 
 import axios, {AxiosInstance} from "axios";
 

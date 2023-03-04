@@ -1,10 +1,11 @@
 import {
 	getTokensOrUserId,
 	removeTokenAndUserId,
-} from "../storage/storageAuthToken";
+} from "@storage/storageAuthToken";
+
+import {Navigate} from "react-router-dom";
 
 import {ComponentType, useEffect, useState} from "react";
-import {Navigate} from "react-router-dom";
 
 type PrivateRouteProps = {
 	redirectTo: string;

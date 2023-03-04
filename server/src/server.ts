@@ -1,4 +1,4 @@
-import {portDevOrProduction} from "./config";
+import {PORT} from "./config";
 import {connectDb} from "./database/connect-dba";
 import {authRoutes} from "./routes/auth.routes";
 import {userRoutes} from "./routes/user.routes";
@@ -22,7 +22,5 @@ app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 
 connectDb().then(() =>
-	app.listen(portDevOrProduction, () =>
-		console.log(`Server running ${portDevOrProduction} ⚡`)
-	)
+	app.listen(PORT, () => console.log(`Server running ${PORT} ⚡`))
 );

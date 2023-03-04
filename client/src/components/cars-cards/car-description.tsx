@@ -1,5 +1,5 @@
-import {useState, WheelEvent} from "react";
 import {motion} from "framer-motion";
+import {useState, WheelEvent} from "react";
 import {Button, VStack, Text} from "@chakra-ui/react";
 
 type DescriptionProps = {

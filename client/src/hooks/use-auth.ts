@@ -2,7 +2,7 @@ import {api} from "../api/axios";
 import {
 	saveTokenAndUserId,
 	removeTokenAndUserId,
-} from "../storage/storageAuthToken";
+} from "@storage/storageAuthToken";
 
 import {useNavigate} from "react-router-dom";
 

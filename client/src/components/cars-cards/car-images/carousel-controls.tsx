@@ -1,4 +1,5 @@
 import {BiChevronLeft, BiChevronRight} from "react-icons/bi";
+
 import {IconButton, HStack, Text} from "@chakra-ui/react";
 
 type CarouselControls = {

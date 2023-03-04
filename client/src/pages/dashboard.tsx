@@ -1,12 +1,13 @@
-import {CarsCards} from "../components/cars-cards";
-import {useUserData} from "../hooks/use-user-data";
-import {AddNewCar} from "../components/add-new-car";
-import {LoadingAnimation} from "../components/loading-animation";
-import scrollAnimation from "../animations/scroll-mouse-animarion.json";
+import {CarsCards} from "@components/cars-cards";
+import {useUserData} from "@hooks/use-user-data";
+import {AddNewCar} from "@components/add-new-car";
+import {LoadingAnimation} from "@components/loading-animation";
+import scrollAnimation from "@animations/scroll-mouse-animarion.json";
 
 import Lottie from "lottie-react";
-import {motion} from "framer-motion";
+
 import {useState} from "react";
+import {motion} from "framer-motion";
 import {Flex, Heading, VStack} from "@chakra-ui/react";
 
 export const Dashboard = () => {

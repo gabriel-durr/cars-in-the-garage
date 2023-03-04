@@ -1,4 +1,4 @@
-import {customFormValidationProps} from "../@types/form-types";
+import {customFormValidationProps} from "@typings/form-types";
 
 export const customFormValidations = ({
 	images,

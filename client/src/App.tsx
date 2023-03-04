@@ -1,5 +1,6 @@
+import {LoadingAnimation} from "@components/loading-animation";
+
 import {Flex, Text, Box, Image, Heading} from "@chakra-ui/react";
-import {LoadingAnimation} from "./components/loading-animation";
 
 function App() {
 	const isLoading = false;

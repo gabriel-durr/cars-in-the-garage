@@ -1,8 +1,9 @@
-import {FormUploadImageProps} from "../../@types/form-types";
+import {FormUploadImageProps} from "@typings/form-types";
 
-import {useState} from "react";
 import {FcProcess, FcCancel} from "react-icons/fc";
 import ImageUploading, {ImageListType} from "react-images-uploading";
+
+import {useState} from "react";
 import {
 	Image,
 	HStack,

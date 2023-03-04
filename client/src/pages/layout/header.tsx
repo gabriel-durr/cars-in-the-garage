@@ -1,10 +1,11 @@
-import {useAuth} from "../../hooks/use-auth";
-import {HomeButtons} from "../../components/menu/home-buttons";
-import {GarageButtons} from "../../components/menu/garage-buttons";
-import {ProfileButtons} from "../../components/menu/profile-buttons";
-import {SignOutConfirm} from "../../components/menu/sign-out-confirm";
+import {useAuth} from "@hooks/use-auth";
+import {HomeButtons} from "@components/menu/home-buttons";
+import {GarageButtons} from "@components/menu/garage-buttons";
+import {ProfileButtons} from "@components/menu/profile-buttons";
+import {SignOutConfirm} from "@components/menu/sign-out-confirm";
 
 import {useLocation, Link, useNavigate} from "react-router-dom";
+
 import {Flex, HStack, Heading, Image, useDisclosure} from "@chakra-ui/react";
 
 export const Header = () => {

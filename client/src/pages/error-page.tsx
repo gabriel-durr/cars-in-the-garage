@@ -1,5 +1,6 @@
-import {Flex, Heading, Text} from "@chakra-ui/react";
 import {useRouteError} from "react-router-dom";
+
+import {Flex, Heading, Text} from "@chakra-ui/react";
 
 type ErrorTypes = {
 	msg: string;

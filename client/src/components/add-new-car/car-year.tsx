@@ -1,4 +1,4 @@
-import {FormCarYarProps} from "../../@types/form-types";
+import {FormCarYarProps} from "@typings/form-types";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";

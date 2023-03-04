@@ -1,8 +1,9 @@
 import {SignIn} from "./sign-in";
 import {SignUp} from "./sign-up";
-import {getTokensOrUserId} from "../../storage/storageAuthToken";
+import {getTokensOrUserId} from "@storage/storageAuthToken";
 
 import {useNavigate} from "react-router-dom";
+
 import {useState, useEffect} from "react";
 import {Image, Text, Heading, VStack, HStack, Tooltip} from "@chakra-ui/react";
 

@@ -1,8 +1,9 @@
 import {Footer} from "./footer";
 import {Header} from "./header";
 
-import {Flex} from "@chakra-ui/react";
 import {Outlet} from "react-router-dom";
+
+import {Flex} from "@chakra-ui/react";
 
 export const Layout = () => {
 	return (

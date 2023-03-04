@@ -1,8 +1,9 @@
 import {CarDelete} from "./car-delete";
 import {ModalUpdate} from "./modal-update";
 
-import {RepeatIcon, DeleteIcon} from "@chakra-ui/icons";
 import {BsThreeDotsVertical} from "react-icons/bs";
+import {RepeatIcon, DeleteIcon} from "@chakra-ui/icons";
+
 import {useState} from "react";
 import {
 	Menu,

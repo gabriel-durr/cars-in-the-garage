@@ -1,8 +1,9 @@
-import {NavigateFunction} from "react-router-dom";
-import {useUserData} from "../../hooks/use-user-data";
-import {LoadingAnimation} from "../loading-animation";
+import {useUserData} from "@hooks/use-user-data";
+import {LoadingAnimation} from "@components/loading-animation";
 
 import {RxExit} from "react-icons/rx";
+import {NavigateFunction} from "react-router-dom";
+
 import {HStack, Avatar, IconButton} from "@chakra-ui/react";
 
 type GarageButtonsProps = {

@@ -5,8 +5,6 @@ type OwnerProps = {
 	email: string;
 };
 
-//TODO Proprietário para + informações do carro e acrescentar no Squema da API
-
 export const CarOwner = ({name, email}: OwnerProps) => {
 	return (
 		<Flex direction="column" gap="2" w="full">

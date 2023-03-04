@@ -1,8 +1,10 @@
-import {HStack, IconButton} from "@chakra-ui/react";
+import {getTokensOrUserId} from "@storage/storageAuthToken";
+
 import {RiContactsLine} from "react-icons/ri";
-import {RxCardStack, RxExit} from "react-icons/rx";
 import {NavigateFunction} from "react-router-dom";
-import {getTokensOrUserId} from "../../storage/storageAuthToken";
+import {RxCardStack, RxExit} from "react-icons/rx";
+
+import {HStack, IconButton} from "@chakra-ui/react";
 
 type homeButtonProps = {
 	navigate: NavigateFunction;

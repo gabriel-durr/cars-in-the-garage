@@ -1,11 +1,9 @@
-import {config} from "dotenv";
+import dotenv from "dotenv";
 
-config();
+dotenv.config();
 
-const dbaUrl = process.env.DATABASE_URL;
 const SECRET = process.env.SECRET;
+const DBA_URL = process.env.DATABASE_URL;
+const PORT = process.env.NODE_ENV === "production" ? process.env.PORT : "3333";
 
-const portDevOrProduction =
-	process.env.NODE_ENV === "production" ? process.env.PORT : 3333;
-
-export {dbaUrl, portDevOrProduction, SECRET};
+export {PORT, DBA_URL, SECRET};

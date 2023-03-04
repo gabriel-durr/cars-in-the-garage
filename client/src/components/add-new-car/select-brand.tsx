@@ -1,5 +1,5 @@
-import {carBrands} from "../../utils/car-brands";
-import {FormSelectBrandNewCarProps} from "../../@types/form-types";
+import {carBrands} from "@utils/car-brands";
+import {FormSelectBrandNewCarProps} from "@typings/form-types";
 
 import {useState} from "react";
 import {

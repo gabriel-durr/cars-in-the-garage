@@ -1,12 +1,12 @@
 import Home from "../App";
-import {Dashboard} from "../pages/dashboard";
-import {ErrorPage} from "../pages/error-page";
+import {Auth} from "@pages/auth";
+import {Layout} from "@pages/layout";
+import {Profile} from "@pages/profile";
+import {Dashboard} from "@pages/dashboard";
+import {ErrorPage} from "@pages/error-page";
 import {PrivateRoute} from "./private-route";
 
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import {Auth} from "../pages/auth";
-import {Layout} from "../pages/layout";
-import {Profile} from "../pages/profile";
 
 const Pages = () => {
 	return (

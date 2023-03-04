@@ -1,5 +1,6 @@
 import {NavigateFunction} from "react-router-dom";
 import {RxCardStack, RxExit} from "react-icons/rx";
+
 import {HStack, IconButton} from "@chakra-ui/react";
 
 type ProfileButtonsProps = {

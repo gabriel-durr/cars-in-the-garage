@@ -23,19 +23,22 @@ const createNewCar = async (req: Request, res: Response) => {
 		params: {userId},
 	} = req;
 
-	const user = await User.findById(userId, "-password -id");
+	try {
+		const user = await User.findById(userId, "-password -id");
+		const carExists = user.cars.some(car => car.model === newCar.model);
+		if (carExists)
+			return res.status(400).json({msg: "Esse modelo de carro já existe"});
 
-	const carExists = user.cars.some(car => car.model === newCar.model);
+		user.cars.push(newCar);
+		await user.save();
 
-	if (carExists)
-		return res.status(400).json({msg: "Esse modelo de carro já existe"});
-
-	user.cars.push(newCar);
-	await user.save();
-
-	return res
-		.status(201)
-		.json({msg: `Carro ${newCar.model} criado com sucesso`});
+		return res
+			.status(201)
+			.json({msg: `Carro ${newCar.model} criado com sucesso`});
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({msg: "Erro no servidor."});
+	}
 };
 
 const updateCar = async (req: Request, res: Response) => {

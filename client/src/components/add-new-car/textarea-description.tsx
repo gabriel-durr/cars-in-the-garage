@@ -1,4 +1,4 @@
-import {FormTextAreaProps} from "../../@types/form-types";
+import {FormTextAreaProps} from "@typings/form-types";
 
 import {FormControl, FormLabel, Textarea, Text} from "@chakra-ui/react";
 

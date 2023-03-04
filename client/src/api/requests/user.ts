@@ -1,6 +1,6 @@
 import {api} from "../axios";
-import {User} from "../../@types/user-car-types";
-import {getTokensOrUserId} from "../../storage/storageAuthToken";
+import {User} from "@typings/user-car-types";
+import {getTokensOrUserId} from "@storage/storageAuthToken";
 
 const userId = getTokensOrUserId("userId");
 

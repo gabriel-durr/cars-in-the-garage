@@ -1,6 +1,6 @@
 import {CarEdit} from "./car-edit";
-import {User} from "../../@types";
-import {carBrands} from "../../utils/car-brands";
+import {carBrands} from "@utils/car-brands";
+import {User} from "@typings/user-car-types";
 
 import {Heading, HStack, VStack, Image} from "@chakra-ui/react";
 

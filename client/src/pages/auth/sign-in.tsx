@@ -1,5 +1,5 @@
-import {FormAuthInputs} from "../../@types/form-types";
-import {useAuth} from "../../hooks/use-auth";
+import {useAuth} from "@hooks/use-auth";
+import {FormAuthInputs} from "@typings/form-types";
 
 import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";

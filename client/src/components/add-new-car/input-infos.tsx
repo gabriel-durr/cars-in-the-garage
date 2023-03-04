@@ -1,5 +1,5 @@
-import {speedList} from "../../utils/speed-list";
-import {FormPriceProps} from "../../@types/form-types";
+import {speedList} from "@utils/speed-list";
+import {FormPriceProps} from "@typings/form-types";
 
 import {
 	FormControl,
@@ -9,7 +9,6 @@ import {
 	Select,
 	Text,
 } from "@chakra-ui/react";
-import {CarYear} from "./car-year";
 
 type InputsInfosProps = FormPriceProps;
 

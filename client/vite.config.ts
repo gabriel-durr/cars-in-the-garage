@@ -9,4 +9,15 @@ export default defineConfig({
 			usePolling: true,
 		},
 	},
+	resolve: {
+		alias: {
+			"@hooks": "/src/hooks",
+			"@utils": "/src/utils",
+			"@pages": "/src/pages",
+			"@storage": "/src/storage",
+			"@typings": "/src/typings",
+			"@components": "/src/components",
+			"@animations": "/src/animations",
+		},
+	},
 });

@@ -17,6 +17,10 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
@@ -30,20 +34,18 @@ __export(connect_dba_exports, {
 module.exports = __toCommonJS(connect_dba_exports);
 
 // src/config/index.ts
-var import_dotenv = require("dotenv");
-(0, import_dotenv.config)();
-var url = process.env.DATABASE_URL;
-var port = process.env.PORT;
+var import_dotenv = __toESM(require("dotenv"), 1);
+import_dotenv.default.config();
+var SECRET = process.env.SECRET;
+var DBA_URL = process.env.DATABASE_URL;
+var PORT = process.env.NODE_ENV === "production" ? process.env.PORT : "3333";
 
 // src/database/connect-dba.ts
 var import_mongoose = __toESM(require("mongoose"), 1);
 var connectDb = async () => {
   try {
     import_mongoose.default.set("strictQuery", false);
-    await import_mongoose.default.connect(url, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+    await import_mongoose.default.connect(DBA_URL);
     console.log("MongoDB Connected");
   } catch (err) {
     console.log(err);

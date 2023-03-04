@@ -1,8 +1,5 @@
 import {api} from "../axios";
-import {
-	getTokensOrUserId,
-	saveTokenAndUserId,
-} from "../../storage/storageAuthToken";
+import {getTokensOrUserId, saveTokenAndUserId} from "@storage/storageAuthToken";
 
 async function getNewAccessToken() {
 	try {

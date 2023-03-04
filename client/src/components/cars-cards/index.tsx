@@ -1,7 +1,7 @@
-import {User} from "../../@types";
 import {CarInfo} from "./car-info";
 import {CarOwner} from "./car-owner";
 import {CarImages} from "./car-images";
+import {User} from "@typings/user-car-types";
 import {CarDescription} from "./car-description";
 import {CarHeaderContent} from "./car-header-content";
 
@@ -14,7 +14,6 @@ import {
 	CardHeader,
 	Divider,
 	CardFooter,
-	HStack,
 } from "@chakra-ui/react";
 
 export type CarsCardsProps = {

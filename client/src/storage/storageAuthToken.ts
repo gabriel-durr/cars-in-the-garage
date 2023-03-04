@@ -1,5 +1,5 @@
-const localStorage = window.localStorage;
 const markName = "@my-cars";
+const localStorage = window.localStorage;
 
 type SaveTokenTypesProps = {
 	acessToken: string;

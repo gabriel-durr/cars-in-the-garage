@@ -1,11 +1,12 @@
-import {User} from "../@types/user-car-types";
-import {useQuery, useQueryClient, useMutation} from "@tanstack/react-query";
 import {
 	getUserAndCars,
 	createNewCarUser,
 	updateUserCar,
 	deleteUserCar,
 } from "../api/requests/user";
+import {User} from "@typings/user-car-types";
+
+import {useQuery, useQueryClient, useMutation} from "@tanstack/react-query";
 
 export const useUserData = () => {
 	const {data, isLoading, error, isSuccess} = useQuery(["user"], () =>
