@@ -1,12 +1,12 @@
 import {useRef} from "react";
 import {
+	Button,
 	AlertDialog,
 	AlertDialogOverlay,
 	AlertDialogContent,
 	AlertDialogHeader,
 	AlertDialogCloseButton,
 	AlertDialogFooter,
-	Button,
 } from "@chakra-ui/react";
 
 type SignOutConfirmProps = {

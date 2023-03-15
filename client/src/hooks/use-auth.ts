@@ -26,31 +26,37 @@ type AuthRegisterData = Pick<AuthLoginData, "msg">;
 export const useAuth = () => {
 	const navigate = useNavigate();
 
-	async function authLogin({email, password}: AuthLoginProps): Promise<string> {
-		const {data} = await api.post<AuthLoginData>(`/auth/login`, {
-			email,
-			password,
-		});
+	async function authLogin({email, password}: AuthLoginProps) {
+		try {
+			const {
+				data: {acessToken, refreshToken, userId, msg},
+			} = await api.post<AuthLoginData>(`/auth/login`, {
+				email,
+				password,
+			});
 
-		const {acessToken, refreshToken, userId, msg} = data;
+			saveTokenAndUserId({acessToken, refreshToken, userId});
 
-		saveTokenAndUserId({acessToken, refreshToken, userId});
-
-		return msg;
+			return msg;
+		} catch (error: any) {
+			throw error;
+		}
 	}
 
-	async function authRegister({
-		name,
-		email,
-		password,
-	}: AuthProps): Promise<string> {
-		const {data} = await api.post<AuthRegisterData>("/auth/register", {
-			name,
-			email,
-			password,
-		});
+	async function authRegister({name, email, password}: AuthProps) {
+		try {
+			const {
+				data: {msg},
+			} = await api.post<AuthRegisterData>("/auth/register", {
+				name,
+				email,
+				password,
+			});
 
-		return data.msg;
+			return msg;
+		} catch (error: any) {
+			throw error;
+		}
 	}
 
 	async function authSignOut() {

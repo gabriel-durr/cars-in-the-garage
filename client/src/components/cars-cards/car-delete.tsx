@@ -1,6 +1,6 @@
-import {useUserData} from "@hooks/use-user-data";
+import { useUserData } from "@hooks/use-user-data";
 
-import {useRef} from "react";
+import { useRef } from "react";
 import {
 	AlertDialog,
 	AlertDialogBody,
@@ -29,18 +29,33 @@ export const CarDelete = ({
 	const cancelRef = useRef(null);
 	const toast = useToast();
 
-	const {deleteCar} = useUserData();
+	const { deleteCar } = useUserData();
 
 	async function confirmDelete() {
-		const msg = await deleteCar.mutateAsync({carId: specificId});
+		try {
+			const msg = await deleteCar.mutateAsync({ carId: specificId });
 
-		toast({
-			title: msg,
-			status: "warning",
-			isClosable: true,
-			position: "top",
-		});
-		onCloseDel();
+			toast({
+				title: msg,
+				status: "success",
+				isClosable: true,
+				position: "top",
+			});
+
+			onCloseDel();
+		} catch (error: any) {
+			const {
+				data: { msg },
+			} = error.reponse;
+
+			toast({
+				title: msg,
+				variant: "left-accent",
+				status: "error",
+				isClosable: true,
+				position: "top",
+			});
+		}
 	}
 
 	return (
@@ -54,7 +69,9 @@ export const CarDelete = ({
 				<AlertDialogOverlay />
 
 				<AlertDialogContent>
-					<AlertDialogHeader>Quer excluir esse carro?</AlertDialogHeader>
+					<AlertDialogHeader>
+						Deseja mesmo excluir esse carro?
+					</AlertDialogHeader>
 					<AlertDialogCloseButton />
 					<AlertDialogBody>
 						Se você confirmar o carro será excluído do nosso sistema, e não será

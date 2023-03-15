@@ -1,26 +1,26 @@
-import {CarYear} from "./car-year";
-import {useForm} from "react-hook-form";
-import {InputInfos} from "./input-infos";
-import {SelectBrand} from "./select-brand";
-import {UploadImages} from "./upload-images";
-import {useUserData} from "@hooks/use-user-data";
-import {FormNewCarInputs} from "@typings/form-types";
-import {TextareaDescription} from "./textarea-description";
-import {customFormValidations} from "@utils/custom-form-validations";
+import { CarYear } from "./car-year";
+import { useForm } from "react-hook-form";
+import { InputInfos } from "./input-infos";
+import { SelectBrand } from "./select-brand";
+import { UploadImages } from "./upload-images";
+import { useUserData } from "@hooks/use-user-data";
+import { FormNewCarInputs } from "@typings/form-types";
+import { TextareaDescription } from "./textarea-description";
+import { validationsNewCar } from "@utils/custom-form-validations";
 
-import {useEffect} from "react";
+import { useEffect } from "react";
 import {
 	Modal,
-	ModalOverlay,
-	ModalContent,
-	ModalHeader,
-	ModalCloseButton,
-	ModalBody,
-	ModalFooter,
-	Button,
 	VStack,
+	Button,
 	HStack,
 	useToast,
+	ModalBody,
+	ModalHeader,
+	ModalFooter,
+	ModalContent,
+	ModalOverlay,
+	ModalCloseButton,
 } from "@chakra-ui/react";
 
 type ModalNewCarProps = {
@@ -29,7 +29,7 @@ type ModalNewCarProps = {
 	onClose: () => void;
 };
 
-export const ModalNewCar = ({isOpen, onOpen, onClose}: ModalNewCarProps) => {
+export const ModalNewCar = ({ isOpen, onOpen, onClose }: ModalNewCarProps) => {
 	const {
 		register,
 		handleSubmit,
@@ -38,17 +38,17 @@ export const ModalNewCar = ({isOpen, onOpen, onClose}: ModalNewCarProps) => {
 		setError,
 		watch,
 		reset,
-		formState: {errors, isSubmitting, isSubmitted},
+		formState: { errors, isSubmitting, isSubmitted },
 	} = useForm<FormNewCarInputs>();
 
 	const [images, brandIcon, year] = watch(["images", "brandIcon", "year"]);
 
-	const {addNewCar} = useUserData();
 	const toast = useToast();
+	const { addNewCar } = useUserData();
 
 	async function handleOnSubmit(data: FormNewCarInputs) {
 		try {
-			const msg = await addNewCar.mutateAsync({carData: data});
+			const msg = await addNewCar.mutateAsync({ carData: data });
 
 			toast({
 				title: msg,
@@ -68,26 +68,34 @@ export const ModalNewCar = ({isOpen, onOpen, onClose}: ModalNewCarProps) => {
 	}, [isOpen]);
 
 	useEffect(() => {
-		customFormValidations({
-			images,
-			brandIcon,
-			year,
-			clearErrors,
-			isSubmitted,
-			setError,
-		});
-	}, [isSubmitting, images, brandIcon, year]);
+		if (isSubmitting) {
+			validationsNewCar({
+				images,
+				brandIcon,
+				year,
+				clearErrors,
+				isSubmitted,
+				setError,
+			});
+		}
+	}, [images, brandIcon, year, isSubmitting]);
 
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} size="5xl">
 			<ModalOverlay />
 			<ModalContent>
 				<ModalHeader
-					bg="gold"
-					color="purple.900"
+					bgImg="/wave.svg"
+					bgPos="bottom"
+					bgSize="cover"
+					bgRepeat="no-repeat"
+					bgBlendMode="luminosity"
+					bgColor="my.dark"
+					color="my.goldenLight"
+					textShadow="0px 0px 8px black"
 					fontFamily="Oswald"
-					fontSize="2xl"
 					letterSpacing="wide"
+					fontSize="2xl"
 					textTransform="uppercase"
 					fontWeight="bold"
 					textAlign="center">
@@ -95,13 +103,13 @@ export const ModalNewCar = ({isOpen, onOpen, onClose}: ModalNewCarProps) => {
 				</ModalHeader>
 				<ModalCloseButton
 					bg="orange.400"
-					transition="all ease .5s"
 					_hover={{
 						bg: "orange.600",
+						transition: "background .5s",
 					}}
 				/>
 				<ModalBody>
-					<VStack as="form" spacing="8" align="center">
+					<VStack as="form" p="2.4rem" spacing="12" align="center">
 						<UploadImages setValue={setValue} errors={errors} />
 
 						<TextareaDescription register={register} errors={errors} />
@@ -114,12 +122,18 @@ export const ModalNewCar = ({isOpen, onOpen, onClose}: ModalNewCarProps) => {
 						</HStack>
 					</VStack>
 				</ModalBody>
-				<ModalFooter justifyContent="center" w="100%" bg="my.mustard">
+				<ModalFooter
+					justifyContent="center"
+					w="100%"
+					bgSize="cover"
+					bgRepeat="no-repeat"
+					bgBlendMode="luminosity"
+					bgColor="my.dark"
+					bgImg="/wave.svg">
 					<Button
-						shadow="sm"
-						h="10"
-						w="64"
 						type="submit"
+						shadow="base"
+						variant="customLight"
 						onClick={handleSubmit(handleOnSubmit)}>
 						Enviar
 					</Button>

@@ -1,18 +1,18 @@
-import {speedList} from "@utils/speed-list";
-import {FormPriceProps} from "@typings/form-types";
+import { speedList } from "@utils/speed-list";
+import { FormPriceProps } from "@typings/form-types";
 
 import {
-	FormControl,
-	HStack,
-	FormLabel,
+	Text,
 	Input,
 	Select,
-	Text,
+	HStack,
+	FormLabel,
+	FormControl,
 } from "@chakra-ui/react";
 
 type InputsInfosProps = FormPriceProps;
 
-export const InputInfos = ({register, errors}: InputsInfosProps) => {
+export const InputInfos = ({ register, errors }: InputsInfosProps) => {
 	return (
 		<HStack
 			justify="space-between"
@@ -23,6 +23,7 @@ export const InputInfos = ({register, errors}: InputsInfosProps) => {
 			<FormControl isRequired pos="relative">
 				<FormLabel>Modelo</FormLabel>
 				<Input
+					variant="customLight"
 					{...register("model", {
 						required: "Informe o nome do Modelo do carro",
 					})}
@@ -36,6 +37,7 @@ export const InputInfos = ({register, errors}: InputsInfosProps) => {
 				<FormLabel>Preço</FormLabel>
 
 				<Input
+					variant="customLight"
 					{...register("price", {
 						required: "Informe o Preço do carro",
 						minLength: {
@@ -57,9 +59,23 @@ export const InputInfos = ({register, errors}: InputsInfosProps) => {
 			<FormControl isRequired pos="relative">
 				<FormLabel>Velocidade</FormLabel>
 				<Select
-					color="gray.800"
-					fontWeight="medium"
-					fontSize="0.97rem"
+					rounded="2"
+					w="254px"
+					h="31.8px"
+					fontSize=".88rem"
+					border="1px solid gray"
+					color="gray.900"
+					bg="my.light"
+					fontFamily="Roboto Slab"
+					sx={{
+						"&::-webkit-scrollbar": {
+							width: "4px",
+						},
+						"&::-webkit-scrollbar-thumb": {
+							background: "gray",
+							borderRadius: "full",
+						},
+					}}
 					{...register("speed", {
 						required: "Informe a velocidade do carro",
 					})}

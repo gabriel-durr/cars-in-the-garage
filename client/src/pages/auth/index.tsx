@@ -13,7 +13,7 @@ export const Auth = () => {
 
 	useEffect(() => {
 		const token = getTokensOrUserId("acessToken");
-		if (token) navigate("/garage");
+		if (token) navigate("/dashboard-garage");
 	}, []);
 
 	return (
@@ -42,16 +42,22 @@ export const Auth = () => {
 				</Tooltip>
 			)}
 
-			<VStack w="100%" spacing="8">
-				<Text fontWeight="medium">Logar com</Text>
-				<Tooltip label="Login Social será adicionado em breve. Crie uma conta ou faça login pelo formulário.">
-					<HStack spacing="4" cursor="not-allowed">
-						<Image w="12" src="/auth-social/facebook.svg" />
-						<Image w="12" src="/auth-social/linkedin.svg" />
-						<Image cursor="not-allowed" w="12" src="/auth-social/google.svg" />
-					</HStack>
-				</Tooltip>
-			</VStack>
+			{authAlternate && (
+				<VStack w="100%" spacing="8">
+					<Text fontWeight="medium">Logar com</Text>
+					<Tooltip label="Login Social será adicionado em breve. Crie uma conta ou faça login pelo formulário.">
+						<HStack spacing="4" cursor="not-allowed">
+							<Image w="12" src="/auth-social/facebook.svg" />
+							<Image w="12" src="/auth-social/linkedin.svg" />
+							<Image
+								cursor="not-allowed"
+								w="12"
+								src="/auth-social/google.svg"
+							/>
+						</HStack>
+					</Tooltip>
+				</VStack>
+			)}
 		</VStack>
 	);
 };

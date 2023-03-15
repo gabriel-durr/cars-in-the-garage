@@ -6,6 +6,8 @@ type ErrorTypes = {
 	msg: string;
 };
 
+//TODO criar página error 404, com icon SVG
+
 export const ErrorPage = () => {
 	const error = useRouteError();
 	console.error(error);

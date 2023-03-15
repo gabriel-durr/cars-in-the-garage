@@ -1,14 +1,6 @@
-import {LoadingAnimation} from "@components/loading-animation";
-
-import {Flex, Text, Box, Image, Heading} from "@chakra-ui/react";
+import { Flex, Text, Box, Image, Heading } from "@chakra-ui/react";
 
 function App() {
-	const isLoading = false;
-
-	if (isLoading) {
-		return <LoadingAnimation />;
-	}
-
 	return (
 		<Flex pos="relative" w="100%">
 			<Box pos="absolute" left="72" top="14" w="440px">

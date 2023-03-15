@@ -1,13 +1,44 @@
-import {extendTheme} from "@chakra-ui/react";
+import { extendTheme } from "@chakra-ui/react";
+import { components } from "./components-theme";
 
 const colors = {
 	my: {
 		purple: "#5967b8",
-		red_love: "#ef2159",
-		green_light: "#a9d4af",
+		purpleHeader: "#322659",
+		redLove: "#ef2159",
+		greenLight: "#a9d4af",
 		mustard: "#f7a716",
 		error: "#b13026",
-		title_form: "#5400e6",
+		titleFormPurple: "#5400e6",
+		titleFormLight: "#e0e0e0",
+		dark: "#000000d0",
+		white: "#fdfcfc",
+		light: "#fcfaf9",
+		ashenGray: "#a7a198",
+		goldenLight: "#F0E68C",
+	},
+};
+const styles = {
+	global: {
+		body: {
+			bg: "gray.200",
+			color: "gray.700",
+			fontSize: "0.88rem",
+		},
+
+		"*:focus-visible": {
+			boxShadow: "0 0.5px 20px -2px #f7a716 !important",
+			border: "1px solid #eeeeee !important",
+			outlineColor: "my.mustard !important",
+			outlineWidth: "2px !important",
+		},
+
+		a: {
+			color: "my.purple",
+			_hover: {
+				textDecoration: "underline",
+			},
+		},
 	},
 };
 const fonts = {
@@ -21,25 +52,9 @@ const fonts = {
 	},
 };
 
-const styles = {
-	global: {
-		body: {
-			bg: "gray.200",
-			color: "gray.700",
-			fontSize: "0.88rem",
-		},
-
-		a: {
-			color: "teal.500",
-			_hover: {
-				textDecoration: "underline",
-			},
-		},
-	},
-};
-
 export const theme = extendTheme({
 	fonts,
 	colors,
 	styles,
+	components,
 });

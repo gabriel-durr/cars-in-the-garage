@@ -1,5 +1,4 @@
-const markName = "@my-cars";
-const localStorage = window.localStorage;
+const markName = import.meta.env.CIG_MARK_NAME;
 
 type SaveTokenTypesProps = {
 	acessToken: string;
@@ -9,15 +8,10 @@ type SaveTokenTypesProps = {
 
 type getTokenPreferenceTypes = "acessToken" | "refreshToken" | "userId" | "all";
 
-const saveTokenAndUserId = ({
-	acessToken,
-	refreshToken,
-	userId,
-}: SaveTokenTypesProps) => {
-	localStorage.setItem(`${markName}_acessToken`, acessToken);
-	localStorage.setItem(`${markName}_refreshToken`, refreshToken);
-
-	if (userId) localStorage.setItem(`${markName}_userId`, userId);
+const saveTokenAndUserId = ({ ...tokens }: SaveTokenTypesProps) => {
+	Object.entries(tokens).forEach(([key, value]) => {
+		if (value) localStorage.setItem(`${markName}_${key}`, String(value));
+	});
 };
 
 const getTokensOrUserId = (preference: getTokenPreferenceTypes) => {
@@ -39,4 +33,4 @@ const removeTokenAndUserId = () => {
 	localStorage.removeItem(`${markName}_userId`);
 };
 
-export {saveTokenAndUserId, getTokensOrUserId, removeTokenAndUserId};
+export { saveTokenAndUserId, getTokensOrUserId, removeTokenAndUserId };

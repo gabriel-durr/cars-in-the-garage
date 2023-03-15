@@ -5,14 +5,15 @@ import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 
 import {
-	FormControl,
-	FormLabel,
+	Text,
 	Input,
 	Button,
 	VStack,
-	Text,
 	useToast,
+	FormLabel,
+	FormControl,
 } from "@chakra-ui/react";
+import {getTokensOrUserId} from "@storage/storageAuthToken";
 
 type SignInProps = {
 	setAuthAlternate: (value: boolean) => void;
@@ -26,29 +27,42 @@ export const SignIn = ({setAuthAlternate}: SignInProps) => {
 		handleSubmit,
 		formState: {errors, isDirty},
 	} = useForm<FormAuthLoginInputs>();
+
 	const {authLogin} = useAuth();
 	const navigate = useNavigate();
 	const toast = useToast();
 
+	const fiveSeconds = 5 * 1000;
 	const errorExists = !!Object.keys(errors).length;
 	const isDesableButton = !isDirty || errorExists;
 	const validateEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/;
-	const sevenSeconds = 7000;
 
 	async function handleOnSubmit({email, password}: FormAuthLoginInputs) {
 		try {
-			await authLogin({email, password});
+			const msg = await authLogin({email, password});
 
-			navigate("/garage");
-		} catch (error: any) {
 			toast({
-				title: "Erro ao fazer login",
-				description: `${error?.response?.data?.msg}`,
+				title: msg,
 				variant: "left-accent",
+				status: "success",
 				position: "top",
-				status: "error",
-				duration: sevenSeconds,
 				isClosable: true,
+				duration: fiveSeconds,
+			});
+
+			navigate("/dashboard-garage");
+		} catch (error: any) {
+			const {
+				data: {msg},
+			} = error.response;
+
+			toast({
+				title: msg,
+				variant: "left-accent",
+				status: "error",
+				position: "top",
+				isClosable: true,
+				duration: fiveSeconds,
 			});
 		}
 	}
@@ -58,8 +72,8 @@ export const SignIn = ({setAuthAlternate}: SignInProps) => {
 	}
 
 	return (
-		<VStack w="70%">
-			<VStack as="form" w="100%">
+		<VStack w="100%" align="center">
+			<VStack as="form">
 				<FormControl>
 					<FormLabel>Email</FormLabel>
 					<Input
@@ -68,8 +82,7 @@ export const SignIn = ({setAuthAlternate}: SignInProps) => {
 							required: "Email obrigatório!",
 							pattern: {
 								value: validateEmail,
-								message:
-									"Email inválido. Por favor, insira um endereço de email válido",
+								message: "Por favor, insira um endereço de email válido",
 							},
 						})}
 					/>
@@ -92,15 +105,15 @@ export const SignIn = ({setAuthAlternate}: SignInProps) => {
 			</VStack>
 
 			<Button
-				w="100%"
-				bg="my.red_love"
+				variant="customLight"
+				color="whiteAlpha.800"
+				bg="my.redLove"
 				_hover={{
-					bg: "my.red_love",
+					bg: "my.redLove",
 					filter: "brightness(1.3)",
 					color: !isDesableButton && "my.mustard",
 					transition: "all .4s ease",
 				}}
-				rounded="0"
 				isDisabled={isDesableButton}
 				onClick={handleSubmit(handleOnSubmit)}>
 				Login

@@ -4,7 +4,10 @@ import {
 	UseFormSetValue,
 	UseFormSetError,
 	UseFormClearErrors,
+	UseFormReset,
 } from "react-hook-form";
+
+import { ImageListType } from "react-images-uploading";
 
 // Authentication
 
@@ -48,11 +51,39 @@ export type FormEditInputs = {
 	description: string;
 };
 
-export type customFormValidationProps = {
-	images: string[] | undefined;
-	brandIcon: string | undefined;
-	year: number | undefined;
+export type CustomFormValidationNewCar = {
+	images?: string[];
+	brandIcon?: string;
+	year?: number;
 	isSubmitted: boolean;
 	setError: UseFormSetError<FormNewCarInputs>;
 	clearErrors: UseFormClearErrors<FormNewCarInputs>;
+};
+
+// Profile
+
+export type FormProfileInputs = {
+	name: string;
+	avatar: string;
+	email: string;
+};
+
+export type UploadAvatarProps = {
+	setValue: UseFormSetValue<FormProfileInputs>;
+	setAvatar(avatar: ImageListType): void;
+	avatar: ImageListType;
+};
+
+export type OptionChangeProps = {
+	errors: Partial<FieldErrorsImpl<FormProfileInputs>>;
+	register: UseFormRegister<FormProfileInputs>;
+	profileOrigin: FormProfileInputs;
+	reset: UseFormReset<FormProfileInputs>;
+	setIsVisibleButton(value: boolean): void;
+};
+
+export type FormChangePassword = {
+	currentPassword: string;
+	newPassword: string;
+	confirmNewPassword: string;
 };

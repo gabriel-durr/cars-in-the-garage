@@ -11,6 +11,7 @@ async function getNewAccessToken() {
 		const {newToken: acessToken, newRefreshToken: refreshToken} = response.data;
 
 		saveTokenAndUserId({acessToken, refreshToken});
+
 		return acessToken;
 	} catch (error) {
 		console.error(error);

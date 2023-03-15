@@ -1,63 +1,72 @@
-import {useAuth} from "@hooks/use-auth";
-import {FormAuthInputs} from "@typings/form-types";
+import { useAuth } from "@hooks/use-auth";
+import { FormAuthInputs } from "@typings/form-types";
 
-import {useForm} from "react-hook-form";
-import {FaEyeSlash, FaEye} from "react-icons/fa";
+import { useForm } from "react-hook-form";
+import { FaEyeSlash, FaEye } from "react-icons/fa";
 
-import {useState} from "react";
+import { useState } from "react";
 import {
-	Input,
-	FormLabel,
-	FormControl,
-	Button,
 	Text,
+	Input,
+	Button,
 	VStack,
 	useToast,
+	FormLabel,
 	InputGroup,
+	FormControl,
 	InputRightElement,
-	IconButton,
 } from "@chakra-ui/react";
 
 type SignUpProps = {
 	setAuthAlternate: (value: boolean) => void;
 };
 
-export const SignUp = ({setAuthAlternate}: SignUpProps) => {
-	const [showPassword, setShowPassword] = useState(true);
+export const SignUp = ({ setAuthAlternate }: SignUpProps) => {
+	const [isShowPassword, setIsShowPassword] = useState(true);
 
 	const {
 		register,
 		handleSubmit,
-		formState: {errors, isDirty, isSubmitting},
+		formState: { errors, isDirty, isSubmitting },
 		watch,
 	} = useForm<FormAuthInputs>();
 
 	const toast = useToast();
-	const {authRegister} = useAuth();
+	const { authRegister } = useAuth();
 
 	const password = watch("password");
 	const errorExists = !!Object.keys(errors).length;
-	const isDesableButton = !isDirty || errorExists;
+	const isDesabled = !isDirty || errorExists;
 	const validateEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/;
-	const sevenSeconds = 7000;
+	const fiveSeconds = 5 * 1000;
 
-	async function handleOnSubmit({name, email, password}: FormAuthInputs) {
+	async function handleOnSubmit({ name, email, password }: FormAuthInputs) {
 		try {
-			const res = await authRegister({name, email, password});
+			const msg = await authRegister({ name, email, password });
 
 			toast({
-				title: `${res} 🎉🎉`,
-				description: "Agora basta fazer o login e personalizar sua garagem",
+				title: msg,
 				variant: "left-accent",
-				position: "top",
 				status: "success",
-				duration: sevenSeconds,
+				position: "top",
 				isClosable: true,
+				duration: fiveSeconds,
 			});
 
 			setAuthAlternate(true);
-		} catch (error) {
-			console.log(error);
+		} catch (error: any) {
+			const {
+				data: { msg },
+			} = error.response;
+
+			toast({
+				title: msg,
+				variant: "left-accent",
+				status: "error",
+				position: "top",
+				isClosable: true,
+				duration: fiveSeconds,
+			});
 		}
 	}
 
@@ -66,8 +75,8 @@ export const SignUp = ({setAuthAlternate}: SignUpProps) => {
 	}
 
 	return (
-		<VStack w="70%">
-			<VStack as="form" w="100%">
+		<VStack w="100%" align="center">
+			<VStack as="form">
 				<FormControl isRequired>
 					<FormLabel>Nome</FormLabel>
 					<Input
@@ -110,8 +119,8 @@ export const SignUp = ({setAuthAlternate}: SignUpProps) => {
 					<FormLabel>Senha</FormLabel>
 					<InputGroup>
 						<Input
-							type={showPassword ? "password" : "text"}
-							placeholder="Confirme sua senha"
+							type={isShowPassword ? "password" : "text"}
+							placeholder="Crie uma senha"
 							{...register("password", {
 								required: "Para sua segurança, é importante criar uma senha!",
 								minLength: {
@@ -124,14 +133,13 @@ export const SignUp = ({setAuthAlternate}: SignUpProps) => {
 								},
 							})}
 						/>
-						<InputRightElement>
-							<IconButton
-								aria-label={showPassword ? "Esconder senha" : "Mostrar senha"}
-								onClick={() => setShowPassword(!showPassword)}
-								icon={showPassword ? <FaEyeSlash /> : <FaEye />}
-								variant="ghost"
-							/>
-						</InputRightElement>
+						<InputRightElement
+							cursor="pointer"
+							children={isShowPassword ? <FaEyeSlash /> : <FaEye />}
+							onClick={() => setIsShowPassword(!isShowPassword)}
+							aria-label={isShowPassword ? "Esconder senha" : "Mostrar senha"}
+							h="100%"
+						/>
 					</InputGroup>
 					<Text color="my.error" pt="4">
 						{errors?.password && errors.password.message}
@@ -141,9 +149,10 @@ export const SignUp = ({setAuthAlternate}: SignUpProps) => {
 				<FormControl isRequired>
 					<FormLabel>Confirmar Senha</FormLabel>
 					<Input
-						type={showPassword ? "password" : "text"}
+						type={isShowPassword ? "password" : "text"}
+						placeholder="Cofirme a senha"
 						aria-label={
-							showPassword
+							isShowPassword
 								? "Esconder confirmação de senha"
 								: "Mostrar senha confirmação de senha"
 						}
@@ -160,16 +169,16 @@ export const SignUp = ({setAuthAlternate}: SignUpProps) => {
 			</VStack>
 
 			<Button
-				w="100%"
-				bg="my.red_love"
+				bg="my.redLove"
+				variant="customLight"
+				color="whiteAlpha.800"
 				_hover={{
 					bg: "my.red_love",
 					filter: "brightness(1.3)",
-					color: !isDesableButton && "my.mustard",
+					color: !isDesabled && "my.mustard",
 					transition: "all .4s",
 				}}
-				rounded="0"
-				isDisabled={isDesableButton}
+				isDisabled={isDesabled}
 				isLoading={isSubmitting}
 				onClick={handleSubmit(handleOnSubmit)}>
 				Cadastrar

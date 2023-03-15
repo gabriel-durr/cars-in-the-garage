@@ -42,27 +42,17 @@ export const SelectBrand = ({errors, setValue}: SelectBrandProps) => {
 				<Menu placement="top" autoSelect offset={[0, -30]}>
 					{({isOpen}) => (
 						<>
-							<MenuButton
-								isActive={isOpen}
-								as={Button}
-								w="15rem"
-								h="2.5rem"
-								color="gray.800"
-								fontWeight="medium"
-								fontSize="0.97rem"
-								borderBottom={isOpen ? "1px" : undefined}
-								bg={!isOpen ? "blackAlpha.50" : undefined}
-								variant="unstyle">
+							<MenuButton as={Button} variant="customLight" isActive={isOpen}>
 								{logo ? "Alterar Marca" : "Selecionar uma Marca"}
 							</MenuButton>
 
 							<MenuList
 								sx={{
 									"&::-webkit-scrollbar": {
-										width: "4px",
+										w: "4px",
 									},
 									"&::-webkit-scrollbar-track": {
-										width: "6px",
+										w: "6px",
 									},
 									"&::-webkit-scrollbar-thumb": {
 										background: "gray",

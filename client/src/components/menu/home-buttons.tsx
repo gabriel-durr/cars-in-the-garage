@@ -19,7 +19,7 @@ export const HomeButtons = ({navigate, handleSignOut}: homeButtonProps) => {
 	}
 
 	function handleRouteGarage() {
-		navigate("/garage");
+		navigate("/dashboard-garage");
 	}
 
 	if (isToken)

@@ -31,6 +31,8 @@ var config_exports = {};
 __export(config_exports, {
   DBA_URL: () => DBA_URL,
   PORT: () => PORT,
+  PRIVATE_CARS_ID: () => PRIVATE_CARS_ID,
+  PRIVATE_USER_ID: () => PRIVATE_USER_ID,
   SECRET: () => SECRET
 });
 module.exports = __toCommonJS(config_exports);
@@ -38,10 +40,14 @@ var import_dotenv = __toESM(require("dotenv"), 1);
 import_dotenv.default.config();
 var SECRET = process.env.SECRET;
 var DBA_URL = process.env.DATABASE_URL;
+var PRIVATE_USER_ID = process.env.PRIVATE_USER_ID;
+var PRIVATE_CARS_ID = JSON.parse(process.env.PRIVATE_CARS_ID);
 var PORT = process.env.NODE_ENV === "production" ? process.env.PORT : "3333";
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   DBA_URL,
   PORT,
+  PRIVATE_CARS_ID,
+  PRIVATE_USER_ID,
   SECRET
 });

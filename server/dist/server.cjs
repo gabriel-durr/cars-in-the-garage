@@ -16580,6 +16580,8 @@ var import_dotenv = __toESM(require("dotenv"), 1);
 import_dotenv.default.config();
 var SECRET = process.env.SECRET;
 var DBA_URL = process.env.DATABASE_URL;
+var PRIVATE_USER_ID = process.env.PRIVATE_USER_ID;
+var PRIVATE_CARS_ID = JSON.parse(process.env.PRIVATE_CARS_ID);
 var PORT = process.env.NODE_ENV === "production" ? process.env.PORT : "3333";
 
 // src/database/connect-dba.ts
@@ -16744,6 +16746,7 @@ var checkToken = async (req, res, next) => {
 };
 
 // src/controllers/user-controller.ts
+var import_bcrypt = __toESM(require("bcrypt"), 1);
 var getUser = async (req, res) => {
   const { userId } = req.params;
   try {
@@ -16756,24 +16759,96 @@ var getUser = async (req, res) => {
     res.status(500).json({ msg: "Erro no servidor!" });
   }
 };
+var updateUser = async (req, res) => {
+  const {
+    body: userData,
+    params: { userId }
+  } = req;
+  if (userId === PRIVATE_USER_ID) {
+    return res.status(403).json({
+      msg: `N\xE3o \xE9 poss\xEDvel atualizar as informa\xE7\xF5es de perfil do "Usu\xE1rio Teste". 
+				  Crie uma conta e ter\xE1 permiss\xE3o para atualizar todos dados da conta`
+    });
+  }
+  try {
+    const user = await User.findById(userId, "-cars -password");
+    if (!user)
+      return res.status(404).json({ msg: "Usu\xE1rio n\xE3o encontrado!" });
+    Object.keys(userData).forEach((key) => user[key] = userData[key]);
+    await user.save();
+    if ("name" in userData)
+      res.status(200).json({ msg: "Nome foi atualizado com sucesso." });
+    if ("email" in userData)
+      res.status(200).json({ msg: "Email foi atualizado com sucesso." });
+    if ("avatar" in userData)
+      res.status(200).json({ msg: "Avatar foi atualizado com sucesso." });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Erro ao atualizar usu\xE1rio" });
+  }
+};
+var updateUserPassword = async (req, res) => {
+  const {
+    body: { currentPassword, newPassword },
+    params: { userId }
+  } = req;
+  if (userId === PRIVATE_USER_ID) {
+    return res.status(403).json({
+      msg: `N\xE3o \xE9 poss\xEDvel altrar a senha do "Usu\xE1rio Teste". 
+			 	  Crie uma conta e ter\xE1 permiss\xE3o para  todos dados da conta`
+    });
+  }
+  try {
+    const user = await User.findById(userId, "-cars");
+    if (!user) {
+      return res.status(404).json({ msg: "Usu\xE1rio n\xE3o encontrado." });
+    }
+    const isMatch = await import_bcrypt.default.compare(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ msg: "Senha incorreta." });
+    }
+    const salt = await import_bcrypt.default.genSalt(12);
+    const hashedPassword = await import_bcrypt.default.hash(newPassword, salt);
+    user.password = hashedPassword;
+    await user.save();
+    res.status(200).json({
+      msg: "Senha atualizada com sucesso. Por favor, fa\xE7o login novamente."
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Erro ao atualizar a senha do usu\xE1rio." });
+  }
+};
 var createNewCar = async (req, res) => {
   const {
     body: newCar,
     params: { userId }
   } = req;
-  const user = await User.findById(userId, "-password -id");
-  const carExists = user.cars.some((car) => car.model === newCar.model);
-  if (carExists)
-    return res.status(400).json({ msg: "Esse modelo de carro j\xE1 existe" });
-  user.cars.push(newCar);
-  await user.save();
-  return res.status(201).json({ msg: `Carro ${newCar.model} criado com sucesso` });
+  try {
+    const user = await User.findById(userId, "-password");
+    const carExists = user.cars.some((car) => car.model === newCar.model);
+    if (carExists)
+      return res.status(400).json({ msg: "Esse modelo de carro j\xE1 existe" });
+    user.cars.push(newCar);
+    await user.save();
+    return res.status(201).json({ msg: `Carro ${newCar.model} criado com sucesso` });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Erro no servidor." });
+  }
 };
 var updateCar = async (req, res) => {
   const {
     body: carUpdate,
     params: { userId, carId }
   } = req;
+  const isPrivateCar = PRIVATE_CARS_ID.some((privateCar) => privateCar === carId);
+  if (isPrivateCar) {
+    return res.status(403).json({
+      msg: `N\xE3o \xE9 poss\xEDvel atualizar carros de amostragem (Mustang, Model X e Urus) do "Usu\xE1rio Teste". 
+				  Crie novos carros e conseguir\xE1 atualiz\xE1-los.`
+    });
+  }
   try {
     const user = await User.findById(userId, "-password");
     if (!user)
@@ -16793,19 +16868,27 @@ var updateCar = async (req, res) => {
 };
 var removeCar = async (req, res) => {
   const { userId, carId } = req.params;
+  const privateCar = PRIVATE_CARS_ID.some(
+    (privateCarId) => privateCarId === carId
+  );
+  if (privateCar)
+    return res.status(403).json({
+      msg: `N\xE3o \xE9 poss\xEDvel exluir carros de amostragem (Mustang, Model X e Urus) do "Usu\xE1rio Teste".
+				  Crie novos carros e conseguirar exclu\xED-los.`
+    });
   try {
     const user = await User.findById(userId, "-password");
     if (!user)
-      return res.status(404).send("Usu\xE1rio n\xE3o encontrado.");
+      return res.status(404).json({ msg: "Usu\xE1rio n\xE3o encontrado." });
     const car = user.cars.id(carId);
     if (!car)
-      return res.status(404).send("Carro n\xE3o encontrado.");
+      return res.status(404).json({ msg: "Carro n\xE3o encontrado." });
     car.remove();
     await user.save();
-    return res.json(user);
+    return res.status(200).json({ msg: `Carro ${car.model} exclu\xEDdo com sucesso!` });
   } catch (error) {
     console.error(error);
-    res.status(500).send("Erro no servidor.");
+    res.status(500).json({ msg: "Erro no servidor." });
   }
 };
 
@@ -16813,19 +16896,33 @@ var removeCar = async (req, res) => {
 var import_express2 = require("express");
 var userRoutes = (0, import_express2.Router)();
 userRoutes.get("/:userId", checkToken, getUser);
+userRoutes.patch("/:userId", checkToken, updateUser);
+userRoutes.patch("/:userId/password", checkToken, updateUserPassword);
 userRoutes.post("/:userId", checkToken, createNewCar);
 userRoutes.put("/:userId/:carId", checkToken, updateCar);
 userRoutes.delete("/:userId/:carId", checkToken, removeCar);
 
 // src/server.ts
 var import_body_parser = __toESM(require_body_parser(), 1);
+var import_express_rate_limit = require("express-rate-limit");
 var import_express3 = __toESM(require("express"), 1);
 var import_cors = __toESM(require("cors"), 1);
+var maxRequests = 7;
+var sevenTeenSecondsMs = 17 * 1e3;
+var sevenTeenSeconds = sevenTeenSecondsMs / 1e3;
+var limiter = (0, import_express_rate_limit.rateLimit)({
+  windowMs: sevenTeenSecondsMs,
+  max: maxRequests,
+  handler: (_, res) => res.status(429).json({
+    msg: `Muitas requisi\xE7\xF5es. S\xF3 \xE9 permitido ${maxRequests} requisi\xE7\xF5es em um per\xEDodo de  ${sevenTeenSeconds} segundos`
+  })
+});
 var app = (0, import_express3.default)();
 app.use(import_body_parser.default.json({ limit: "10mb" }));
 app.use(import_body_parser.default.urlencoded({ limit: "10mb", extended: true }));
 app.use((0, import_cors.default)());
 app.use(import_express3.default.json());
+app.use(limiter);
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 connectDb().then(

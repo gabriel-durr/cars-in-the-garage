@@ -7,11 +7,13 @@ import {RepeatIcon, DeleteIcon} from "@chakra-ui/icons";
 import {useState} from "react";
 import {
 	Menu,
+	Icon,
 	MenuButton,
 	MenuList,
 	MenuItem,
 	Button,
 	useDisclosure,
+	AbsoluteCenter,
 } from "@chakra-ui/react";
 
 type CardEditProps = {
@@ -22,36 +24,43 @@ type CardEditProps = {
 
 export const CarEdit = ({_id, description, price}: CardEditProps) => {
 	const [specificId, setSpecificId] = useState("");
+
 	const {
-		isOpen: isOpenDel,
-		onOpen: onOpenDel,
-		onClose: onCloseDel,
+		isOpen: isOpenDelete,
+		onOpen: onOpenDelete,
+		onClose: onCloseDelete,
 	} = useDisclosure();
 
 	const {
-		isOpen: isOpenUp,
-		onClose: onCloseUp,
-		onOpen: onOpenUp,
+		isOpen: isOpenUpdate,
+		onClose: onCloseUpdate,
+		onOpen: onOpenUpdate,
 	} = useDisclosure();
 
 	function openAlert() {
-		onOpenDel();
+		onOpenDelete();
 		setSpecificId(_id);
 	}
 
 	function handleOpenUpdate() {
-		onOpenUp();
+		onOpenUpdate();
 	}
 
 	return (
 		<Menu>
 			<MenuButton
 				as={Button}
+				pos="relative"
 				variant="ghost"
+				fontSize="1.28rem"
+				transition="background .8s"
+				maxW="1px"
 				colorScheme="gray"
-				aria-label="See menu"
-				rightIcon={<BsThreeDotsVertical />}
-			/>
+				aria-label="Menu de Opções">
+				<AbsoluteCenter>
+					<Icon as={BsThreeDotsVertical} />
+				</AbsoluteCenter>
+			</MenuButton>
 			<MenuList minW="min-content">
 				<MenuItem
 					onClick={handleOpenUpdate}
@@ -61,8 +70,8 @@ export const CarEdit = ({_id, description, price}: CardEditProps) => {
 						_id={_id}
 						description={description}
 						price={price}
-						isOpenUp={isOpenUp}
-						onCloseUp={onCloseUp}
+						isOpenUp={isOpenUpdate}
+						onCloseUp={onCloseUpdate}
 					/>
 				</MenuItem>
 
@@ -72,9 +81,9 @@ export const CarEdit = ({_id, description, price}: CardEditProps) => {
 					Excluir
 					<CarDelete
 						specificId={specificId}
-						isOpenDel={isOpenDel}
-						onCloseDel={onCloseDel}
-						onOpenDel={onOpenDel}
+						isOpenDel={isOpenDelete}
+						onCloseDel={onCloseDelete}
+						onOpenDel={onOpenDelete}
 					/>
 				</MenuItem>
 			</MenuList>

@@ -2,9 +2,9 @@ import Home from "../App";
 import {Auth} from "@pages/auth";
 import {Layout} from "@pages/layout";
 import {Profile} from "@pages/profile";
-import {Dashboard} from "@pages/dashboard";
 import {ErrorPage} from "@pages/error-page";
 import {PrivateRoute} from "./private-route";
+import {DashboardGarage} from "@pages/dashboard-garage";
 
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 
@@ -16,8 +16,10 @@ const Pages = () => {
 					<Route index element={<Home />} />
 					<Route path="/auth" element={<Auth />} />
 					<Route
-						path="/garage"
-						element={<PrivateRoute component={Dashboard} redirectTo="/auth" />}
+						path="/dashboard-garage"
+						element={
+							<PrivateRoute component={DashboardGarage} redirectTo="/auth" />
+						}
 					/>
 					<Route
 						path="/profile"

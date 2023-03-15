@@ -1,30 +1,22 @@
-import {FormCarYarProps} from "@typings/form-types";
+import { FormCarYarProps } from "@typings/form-types";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import {useState, forwardRef, HTMLProps, Ref, useEffect} from "react";
-import {Button, FormControl, FormLabel, Text, Box} from "@chakra-ui/react";
+import { useState, forwardRef, HTMLProps, Ref, useEffect } from "react";
+import { Button, FormControl, FormLabel, Text, Box } from "@chakra-ui/react";
 
 type carYearProps = FormCarYarProps;
 
-export const CarYear = ({setValue, errors}: carYearProps) => {
+export const CarYear = ({ setValue, errors }: carYearProps) => {
 	const [date, setDate] = useState<Date | null>(null);
 
 	const CustomButton = forwardRef(
 		(
-			{value, onClick}: HTMLProps<HTMLButtonElement>,
+			{ value, onClick }: HTMLProps<HTMLButtonElement>,
 			ref: Ref<HTMLButtonElement>
 		) => (
-			<Button
-				color="gray.800"
-				fontWeight="medium"
-				w="13.75rem"
-				h="2.5rem"
-				fontSize="0.97rem"
-				rounded="2"
-				onClick={onClick}
-				ref={ref}>
+			<Button variant="customLight" onClick={onClick} ref={ref}>
 				{value ? value : "Selecionar Ano"}
 			</Button>
 		)

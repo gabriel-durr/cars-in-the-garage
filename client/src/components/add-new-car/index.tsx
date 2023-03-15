@@ -1,10 +1,10 @@
-import {ModalNewCar} from "./modal-new-car";
+import { ModalNewCar } from "./modal-new-car";
 
-import {motion} from "framer-motion";
-import {VStack, Image, useDisclosure} from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import { VStack, Image, useDisclosure } from "@chakra-ui/react";
 
 export const AddNewCar = () => {
-	const {isOpen, onOpen, onClose, isControlled} = useDisclosure();
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	function handleOpenModal() {
 		onOpen();
@@ -19,17 +19,18 @@ export const AddNewCar = () => {
 			borderStyle="solid"
 			borderColor="gray.300"
 			boxShadow="1px -1px 2px #7676dd9e, -12px 10px 10px #71729b76"
-			rounded="lg"
+			rounded="2"
 			justify="center">
 			<ModalNewCar isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
 
 			<Image
 				as={motion.img}
 				cursor="pointer"
+				w="36"
 				whileHover={{
-					scale: 1.1,
+					scale: 1.01,
 				}}
-				w="48"
+				transition="all .2s"
 				src="/add.svg"
 				alt="add new car"
 				onClick={handleOpenModal}

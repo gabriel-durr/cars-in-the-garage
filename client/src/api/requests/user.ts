@@ -1,26 +1,35 @@
-import {api} from "../axios";
-import {User} from "@typings/user-car-types";
-import {getTokensOrUserId} from "@storage/storageAuthToken";
-
-const userId = getTokensOrUserId("userId");
+import { api } from "../axios";
+import { User } from "@typings/user-car-types";
+import { getTokensOrUserId } from "@storage/storageAuthToken";
 
 type CarTypes = Omit<User["cars"][0], "_id">;
 type PartilCarTypes = Partial<Omit<User["cars"][0], "_id">>;
 
+type UserUpdateInfoTypes = Partial<Pick<User, "avatar" | "email" | "name">>;
+
+type UserUpdatePasswordTypes = {
+	currentPassword: string;
+	newPassword: string;
+};
+
 type CreateNewCarUserTypes = {
 	carData: CarTypes;
 };
+
 type UpdateUserCarTypes = {
 	carId: string;
 	carData: PartilCarTypes;
 };
+
 type DeleteUserCarTypes = {
 	carId: string;
 };
 
-async function getUserAndCars(): Promise<User> {
+async function getUserAndCars() {
 	try {
-		const {data} = await api.get<User>(`/user/${userId}`);
+		const { data } = await api.get<User>(
+			`/user/${getTokensOrUserId("userId")}`
+		);
 
 		return data;
 	} catch (error) {
@@ -28,34 +37,84 @@ async function getUserAndCars(): Promise<User> {
 	}
 }
 
-const createNewCarUser = async ({carData}: CreateNewCarUserTypes) => {
+async function updateUserInfo(userData: UserUpdateInfoTypes): Promise<string> {
 	try {
-		const {data} = await api.post(`/user/${userId}`, carData);
+		const {
+			data: { msg },
+		} = await api.patch(`/user/${getTokensOrUserId("userId")}`, userData);
 
-		return data.msg;
+		return msg;
+	} catch (error) {
+		throw error;
+	}
+}
+
+async function updateUserPassword({
+	currentPassword,
+	newPassword,
+}: UserUpdatePasswordTypes): Promise<string> {
+	try {
+		const {
+			data: { msg },
+		} = await api.patch(`/user/${getTokensOrUserId("userId")}/password`, {
+			currentPassword,
+			newPassword,
+		});
+
+		return msg;
+	} catch (error) {
+		throw error;
+	}
+}
+
+const createNewCarUser = async ({
+	carData,
+}: CreateNewCarUserTypes): Promise<string> => {
+	try {
+		const {
+			data: { msg },
+		} = await api.post(`/user/${getTokensOrUserId("userId")}`, carData);
+
+		return msg;
 	} catch (error) {
 		throw error;
 	}
 };
 
-const updateUserCar = async ({carId, carData}: UpdateUserCarTypes) => {
+const updateUserCar = async ({
+	carId,
+	carData,
+}: UpdateUserCarTypes): Promise<string> => {
 	try {
-		const {data} = await api.put(`/user/${userId}/${carId}`, carData);
+		const {
+			data: { msg },
+		} = await api.put(`/user/${getTokensOrUserId("userId")}/${carId}`, carData);
 
-		return data.msg;
+		return msg;
 	} catch (error) {
 		throw error;
 	}
 };
 
-const deleteUserCar = async ({carId}: DeleteUserCarTypes) => {
+const deleteUserCar = async ({
+	carId,
+}: DeleteUserCarTypes): Promise<string> => {
 	try {
-		const {data} = await api.delete(`/user/${userId}/${carId}`);
+		const {
+			data: { msg },
+		} = await api.delete(`/user/${getTokensOrUserId("userId")}/${carId}`);
 
-		return data.msg;
+		return msg;
 	} catch (error) {
 		throw error;
 	}
 };
 
-export {getUserAndCars, createNewCarUser, updateUserCar, deleteUserCar};
+export {
+	updateUserCar,
+	deleteUserCar,
+	updateUserInfo,
+	getUserAndCars,
+	createNewCarUser,
+	updateUserPassword,
+};

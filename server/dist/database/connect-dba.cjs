@@ -38,6 +38,8 @@ var import_dotenv = __toESM(require("dotenv"), 1);
 import_dotenv.default.config();
 var SECRET = process.env.SECRET;
 var DBA_URL = process.env.DATABASE_URL;
+var PRIVATE_USER_ID = process.env.PRIVATE_USER_ID;
+var PRIVATE_CARS_ID = JSON.parse(process.env.PRIVATE_CARS_ID);
 var PORT = process.env.NODE_ENV === "production" ? process.env.PORT : "3333";
 
 // src/database/connect-dba.ts

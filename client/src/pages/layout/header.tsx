@@ -15,8 +15,8 @@ export const Header = () => {
 	const {isOpen, onClose, onOpen} = useDisclosure();
 
 	const isRouteHome = pathname === "/";
-	const isRouteGarage = pathname === "/garage";
 	const isRouteProfile = pathname === "/profile";
+	const isRouteGarage = pathname === "/dashboard-garage";
 
 	function handleSignOut() {
 		onOpen();

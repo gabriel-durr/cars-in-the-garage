@@ -16,15 +16,15 @@ export const PrivateRoute = ({
 	redirectTo,
 	component: Component,
 }: PrivateRouteProps) => {
-	const tokenFn = () => Boolean(getTokensOrUserId("acessToken"));
+	const isTokenFn = () => Boolean(getTokensOrUserId("acessToken"));
 
-	const [isAuthenticated, setIsAuthenticated] = useState(tokenFn());
+	const [isAuthenticated, setIsAuthenticated] = useState(isTokenFn());
 
 	useEffect(() => {
 		const handleStorageChange = () => {
-			const token = tokenFn();
-			setIsAuthenticated(token);
-			if (!token) removeTokenAndUserId();
+			setIsAuthenticated(isTokenFn());
+
+			if (!isTokenFn()) removeTokenAndUserId();
 		};
 
 		window.addEventListener("storage", handleStorageChange);

@@ -1,16 +1,16 @@
-import {customFormValidationProps} from "@typings/form-types";
+import {CustomFormValidationNewCar} from "@typings/form-types";
 
-export const customFormValidations = ({
+const validationsNewCar = ({
 	images,
 	brandIcon,
 	isSubmitted,
 	year,
 	setError,
 	clearErrors,
-}: customFormValidationProps) => {
+}: CustomFormValidationNewCar) => {
+	const isYearExist = year !== undefined;
 	const isImagesExist = Array.isArray(images) && images.length > 0;
 	const isBrandIconExist = brandIcon !== undefined && brandIcon.length > 0;
-	const isYearExist = year !== undefined;
 
 	if (isSubmitted && !isImagesExist) {
 		setError("images", {
@@ -39,3 +39,43 @@ export const customFormValidations = ({
 		clearErrors("year");
 	}
 };
+// const validationsProfile = ({
+// 	profileOrigin,
+// 	data,
+// 	setError,
+// 	clearErrors,
+// 	dirtyFields,
+// }: CustomFormValidationProfile) => {
+// 	function clearError(key: any) {
+// 		setTimeout(() => clearErrors(key), 4000);
+// 	}
+// 	const notEqualOrEmpty = Object.entries(data).reduce((acc, [key, value]) => {
+// 		if (dirtyFields[key] && !value) {
+// 			setError(key, {
+// 				type: "required",
+// 				message: `O campo ${key} não pode estar vazio.`,
+// 			});
+
+// 			clearError(key);
+// 		}
+
+// 		if (dirtyFields[key] && value === profileOrigin[key]) {
+// 			setError(key, {
+// 				type: "pattern",
+// 				message: `O campo ${key} não pode ser igual ao original`,
+// 			});
+
+// 			clearError(key);
+// 		}
+
+// 		if (value && value !== profileOrigin[key]) {
+// 			acc[key] = value;
+// 		}
+
+// 		return acc;
+// 	}, {} as any);
+
+// 	return notEqualOrEmpty;
+// };
+
+export {validationsNewCar};

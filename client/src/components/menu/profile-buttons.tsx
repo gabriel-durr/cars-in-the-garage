@@ -13,7 +13,7 @@ export const ProfileButtons = ({
 	navigate,
 }: ProfileButtonsProps) => {
 	function handleRouteGarage() {
-		navigate("/garage");
+		navigate("/dashboard-garage");
 	}
 
 	return (
