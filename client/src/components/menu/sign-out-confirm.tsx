@@ -1,4 +1,4 @@
-import {useRef} from "react";
+import { useRef } from "react";
 import {
 	Button,
 	AlertDialog,
@@ -31,20 +31,20 @@ export const SignOutConfirm = ({
 			isCentered>
 			<AlertDialogOverlay />
 
-			<AlertDialogContent>
+			<AlertDialogContent w="90%" alignItems="start" justifyContent="start">
 				<AlertDialogHeader
-					pl="8"
 					fontFamily="Roboto Slab"
 					color="my.mustard"
-					fontSize="2xl"
+					fontSize={["md", "2xl"]}
 					fontWeight="medium">
 					Tem certeza que deseja sair?
 				</AlertDialogHeader>
 				<AlertDialogCloseButton />
-				<AlertDialogFooter alignItems="center" justifyContent="center">
+				<AlertDialogFooter w="100%">
 					<Button
-						flex="1"
+						w="50%"
 						rounded="2"
+						fontSize={["sm", "md"]}
 						textTransform="uppercase"
 						colorScheme="green"
 						transition="all .4s"
@@ -54,11 +54,12 @@ export const SignOutConfirm = ({
 						cancelar
 					</Button>
 					<Button
-						flex="1"
+						w="50%"
+						rounded="2"
+						fontSize={["sm", "md"]}
 						textTransform="uppercase"
 						color="#e3e3e3"
 						fontWeight="black"
-						rounded="2"
 						onClick={() => confirmDelete(true)}
 						variant="unstyled"
 						bg="red.400"

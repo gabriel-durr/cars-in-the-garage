@@ -1,17 +1,17 @@
-import {carBrands} from "@utils/car-brands";
-import {FormSelectBrandNewCarProps} from "@typings/form-types";
+import { carBrands } from "@utils/car-brands";
+import { FormSelectBrandNewCarProps } from "@typings/form-types";
 
-import {useState} from "react";
+import { useState } from "react";
 import {
-	Image,
-	HStack,
 	Menu,
-	Button,
-	MenuButton,
-	MenuList,
-	MenuItem,
 	Text,
+	Image,
+	Stack,
 	VStack,
+	Button,
+	MenuItem,
+	MenuList,
+	MenuButton,
 } from "@chakra-ui/react";
 
 type Brand = {
@@ -21,7 +21,7 @@ type Brand = {
 
 type SelectBrandProps = FormSelectBrandNewCarProps;
 
-export const SelectBrand = ({errors, setValue}: SelectBrandProps) => {
+export const SelectBrand = ({ errors, setValue }: SelectBrandProps) => {
 	const [brand, setBrand] = useState({} as Brand);
 	const [logo, setLogo] = useState("");
 
@@ -37,10 +37,13 @@ export const SelectBrand = ({errors, setValue}: SelectBrandProps) => {
 	}
 
 	return (
-		<VStack pos="relative" left="32">
-			<HStack spacing="8">
+		<VStack pos={{ lg: "relative" }} left={{ lg: 32 }}>
+			<Stack
+				direction={{ base: "column", lg: "row" }}
+				align="center"
+				spacing="8">
 				<Menu placement="top" autoSelect offset={[0, -30]}>
-					{({isOpen}) => (
+					{({ isOpen }) => (
 						<>
 							<MenuButton as={Button} variant="customLight" isActive={isOpen}>
 								{logo ? "Alterar Marca" : "Selecionar uma Marca"}
@@ -51,11 +54,9 @@ export const SelectBrand = ({errors, setValue}: SelectBrandProps) => {
 									"&::-webkit-scrollbar": {
 										w: "4px",
 									},
-									"&::-webkit-scrollbar-track": {
-										w: "6px",
-									},
+
 									"&::-webkit-scrollbar-thumb": {
-										background: "gray",
+										bg: "gray",
 										borderRadius: "full",
 									},
 									h: "270px",
@@ -77,7 +78,7 @@ export const SelectBrand = ({errors, setValue}: SelectBrandProps) => {
 					)}
 				</Menu>
 				<Image src={logo} alt={brand.name} boxSize="4.7rem" />
-			</HStack>
+			</Stack>
 
 			<Text
 				pos="absolute"

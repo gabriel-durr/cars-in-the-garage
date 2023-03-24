@@ -80,9 +80,13 @@ export const InputPassword = () => {
 	}
 
 	return (
-		<Flex as="form" direction="column" w="400px" gap="8">
-			<FormControl display="flex" justifyContent="end">
+		<Flex as="form" direction="column" gap={{ base: 4, md: 8 }}>
+			<FormControl
+				display="flex"
+				flexDir={{ base: "column", md: "row" }}
+				justifyContent="end">
 				<FormLabel
+					whiteSpace="nowrap"
 					textTransform="uppercase"
 					color="my.white"
 					fontSize=".9rem"
@@ -116,8 +120,12 @@ export const InputPassword = () => {
 				</VStack>
 			</FormControl>
 
-			<FormControl display="flex" justifyContent="end">
+			<FormControl
+				display="flex"
+				flexDir={{ base: "column", md: "row" }}
+				justifyContent="end">
 				<FormLabel
+					whiteSpace="nowrap"
 					textTransform="uppercase"
 					color="my.white"
 					fontSize=".9rem"
@@ -125,7 +133,7 @@ export const InputPassword = () => {
 					Nova Senha:
 				</FormLabel>
 
-				<VStack align="start" pos="relative">
+				<VStack align="start" pos="relative" w="max-content" bg="red">
 					<InputGroup>
 						<Input
 							type={isShowPassword ? "password" : "text"}
@@ -164,12 +172,15 @@ export const InputPassword = () => {
 				</VStack>
 			</FormControl>
 
-			<FormControl display="flex" justifyContent="end">
+			<FormControl
+				display="flex"
+				flexDir={{ base: "column", md: "row" }}
+				justifyContent="end">
 				<FormLabel
+					whiteSpace="nowrap"
 					textTransform="uppercase"
 					color="my.white"
 					fontSize=".9rem"
-					whiteSpace="nowrap"
 					fontWeight="bold">
 					Confirmar Senha:
 				</FormLabel>
@@ -202,8 +213,8 @@ export const InputPassword = () => {
 				type="submit"
 				isDisabled={isDisabled}
 				pos="absolute"
-				bottom="2"
-				right="28%"
+				bottom={[5, 8, 14]}
+				right={["12.6%", "18.5%", "19.4%", "19.1%", "19.2%"]}
 				variant="customLight"
 				onClick={handleSubmit(handleOnSubmit)}>
 				Alterar Informações

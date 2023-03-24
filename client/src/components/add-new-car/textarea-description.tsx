@@ -1,17 +1,17 @@
-import {FormTextAreaProps} from "@typings/form-types";
+import { FormTextAreaProps } from "@typings/form-types";
 
-import {FormControl, FormLabel, Textarea, Text} from "@chakra-ui/react";
+import { FormControl, FormLabel, Textarea, Text } from "@chakra-ui/react";
 
 type TextAreaProps = FormTextAreaProps;
 
-export const TextareaDescription = ({register, errors}: TextAreaProps) => {
+export const TextareaDescription = ({ register, errors }: TextAreaProps) => {
 	return (
 		<FormControl isRequired>
 			<>
 				<FormLabel
 					textTransform="uppercase"
 					color="my.title_form"
-					fontSize="0.96rem">
+					fontSize={{ base: ".92rem", md: ".96rem" }}>
 					descrição
 				</FormLabel>
 				<Textarea

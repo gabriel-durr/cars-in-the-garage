@@ -1,11 +1,10 @@
 import { OptionChangeProps } from "@typings/form-types";
-import { EditableInput } from "@components/editable-input";
 
 import { useEffect } from "react";
 import {
 	Text,
 	Input,
-	HStack,
+	Stack,
 	VStack,
 	FormLabel,
 	FormControl,
@@ -28,28 +27,36 @@ export const InputEmail = ({
 	}, []);
 
 	return (
-		<VStack spacing="4">
-			<HStack w="100%" spacing="4" fontSize=".9rem">
-				<Text textTransform="uppercase" color="my.white" fontWeight="bold">
+		<VStack spacing="5" align="start">
+			<Stack
+				flexDir={{ base: "column", md: "row" }}
+				justify="end"
+				align="end"
+				fontSize=".9rem">
+				<Text
+					whiteSpace="nowrap"
+					textTransform="uppercase"
+					color="my.white"
+					fontWeight="bold"
+					mr="4">
 					Email atual:
 				</Text>
 				<Text
 					color="my.goldenLight"
-					fontSize=".94rem"
 					textShadow="0px 0px 8px black"
 					fontWeight="medium">
 					{profileOrigin?.email}
 				</Text>
-			</HStack>
+			</Stack>
 			<FormControl
 				display="flex"
-				w="100%"
-				justifyContent="space-between"
-				alignItems="end">
+				flexDir={{ base: "column", md: "row" }}
+				justifyContent="end">
 				<FormLabel
 					textTransform="uppercase"
+					whiteSpace="nowrap"
 					color="my.white"
-					fontSize=".9rem"
+					fontSize={{ base: ".79rem", md: ".9rem" }}
 					fontWeight="bold">
 					Novo email:
 				</FormLabel>

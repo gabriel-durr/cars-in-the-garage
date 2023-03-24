@@ -1,7 +1,7 @@
-import {SiBitcoincash} from "react-icons/si";
-import {BsSpeedometer, BsCalendar3} from "react-icons/bs";
+import { SiBitcoincash } from "react-icons/si";
+import { BsSpeedometer, BsCalendar3 } from "react-icons/bs";
 
-import {HStack, VStack, Icon, Text} from "@chakra-ui/react";
+import { HStack, VStack, Icon, Text } from "@chakra-ui/react";
 
 type InfoProps = {
 	speed: string;
@@ -9,17 +9,17 @@ type InfoProps = {
 	price: string;
 };
 
-export const CarInfo = ({speed, year, price}: InfoProps) => {
+export const CarInfo = ({ speed, year, price }: InfoProps) => {
 	const infos = [
-		{logo: BsSpeedometer, content: speed, color: "my.100"},
-		{logo: BsCalendar3, content: year, color: "my.200"},
-		{logo: SiBitcoincash, content: price, color: "my.300"},
+		{ logo: BsSpeedometer, content: speed, color: "my.purple" },
+		{ logo: BsCalendar3, content: year, color: "my.redLove" },
+		{ logo: SiBitcoincash, content: price, color: "my.greenLight" },
 	];
 
 	return (
 		<HStack
 			pos="relative"
-			bottom="-28%"
+			bottom="-32%"
 			transform="perspective(100px) rotateX(8deg)"
 			fontSize="sm"
 			shadow="sm"
@@ -29,11 +29,17 @@ export const CarInfo = ({speed, year, price}: InfoProps) => {
 			{infos.map(info => (
 				<VStack key={info.content} textAlign="center">
 					<Icon
-						fontSize={info.content === price ? 24 : "xl"}
+						fontSize={
+							info.content === price
+								? { base: 20, md: 24 }
+								: { base: "lg", md: "xl" }
+						}
 						as={info.logo}
 						color={info.color}
 					/>
-					<Text as="strong">{info.content}</Text>
+					<Text as="strong" fontSize={{ base: ".78rem", md: ".9rem" }}>
+						{info.content}
+					</Text>
 				</VStack>
 			))}
 		</HStack>

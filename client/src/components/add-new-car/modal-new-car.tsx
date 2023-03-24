@@ -11,9 +11,9 @@ import { validationsNewCar } from "@utils/custom-form-validations";
 import { useEffect } from "react";
 import {
 	Modal,
+	Stack,
 	VStack,
 	Button,
-	HStack,
 	useToast,
 	ModalBody,
 	ModalHeader,
@@ -81,7 +81,11 @@ export const ModalNewCar = ({ isOpen, onOpen, onClose }: ModalNewCarProps) => {
 	}, [images, brandIcon, year, isSubmitting]);
 
 	return (
-		<Modal isOpen={isOpen} onClose={onClose} size="5xl">
+		<Modal
+			isOpen={isOpen}
+			onClose={onClose}
+			preserveScrollBarGap={false}
+			size={["xs", "sm", "2xl", "4xl", "5xl"]}>
 			<ModalOverlay />
 			<ModalContent>
 				<ModalHeader
@@ -95,33 +99,56 @@ export const ModalNewCar = ({ isOpen, onOpen, onClose }: ModalNewCarProps) => {
 					textShadow="0px 0px 8px black"
 					fontFamily="Oswald"
 					letterSpacing="wide"
-					fontSize="2xl"
+					fontSize={["md", "md", "lg", "xl", "2xl"]}
 					textTransform="uppercase"
 					fontWeight="bold"
 					textAlign="center">
 					Criar um novo carro
 				</ModalHeader>
 				<ModalCloseButton
+					size={{ base: "sm", md: "md" }}
 					bg="orange.400"
 					_hover={{
 						bg: "orange.600",
 						transition: "background .5s",
 					}}
 				/>
+
 				<ModalBody>
-					<VStack as="form" p="2.4rem" spacing="12" align="center">
+					<VStack
+						as="form"
+						p={{ base: undefined, md: "2.4rem" }}
+						h={{
+							base: "440px",
+							sm: "520px",
+							md: "540px",
+							lg: "500px",
+							xl: "614px",
+						}}
+						overflowY={{ base: "scroll", xl: "revert" }}
+						spacing="12"
+						align="center"
+						sx={{
+							"&::-webkit-scrollbar": {
+								w: "0px",
+							},
+						}}>
 						<UploadImages setValue={setValue} errors={errors} />
 
 						<TextareaDescription register={register} errors={errors} />
 
 						<InputInfos register={register} errors={errors} />
 
-						<HStack w="100%" h="80px" justify="center" align="center">
+						<Stack
+							justify="center"
+							align="center"
+							direction={{ base: "column", lg: "row" }}>
 							<CarYear errors={errors} setValue={setValue} />
 							<SelectBrand errors={errors} setValue={setValue} />
-						</HStack>
+						</Stack>
 					</VStack>
 				</ModalBody>
+
 				<ModalFooter
 					justifyContent="center"
 					w="100%"

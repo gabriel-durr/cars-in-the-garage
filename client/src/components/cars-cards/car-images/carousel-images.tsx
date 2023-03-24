@@ -1,5 +1,5 @@
-import {Image} from "@chakra-ui/react";
-import {AnimatePresence, motion} from "framer-motion";
+import { Image } from "@chakra-ui/react";
+import { AnimatePresence, motion } from "framer-motion";
 
 type ImagesProps = {
 	images: string[];
@@ -18,8 +18,8 @@ export const CarouselImages = ({
 				x: direction > 0 ? -200 : 200,
 				opacity: 0,
 				transition: {
-					x: {type: "spring", bounce: 0.25},
-					opacity: {duration: 0.1},
+					x: { type: "spring", bounce: 0.25 },
+					opacity: { duration: 0.1 },
 				},
 				clipPath: "none",
 				filter: "grayscale(0)",
@@ -29,8 +29,8 @@ export const CarouselImages = ({
 			x: 0,
 			opacity: 1,
 			transition: {
-				x: {type: "spring", bounce: 0.25},
-				opacity: {duration: 0.1},
+				x: { type: "spring", bounce: 0.25 },
+				opacity: { duration: 0.1 },
 			},
 		},
 		exit: {
@@ -43,7 +43,7 @@ export const CarouselImages = ({
 	return (
 		<AnimatePresence initial={false} custom={direction}>
 			<Image
-				w="100%"
+				boxSize="100%"
 				variants={variants}
 				initial="initial"
 				animate="animate"

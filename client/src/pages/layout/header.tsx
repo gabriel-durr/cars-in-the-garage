@@ -1,18 +1,18 @@
-import {useAuth} from "@hooks/use-auth";
-import {HomeButtons} from "@components/menu/home-buttons";
-import {GarageButtons} from "@components/menu/garage-buttons";
-import {ProfileButtons} from "@components/menu/profile-buttons";
-import {SignOutConfirm} from "@components/menu/sign-out-confirm";
+import { useAuth } from "@hooks/use-auth";
+import { HomeButtons } from "@components/menu/home-buttons";
+import { GarageButtons } from "@components/menu/garage-buttons";
+import { ProfileButtons } from "@components/menu/profile-buttons";
+import { SignOutConfirm } from "@components/menu/sign-out-confirm";
 
-import {useLocation, Link, useNavigate} from "react-router-dom";
+import { useLocation, Link as RouterLink, useNavigate } from "react-router-dom";
 
-import {Flex, HStack, Heading, Image, useDisclosure} from "@chakra-ui/react";
+import { Flex, Heading, Link, Image, useDisclosure } from "@chakra-ui/react";
 
 export const Header = () => {
-	const {authSignOut} = useAuth();
+	const { authSignOut } = useAuth();
 	const navigate = useNavigate();
-	const {pathname} = useLocation();
-	const {isOpen, onClose, onOpen} = useDisclosure();
+	const { pathname } = useLocation();
+	const { isOpen, onClose, onOpen } = useDisclosure();
 
 	const isRouteHome = pathname === "/";
 	const isRouteProfile = pathname === "/profile";
@@ -35,38 +35,39 @@ export const Header = () => {
 		<Flex
 			zIndex="17"
 			w="full"
-			minH="28"
+			minH={["74px", "92px", "112px", "84px", "112px"]}
 			px="4%"
 			align="center"
 			justify="space-around"
-			gap="8"
+			gap={8}
 			bg="whiteAlpha.400"
 			shadow="sm">
-			<HStack>
-				<Link
-					to="/"
-					style={{
-						color: "#000000de",
-						display: "flex",
-						alignItems: "flex-end",
-						gap: "14px",
-						textDecoration: "none",
-					}}>
-					<Image src="/logo.png" w="12" h="12" />
+			<Link
+				as={RouterLink}
+				to="/"
+				color="#000000de"
+				display="flex"
+				alignItems="end"
+				gap={{ base: "6px", md: "14px" }}
+				textDecoration="none">
+				<Image src="/logo.png" boxSize={{ base: 8, md: 12 }} />
 
-					<Heading
-						fontFamily="Oswald"
-						textTransform="uppercase"
-						textShadow="0px 2px 2px #ca991238">
-						Cars in The Garage
-					</Heading>
-				</Link>
-			</HStack>
+				<Heading
+					size={{ base: "md", md: "xl" }}
+					fontFamily="Oswald"
+					whiteSpace="nowrap"
+					textTransform="uppercase"
+					textShadow="0px 2px 2px #ca991238">
+					Cars in The Garage
+				</Heading>
+			</Link>
+
 			<SignOutConfirm
 				confirmDelete={handleConfirmSignOut}
 				isOpen={isOpen}
 				onClose={onClose}
 			/>
+
 			{isRouteHome && (
 				<HomeButtons navigate={navigate} handleSignOut={handleSignOut} />
 			)}

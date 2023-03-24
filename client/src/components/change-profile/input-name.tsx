@@ -5,7 +5,7 @@ import {
 	Text,
 	Input,
 	VStack,
-	HStack,
+	Stack,
 	FormLabel,
 	FormControl,
 } from "@chakra-ui/react";
@@ -25,30 +25,31 @@ export const InputName = ({
 	}, []);
 
 	return (
-		<VStack spacing="4">
-			<HStack w="100%" spacing="4" fontSize=".9rem">
+		<VStack spacing="5" align="start">
+			<Stack flexDir={{ base: "column", md: "row" }} justify="end" align="end">
 				<Text
 					textTransform="uppercase"
 					color="my.titleFormLight"
-					fontWeight="bold">
+					fontSize=".9rem"
+					fontWeight="bold"
+					mr="4">
 					Nome atual:
 				</Text>
 				<Text
 					color="my.goldenLight"
-					fontSize=".94rem"
 					textShadow="0px 0px 8px black"
 					fontWeight="medium">
 					{profileOrigin?.name}
 				</Text>
-			</HStack>
+			</Stack>
 
 			<FormControl
 				display="flex"
-				w="100%"
-				justifyContent="space-between"
-				alignItems="end">
+				flexDir={{ base: "column", md: "row" }}
+				justifyContent="end">
 				<FormLabel
 					textTransform="uppercase"
+					whiteSpace="nowrap"
 					color="my.titleFormLight"
 					fontSize=".9rem"
 					fontWeight="bold">

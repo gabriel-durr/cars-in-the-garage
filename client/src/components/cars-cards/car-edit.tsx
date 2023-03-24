@@ -1,10 +1,10 @@
-import {CarDelete} from "./car-delete";
-import {ModalUpdate} from "./modal-update";
+import { CarDelete } from "./car-delete";
+import { ModalUpdate } from "./modal-update";
 
-import {BsThreeDotsVertical} from "react-icons/bs";
-import {RepeatIcon, DeleteIcon} from "@chakra-ui/icons";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { RepeatIcon, DeleteIcon } from "@chakra-ui/icons";
 
-import {useState} from "react";
+import { useState } from "react";
 import {
 	Menu,
 	Icon,
@@ -22,7 +22,7 @@ type CardEditProps = {
 	price: string;
 };
 
-export const CarEdit = ({_id, description, price}: CardEditProps) => {
+export const CarEdit = ({ _id, description, price }: CardEditProps) => {
 	const [specificId, setSpecificId] = useState("");
 
 	const {
@@ -52,7 +52,7 @@ export const CarEdit = ({_id, description, price}: CardEditProps) => {
 				as={Button}
 				pos="relative"
 				variant="ghost"
-				fontSize="1.28rem"
+				fontSize={{ base: "1.18rem", md: "1.28rem" }}
 				transition="background .8s"
 				maxW="1px"
 				colorScheme="gray"
@@ -61,9 +61,10 @@ export const CarEdit = ({_id, description, price}: CardEditProps) => {
 					<Icon as={BsThreeDotsVertical} />
 				</AbsoluteCenter>
 			</MenuButton>
-			<MenuList minW="min-content">
+			<MenuList minW="min-content" fontFamily="Oswald">
 				<MenuItem
 					onClick={handleOpenUpdate}
+					fontSize={{ base: "xs", md: "sm" }}
 					icon={<RepeatIcon fontSize="sm" color="yellow.500" />}>
 					Atualizar
 					<ModalUpdate
@@ -77,6 +78,7 @@ export const CarEdit = ({_id, description, price}: CardEditProps) => {
 
 				<MenuItem
 					onClick={openAlert}
+					fontSize={{ base: "xs", md: "sm" }}
 					icon={<DeleteIcon fontSize="xs" color="red.500" />}>
 					Excluir
 					<CarDelete

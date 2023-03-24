@@ -1,6 +1,6 @@
-import {BiChevronLeft, BiChevronRight} from "react-icons/bi";
+import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 
-import {IconButton, HStack, Text} from "@chakra-ui/react";
+import { IconButton, HStack, Text } from "@chakra-ui/react";
 
 type CarouselControls = {
 	setCurrentImage: (index: number) => void;
@@ -44,21 +44,33 @@ export const CarouselControls = ({
 			<IconButton
 				variant="ghost"
 				transition="all .9s"
-				fontSize="44"
+				boxSize={{ base: "34px", md: "44px" }}
+				fontSize={{ base: 34, md: 44 }}
 				color="cyan.400"
 				icon={<BiChevronLeft />}
 				aria-label="Prev Button"
 				onClick={handlePrevious}
 			/>
 			{images.map((_, index) => (
-				<Text as="span" key={index} color="blue.100">
-					{index === currentImage ? "●" : "○"}
-				</Text>
+				<Text
+					as="span"
+					borderRadius="full"
+					boxSize={
+						index === currentImage
+							? { base: "12px", md: "14px" }
+							: { base: "6px", md: "8px" }
+					}
+					key={index}
+					bg={index === currentImage ? "blue.100" : "whiteAlpha.100"}
+					border="1px solid #00a6ff8f"
+					color="blue.100"
+				/>
 			))}
 			<IconButton
 				variant="ghost"
 				transition="all .9s"
-				fontSize="44"
+				boxSize={{ base: "34px", md: "44px" }}
+				fontSize={{ base: 34, md: 44 }}
 				color="cyan.400"
 				icon={<BiChevronRight />}
 				aria-label="Next Button"

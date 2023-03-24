@@ -1,8 +1,8 @@
-import {CarEdit} from "./car-edit";
-import {carBrands} from "@utils/car-brands";
-import {User} from "@typings/user-car-types";
+import { CarEdit } from "./car-edit";
+import { carBrands } from "@utils/car-brands";
+import { User } from "@typings/user-car-types";
 
-import {Heading, HStack, VStack, Image} from "@chakra-ui/react";
+import { Flex, HStack, Heading, Image } from "@chakra-ui/react";
 
 type CardHeaderProps = Omit<
 	User["cars"][0],
@@ -16,18 +16,23 @@ export const CarHeaderContent = ({
 	description,
 	price,
 }: CardHeaderProps) => {
-	const [{logo, name}] = carBrands.filter(car => car.name === brandIcon);
+	const [{ logo, name }] = carBrands.filter(car => car.name === brandIcon);
 
 	return (
-		<VStack gap="4" align="center">
-			<HStack justify="space-between" w="100%">
-				<HStack w="78%" justify="space-between">
-					<Heading size="sm">{model}</Heading>
-					<Image w="28px" src={logo} alt={name} />
-				</HStack>
+		<Flex justify="space-between" w="100%">
+			<Heading size="sm" whiteSpace="nowrap">
+				{model}
+			</Heading>
+
+			<HStack spacing={{ base: 8, md: 14 }}>
+				<Image
+					boxSize={{ base: "1.8rem", md: "2.4rem" }}
+					src={logo}
+					alt={name}
+				/>
 
 				<CarEdit _id={_id} description={description} price={price} />
 			</HStack>
-		</VStack>
+		</Flex>
 	);
 };

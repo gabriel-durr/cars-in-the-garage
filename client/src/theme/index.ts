@@ -36,7 +36,7 @@ const styles = {
 		a: {
 			color: "my.purple",
 			_hover: {
-				textDecoration: "underline",
+				textDecoration: "none !important",
 			},
 		},
 	},
@@ -52,9 +52,17 @@ const fonts = {
 	},
 };
 
+const breakpoints = {
+	sm: "24.563em", // 393px
+	md: "48em", //768px
+	lg: "60em", //960px
+	xl: "93.75em", //1500px
+};
+
 export const theme = extendTheme({
 	fonts,
 	colors,
 	styles,
 	components,
+	breakpoints,
 });

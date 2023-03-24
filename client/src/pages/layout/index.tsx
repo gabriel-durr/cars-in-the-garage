@@ -7,9 +7,11 @@ import { Flex } from "@chakra-ui/react";
 
 export const Layout = () => {
 	return (
-		<Flex w="100vw" h="100vh" direction="column">
+		<Flex w="100vw" h="100vh" direction="column" justify="space-between">
 			<Header />
+
 			<Outlet />
+
 			<Footer />
 		</Flex>
 	);

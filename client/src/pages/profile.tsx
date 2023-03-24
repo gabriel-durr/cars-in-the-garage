@@ -8,10 +8,10 @@ import { useForm } from "react-hook-form";
 
 import { useState } from "react";
 import {
-	Flex,
 	Box,
+	Flex,
+	Stack,
 	Avatar,
-	HStack,
 	Button,
 	useToast,
 	AbsoluteCenter,
@@ -85,20 +85,21 @@ export const Profile = () => {
 			<AbsoluteCenter
 				display="flex"
 				flexDir="column"
-				justifyContent="space-evenly"
+				justifyContent={{ base: "space-between", lg: "space-evenly" }}
 				alignItems="center"
-				w="container.lg"
+				h={["560px", "590px", "600px", "500px"]}
+				w={["xs", "sm", "container.sm", "container.lg"]}
 				bg="my.dark"
-				h="500px"
-				rounded="md">
-				<HStack
+				rounded="sm">
+				<Stack
 					pos="relative"
-					w="90%"
-					h="68%"
-					spacing="12"
-					align="start"
-					justify="space-around"
-					p="8">
+					p={{ base: 2, md: 8 }}
+					direction={{ base: "column", lg: "row" }}
+					w={{ base: "100%", lg: "90%" }}
+					h={{ base: "90%", lg: "75%" }}
+					spacing={{ base: 8, lg: 12 }}
+					align={{ base: "center", lg: "start" }}
+					justify="space-around">
 					<Avatar
 						pos="relative"
 						overflow="hidden"
@@ -106,7 +107,7 @@ export const Profile = () => {
 						src={originAvatarOrUp}
 						borderWidth="4px"
 						borderColor="#999999"
-						size="2xl">
+						size={{ base: "xl", md: "2xl" }}>
 						<UploadAvatar
 							avatar={avatar}
 							setAvatar={setAvatar}
@@ -127,18 +128,18 @@ export const Profile = () => {
 							type="submit"
 							variant="customLight"
 							pos="absolute"
-							bottom="2"
-							right="28%"
+							bottom={[5, 8, 14]}
+							right={["12.6%", "18.5%", "22.4%", "21.1%", "21.3%"]}
 							isDisabled={isDisabled}
 							value="Alterar informações"
 							onClick={handleSubmit(handleOnSubmit)}>
 							Alterar Informações
 						</Button>
 					)}
-				</HStack>
+				</Stack>
 
 				<Box
-					h="30%"
+					h={{ base: "10%", lg: "25%" }}
 					w="100%"
 					bgSize="cover"
 					bgRepeat="no-repeat"

@@ -1,8 +1,8 @@
-import carAnimation from "@animations/lottie-car-animation.json";
+import carAnimation from "@animations/car-animation.json";
 
 import Lottie from "lottie-react";
 
-import {Spinner, VStack} from "@chakra-ui/react";
+import { Spinner, VStack } from "@chakra-ui/react";
 
 export const LoadingAnimation = () => {
 	return (

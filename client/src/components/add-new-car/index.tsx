@@ -12,8 +12,9 @@ export const AddNewCar = () => {
 
 	return (
 		<VStack
-			w="26.25rem"
-			h="41.70rem"
+			w={{ base: "98%", md: "90%", lg: "20.8rem", xl: "26.25rem" }}
+			h={{ base: "4rem", lg: "34rem", xl: "39rem" }}
+			mt="2"
 			bg="whiteAlpha.700"
 			borderWidth="1px"
 			borderStyle="solid"
@@ -26,7 +27,7 @@ export const AddNewCar = () => {
 			<Image
 				as={motion.img}
 				cursor="pointer"
-				w="36"
+				w={{ base: 12, lg: 36 }}
 				whileHover={{
 					scale: 1.01,
 				}}

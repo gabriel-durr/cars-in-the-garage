@@ -4,8 +4,8 @@ import { FormPriceProps } from "@typings/form-types";
 import {
 	Text,
 	Input,
+	Stack,
 	Select,
-	HStack,
 	FormLabel,
 	FormControl,
 } from "@chakra-ui/react";
@@ -14,14 +14,16 @@ type InputsInfosProps = FormPriceProps;
 
 export const InputInfos = ({ register, errors }: InputsInfosProps) => {
 	return (
-		<HStack
+		<Stack
+			direction={{ base: "column", lg: "row" }}
 			justify="space-between"
-			w="100%"
+			align="center"
 			textTransform="uppercase"
-			color="my.title_form"
-			fontSize="0.96rem">
+			color="my.title_form">
 			<FormControl isRequired pos="relative">
-				<FormLabel>Modelo</FormLabel>
+				<FormLabel fontSize={{ base: ".92rem", md: ".98rem" }}>
+					Modelo
+				</FormLabel>
 				<Input
 					variant="customLight"
 					{...register("model", {
@@ -34,7 +36,7 @@ export const InputInfos = ({ register, errors }: InputsInfosProps) => {
 			</FormControl>
 
 			<FormControl isRequired pos="relative">
-				<FormLabel>Preço</FormLabel>
+				<FormLabel fontSize={{ base: ".92rem", md: ".98rem" }}>Preço</FormLabel>
 
 				<Input
 					variant="customLight"
@@ -57,7 +59,9 @@ export const InputInfos = ({ register, errors }: InputsInfosProps) => {
 			</FormControl>
 
 			<FormControl isRequired pos="relative">
-				<FormLabel>Velocidade</FormLabel>
+				<FormLabel fontSize={{ base: ".91rem", md: ".94rem" }}>
+					Velocidade
+				</FormLabel>
 				<Select
 					rounded="2"
 					w="254px"
@@ -69,10 +73,10 @@ export const InputInfos = ({ register, errors }: InputsInfosProps) => {
 					fontFamily="Roboto Slab"
 					sx={{
 						"&::-webkit-scrollbar": {
-							width: "4px",
+							w: "4px",
 						},
 						"&::-webkit-scrollbar-thumb": {
-							background: "gray",
+							bg: "gray",
 							borderRadius: "full",
 						},
 					}}
@@ -93,6 +97,6 @@ export const InputInfos = ({ register, errors }: InputsInfosProps) => {
 					{errors.speed && errors.speed.message}
 				</Text>
 			</FormControl>
-		</HStack>
+		</Stack>
 	);
 };

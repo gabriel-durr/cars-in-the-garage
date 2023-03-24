@@ -7,13 +7,13 @@ import { TfiAngleRight, TfiAngleLeft } from "react-icons/tfi";
 
 import { useState } from "react";
 import {
-	Stack,
 	Icon,
 	Text,
+	Flex,
+	Stack,
 	VStack,
 	Center,
 	HStack,
-	Flex,
 	useDisclosure,
 } from "@chakra-ui/react";
 
@@ -56,9 +56,9 @@ export const OptionsChange = ({
 	}
 
 	return (
-		<Stack boxSize="100%" px="4">
+		<Stack boxSize="100%" px={{ base: 0, lg: 4 }}>
 			{isOpen ? (
-				<Flex direction="column" boxSize="92%">
+				<Flex direction="column" boxSize="100%">
 					<HStack color="#fff" w="100%" h="40px" bg="#000" px="2">
 						<Center
 							gap="2"
@@ -70,9 +70,10 @@ export const OptionsChange = ({
 						</Center>
 					</HStack>
 					<VStack
-						justify="center"
+						flex="1"
+						justify="start"
 						align="center"
-						boxSize="100%"
+						pt="7"
 						bg="my.ashenGray">
 						{keyComponent === "name" && (
 							<InputName

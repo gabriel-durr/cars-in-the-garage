@@ -1,22 +1,22 @@
-import {FormUploadImageProps} from "@typings/form-types";
+import { FormUploadImageProps } from "@typings/form-types";
 
-import {FcProcess, FcCancel} from "react-icons/fc";
-import ImageUploading, {ImageListType} from "react-images-uploading";
+import { FcProcess, FcCancel } from "react-icons/fc";
+import ImageUploading, { ImageListType } from "react-images-uploading";
 
-import {useState} from "react";
+import { useState } from "react";
 import {
+	Flex,
+	Text,
 	Image,
 	HStack,
-	Button,
-	Flex,
-	IconButton,
 	VStack,
-	Text,
+	Button,
+	IconButton,
 } from "@chakra-ui/react";
 
 type UploadImagesProps = FormUploadImageProps;
 
-export const UploadImages = ({setValue, errors}: UploadImagesProps) => {
+export const UploadImages = ({ setValue, errors }: UploadImagesProps) => {
 	const [images, setImages] = useState<ImageListType>([]);
 	const maxNumber = 4;
 
@@ -49,22 +49,25 @@ export const UploadImages = ({setValue, errors}: UploadImagesProps) => {
 					onImageRemoveAll,
 					errors: errorsImageUpload,
 				}) => (
-					<Flex gap="12" pos="relative">
+					<Flex
+						gap="12"
+						pos="relative"
+						direction={{ base: "column", lg: "row" }}>
 						<VStack justify="center">
 							{imageList.length < 4 ? (
 								<Button
-									h="6.25rem"
-									w="17.5rem"
+									h={{ base: "4.4rem", md: "6.25rem" }}
+									w={{ base: "14.4rem", md: "17.5rem" }}
 									border="1px dotted #0c0703"
 									bg="blackAlpha.200"
 									variant="unstyled"
 									borderBottom="1px solid #b7a710"
 									onClick={() => onImageUpload()}
 									{...dragProps}>
-									<HStack boxSize="100%" align="center">
+									<HStack boxSize="100%" align="center" px="2">
 										<Image src="/upload-image.svg" h="100%" />
 										<Text
-											fontSize="1.01rem"
+											fontSize={{ base: ".82rem", md: ".9rem", xl: "1.01rem" }}
 											textTransform="uppercase"
 											color={isDragging ? "my.red_love" : "my.title_form"}>
 											Clique ou Arraste
@@ -88,39 +91,48 @@ export const UploadImages = ({setValue, errors}: UploadImagesProps) => {
 							)}
 						</VStack>
 
-						{imageList.map((image, index) => (
-							<VStack
-								pos="relative"
-								bg="#000"
-								border="1px solid #c7a914"
-								justify="space-evenly"
-								h="6.25rem"
-								w="8rem"
-								key={index}>
-								<Image
-									objectFit="contain"
-									src={image.dataURL}
-									alt=""
-									boxSize="100%"
-								/>
-								<HStack pos="absolute" bottom="2">
-									<IconButton
-										aria-label=""
-										size="xs"
-										icon={<FcProcess />}
-										onClick={() => onImageUpdate(index)}>
-										Atualizar
-									</IconButton>
-									<IconButton
-										aria-label=""
-										size="xs"
-										icon={<FcCancel />}
-										onClick={() => onImageRemove(index)}>
-										Remover
-									</IconButton>
-								</HStack>
-							</VStack>
-						))}
+						<HStack
+							maxW={["16.2rem", "19.2rem", "30.2rem", "100%"]}
+							overflowX="scroll"
+							sx={{
+								"&::-webkit-scrollbar": {
+									w: "0px",
+								},
+							}}>
+							{imageList.map((image, index) => (
+								<VStack
+									pos="relative"
+									bg="#000"
+									border="1px solid #c7a914"
+									justify="space-evenly"
+									h="6.25rem"
+									minW="8rem"
+									key={index}>
+									<Image
+										objectFit="contain"
+										src={image.dataURL}
+										alt="Imagem enviada"
+										boxSize="100%"
+									/>
+									<HStack pos="absolute" bottom="2">
+										<IconButton
+											aria-label="button atualizar imagem"
+											size="xs"
+											icon={<FcProcess />}
+											onClick={() => onImageUpdate(index)}>
+											Atualizar
+										</IconButton>
+										<IconButton
+											aria-label="button remover imagem"
+											size="xs"
+											icon={<FcCancel />}
+											onClick={() => onImageRemove(index)}>
+											Remover
+										</IconButton>
+									</HStack>
+								</VStack>
+							))}
+						</HStack>
 
 						<HStack
 							pos="absolute"

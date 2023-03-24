@@ -31,9 +31,14 @@ export const CarYear = ({ setValue, errors }: carYearProps) => {
 	}, [date]);
 
 	return (
-		<Box w="200px" pb="28px">
+		<Box pb="28px">
 			<FormControl isRequired pos="relative">
-				<FormLabel>Ano</FormLabel>
+				<FormLabel
+					textTransform="uppercase"
+					color="my.title_form"
+					fontSize={{ base: ".92rem", md: ".98rem" }}>
+					Ano
+				</FormLabel>
 				<DatePicker
 					selected={date}
 					onChange={date => setDate(date)}

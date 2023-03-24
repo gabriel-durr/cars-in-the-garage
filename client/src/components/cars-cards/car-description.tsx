@@ -1,15 +1,24 @@
-import {motion} from "framer-motion";
-import {useState, WheelEvent} from "react";
-import {Button, VStack, Text} from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import { useState, WheelEvent } from "react";
+import { Button, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
 
 type DescriptionProps = {
 	description: string;
 };
 
-export const CarDescription = ({description}: DescriptionProps) => {
+export const CarDescription = ({ description }: DescriptionProps) => {
 	const [isExpanded, setIsExpanded] = useState(false);
-	const shortText = description.slice(0, 158);
+
+	const sizeTextInBreakpoints = useBreakpointValue({
+		base: 172,
+		sm: 204,
+		md: 418,
+		lg: 184,
+		xl: 362,
+	});
+
 	const fullText = description;
+	const shortText = description.slice(0, sizeTextInBreakpoints);
 
 	const handleReadMore = () => {
 		setIsExpanded(!isExpanded);
@@ -20,36 +29,37 @@ export const CarDescription = ({description}: DescriptionProps) => {
 	};
 
 	return (
-		<VStack
+		<Flex
 			as={motion.div}
 			onWheel={isExpanded ? handleDescriptionScroll : undefined}
-			h="142px"
 			w="100%"
-			py="2"
-			spacing="2"
-			overflowY={isExpanded ? "scroll" : "unset"}
+			overflowY={isExpanded ? "scroll" : undefined}
 			sx={{
 				"::-webkit-scrollbar": {
 					maxW: "0.2rem",
 					maxH: "0.1rem",
 				},
 				"::-webkit-scrollbar-thumb": {
-					backgroundColor: "gray",
+					bg: "gray",
 				},
 			}}>
-			<Text w="98%" h="200px" fontSize="0.83rem" lineHeight="2" p="1">
+			<Text
+				bg="whiteAlpha.100"
+				h={{ base: "100px", md: "142px", lg: "102px", xl: "132px" }}
+				fontSize={{ base: ".78rem", md: ".83rem" }}
+				lineHeight="revert-layer">
 				{isExpanded ? fullText : shortText}{" "}
 				<Button
 					ml="2"
 					variant="unstyled"
 					textTransform="uppercase"
 					color="blue.400"
-					fontSize="xs"
-					size="sm"
+					fontSize={{ base: "2xs", md: "xs" }}
+					size={{ base: "xs", md: "sm" }}
 					onClick={handleReadMore}>
 					{isExpanded ? "ver menos" : "Ver Mais ..."}
 				</Button>
 			</Text>
-		</VStack>
+		</Flex>
 	);
 };
