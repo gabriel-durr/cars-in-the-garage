@@ -29,11 +29,11 @@ const authRegister = async (req: Request, res: Response) => {
 			return res.status(500).json({
 				msg: "Erro no servidor, tente novamente mais tarde.",
 			});
-
-			return res
-				.status(201)
-				.json({ msg: `${name}, sua conta foi criada com sucesso!` });
 		});
+
+		return res
+			.status(201)
+			.json({ msg: `${name}, sua conta foi criada com sucesso!` });
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({ msg: "Erro no servidor!" });

@@ -25,8 +25,11 @@ export const InputName = ({
 	}, []);
 
 	return (
-		<VStack spacing="5" align="start">
-			<Stack flexDir={{ base: "column", md: "row" }} justify="end" align="end">
+		<VStack spacing={{ base: 8, md: 5 }} align="start">
+			<Stack
+				flexDir={{ base: "column", md: "row" }}
+				justify="end"
+				align={{ base: "start", md: "end" }}>
 				<Text
 					textTransform="uppercase"
 					color="my.titleFormLight"
@@ -36,6 +39,7 @@ export const InputName = ({
 					Nome atual:
 				</Text>
 				<Text
+					borderBottom="1px solid #ffffff1a"
 					color="my.goldenLight"
 					textShadow="0px 0px 8px black"
 					fontWeight="medium">
@@ -46,7 +50,8 @@ export const InputName = ({
 			<FormControl
 				display="flex"
 				flexDir={{ base: "column", md: "row" }}
-				justifyContent="end">
+				justifyContent="end"
+				alignItems="start">
 				<FormLabel
 					textTransform="uppercase"
 					whiteSpace="nowrap"
@@ -72,6 +77,7 @@ export const InputName = ({
 					})}
 				/>
 			</FormControl>
+
 			<Text color="my.error" h="18px">
 				{errors.name && errors.name.message}
 			</Text>

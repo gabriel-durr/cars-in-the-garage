@@ -45,6 +45,7 @@ export const CarDescription = ({ description }: DescriptionProps) => {
 			}}>
 			<Text
 				bg="whiteAlpha.100"
+				w="100%"
 				h={{ base: "100px", md: "142px", lg: "102px", xl: "132px" }}
 				fontSize={{ base: ".78rem", md: ".83rem" }}
 				lineHeight="revert-layer">

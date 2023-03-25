@@ -1,8 +1,8 @@
-import {useAuth} from "@hooks/use-auth";
-import {FormAuthInputs} from "@typings/form-types";
+import { useAuth } from "@hooks/use-auth";
+import { FormAuthInputs } from "@typings/form-types";
 
-import {useForm} from "react-hook-form";
-import {useNavigate} from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 import {
 	Text,
@@ -13,7 +13,7 @@ import {
 	FormLabel,
 	FormControl,
 } from "@chakra-ui/react";
-import {getTokensOrUserId} from "@storage/storageAuthToken";
+import { getTokensOrUserId } from "@storage/storageAuthToken";
 
 type SignInProps = {
 	setAuthAlternate: (value: boolean) => void;
@@ -21,14 +21,14 @@ type SignInProps = {
 
 type FormAuthLoginInputs = Pick<FormAuthInputs, "email" | "password">;
 
-export const SignIn = ({setAuthAlternate}: SignInProps) => {
+export const SignIn = ({ setAuthAlternate }: SignInProps) => {
 	const {
 		register,
 		handleSubmit,
-		formState: {errors, isDirty},
+		formState: { errors, isDirty },
 	} = useForm<FormAuthLoginInputs>();
 
-	const {authLogin} = useAuth();
+	const { authLogin, isLoading } = useAuth();
 	const navigate = useNavigate();
 	const toast = useToast();
 
@@ -37,9 +37,9 @@ export const SignIn = ({setAuthAlternate}: SignInProps) => {
 	const isDesableButton = !isDirty || errorExists;
 	const validateEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/;
 
-	async function handleOnSubmit({email, password}: FormAuthLoginInputs) {
+	async function handleOnSubmit({ email, password }: FormAuthLoginInputs) {
 		try {
-			const msg = await authLogin({email, password});
+			const msg = await authLogin({ email, password });
 
 			toast({
 				title: msg,
@@ -53,7 +53,7 @@ export const SignIn = ({setAuthAlternate}: SignInProps) => {
 			navigate("/dashboard-garage");
 		} catch (error: any) {
 			const {
-				data: {msg},
+				data: { msg },
 			} = error.response;
 
 			toast({
@@ -75,7 +75,9 @@ export const SignIn = ({setAuthAlternate}: SignInProps) => {
 		<VStack w="100%" align="center">
 			<VStack as="form">
 				<FormControl>
-					<FormLabel>Email</FormLabel>
+					<FormLabel fontSize={{ base: ".92rem", md: ".98rem" }}>
+						Email
+					</FormLabel>
 					<Input
 						type="email"
 						{...register("email", {
@@ -91,7 +93,9 @@ export const SignIn = ({setAuthAlternate}: SignInProps) => {
 					</Text>
 				</FormControl>
 				<FormControl>
-					<FormLabel>Senha</FormLabel>
+					<FormLabel fontSize={{ base: ".92rem", md: ".98rem" }}>
+						Senha
+					</FormLabel>
 					<Input
 						type="password"
 						{...register("password", {
@@ -105,6 +109,7 @@ export const SignIn = ({setAuthAlternate}: SignInProps) => {
 			</VStack>
 
 			<Button
+				isLoading={isLoading}
 				variant="customLight"
 				color="whiteAlpha.800"
 				bg="my.redLove"

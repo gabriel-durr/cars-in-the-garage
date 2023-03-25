@@ -27,11 +27,11 @@ export const InputEmail = ({
 	}, []);
 
 	return (
-		<VStack spacing="5" align="start">
+		<VStack spacing={{ base: 8, md: 5 }} align="start">
 			<Stack
 				flexDir={{ base: "column", md: "row" }}
 				justify="end"
-				align="end"
+				align={{ base: "start", md: "end" }}
 				fontSize=".9rem">
 				<Text
 					whiteSpace="nowrap"
@@ -44,14 +44,17 @@ export const InputEmail = ({
 				<Text
 					color="my.goldenLight"
 					textShadow="0px 0px 8px black"
-					fontWeight="medium">
+					fontWeight="medium"
+					borderBottom="1px solid #ffffff1a">
 					{profileOrigin?.email}
 				</Text>
 			</Stack>
+
 			<FormControl
 				display="flex"
 				flexDir={{ base: "column", md: "row" }}
-				justifyContent="end">
+				justifyContent="end"
+				alignItems="start">
 				<FormLabel
 					textTransform="uppercase"
 					whiteSpace="nowrap"

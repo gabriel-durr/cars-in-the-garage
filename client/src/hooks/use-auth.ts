@@ -1,10 +1,13 @@
-import {api} from "../api/axios";
+import { api } from "../api/axios";
 import {
 	saveTokenAndUserId,
 	removeTokenAndUserId,
 } from "@storage/storageAuthToken";
 
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
+
+import { useState } from "react";
 
 type AuthProps = {
 	name: string;
@@ -24,29 +27,38 @@ type AuthLoginData = {
 type AuthRegisterData = Pick<AuthLoginData, "msg">;
 
 export const useAuth = () => {
-	const navigate = useNavigate();
+	const [isLoading, setIsloading] = useState(false);
 
-	async function authLogin({email, password}: AuthLoginProps) {
+	const navigate = useNavigate();
+	const queryClient = useQueryClient();
+
+	async function authLogin({ email, password }: AuthLoginProps) {
 		try {
+			setIsloading(true);
+
 			const {
-				data: {acessToken, refreshToken, userId, msg},
+				data: { acessToken, refreshToken, userId, msg },
 			} = await api.post<AuthLoginData>(`/auth/login`, {
 				email,
 				password,
 			});
 
-			saveTokenAndUserId({acessToken, refreshToken, userId});
+			saveTokenAndUserId({ acessToken, refreshToken, userId });
 
 			return msg;
 		} catch (error: any) {
 			throw error;
+		} finally {
+			setIsloading(false);
 		}
 	}
 
-	async function authRegister({name, email, password}: AuthProps) {
+	async function authRegister({ name, email, password }: AuthProps) {
 		try {
+			setIsloading(true);
+
 			const {
-				data: {msg},
+				data: { msg },
 			} = await api.post<AuthRegisterData>("/auth/register", {
 				name,
 				email,
@@ -56,14 +68,17 @@ export const useAuth = () => {
 			return msg;
 		} catch (error: any) {
 			throw error;
+		} finally {
+			setIsloading(false);
 		}
 	}
 
 	async function authSignOut() {
 		removeTokenAndUserId();
+		queryClient.removeQueries(["user"]);
 
 		navigate("/");
 	}
 
-	return {authLogin, authRegister, authSignOut};
+	return { authLogin, authRegister, authSignOut, isLoading };
 };

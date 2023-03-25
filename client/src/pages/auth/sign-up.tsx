@@ -27,12 +27,12 @@ export const SignUp = ({ setAuthAlternate }: SignUpProps) => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors, isDirty, isSubmitting },
+		formState: { errors, isDirty },
 		watch,
 	} = useForm<FormAuthInputs>();
 
 	const toast = useToast();
-	const { authRegister } = useAuth();
+	const { authRegister, isLoading } = useAuth();
 
 	const password = watch("password");
 	const errorExists = !!Object.keys(errors).length;
@@ -78,7 +78,9 @@ export const SignUp = ({ setAuthAlternate }: SignUpProps) => {
 		<VStack w="100%" align="center">
 			<VStack as="form">
 				<FormControl isRequired>
-					<FormLabel>Nome</FormLabel>
+					<FormLabel fontSize={{ base: ".92rem", md: ".98rem" }}>
+						Nome
+					</FormLabel>
 					<Input
 						type="text"
 						{...register("name", {
@@ -99,7 +101,9 @@ export const SignUp = ({ setAuthAlternate }: SignUpProps) => {
 				</FormControl>
 
 				<FormControl isRequired>
-					<FormLabel>Email</FormLabel>
+					<FormLabel fontSize={{ base: ".92rem", md: ".98rem" }}>
+						Email
+					</FormLabel>
 					<Input
 						type="email"
 						{...register("email", {
@@ -116,7 +120,9 @@ export const SignUp = ({ setAuthAlternate }: SignUpProps) => {
 				</FormControl>
 
 				<FormControl isRequired>
-					<FormLabel>Senha</FormLabel>
+					<FormLabel fontSize={{ base: ".92rem", md: ".98rem" }}>
+						Senha
+					</FormLabel>
 					<InputGroup>
 						<Input
 							type={isShowPassword ? "password" : "text"}
@@ -147,7 +153,9 @@ export const SignUp = ({ setAuthAlternate }: SignUpProps) => {
 				</FormControl>
 
 				<FormControl isRequired>
-					<FormLabel>Confirmar Senha</FormLabel>
+					<FormLabel fontSize={{ base: ".92rem", md: ".98rem" }}>
+						Confirmar Senha
+					</FormLabel>
 					<Input
 						type={isShowPassword ? "password" : "text"}
 						placeholder="Cofirme a senha"
@@ -169,6 +177,7 @@ export const SignUp = ({ setAuthAlternate }: SignUpProps) => {
 			</VStack>
 
 			<Button
+				isLoading={isLoading}
 				bg="my.redLove"
 				variant="customLight"
 				color="whiteAlpha.800"
@@ -179,7 +188,6 @@ export const SignUp = ({ setAuthAlternate }: SignUpProps) => {
 					transition: "all .4s",
 				}}
 				isDisabled={isDesabled}
-				isLoading={isSubmitting}
 				onClick={handleSubmit(handleOnSubmit)}>
 				Cadastrar
 			</Button>

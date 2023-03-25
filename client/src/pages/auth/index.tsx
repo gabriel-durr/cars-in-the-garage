@@ -1,11 +1,18 @@
-import {SignIn} from "./sign-in";
-import {SignUp} from "./sign-up";
-import {getTokensOrUserId} from "@storage/storageAuthToken";
+import { SignIn } from "./sign-in";
+import { SignUp } from "./sign-up";
+import { getTokensOrUserId } from "@storage/storageAuthToken";
 
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import {useState, useEffect} from "react";
-import {Image, Text, Heading, VStack, HStack, Tooltip} from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+import {
+	Image,
+	Text,
+	Heading,
+	VStack,
+	HStack,
+	Tooltip,
+} from "@chakra-ui/react";
 
 export const Auth = () => {
 	const [authAlternate, setAuthAlternate] = useState(true);
@@ -21,11 +28,14 @@ export const Auth = () => {
 			m="1% auto"
 			spacing="12"
 			align="center"
-			w="container.sm"
+			w={{ base: "90%", md: "container.sm" }}
 			bg="whiteAlpha.300"
 			shadow="sm"
 			p="6">
-			<Heading as="h2" size="md" textTransform="uppercase">
+			<Heading
+				as="h1"
+				size={{ base: "sm", md: "md" }}
+				textTransform="uppercase">
 				{authAlternate ? "Login" : "Cadastro"}
 			</Heading>
 			{authAlternate ? (

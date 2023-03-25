@@ -57,7 +57,7 @@ export const UploadImages = ({ setValue, errors }: UploadImagesProps) => {
 							{imageList.length < 4 ? (
 								<Button
 									h={{ base: "4.4rem", md: "6.25rem" }}
-									w={{ base: "14.4rem", md: "17.5rem" }}
+									w={{ base: "14.4rem", md: "18.5rem" }}
 									border="1px dotted #0c0703"
 									bg="blackAlpha.200"
 									variant="unstyled"

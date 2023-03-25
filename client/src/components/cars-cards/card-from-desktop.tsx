@@ -92,7 +92,7 @@ export const CardFromDesktop = ({ user }: CardFromDesktopProps) => {
 					key={car._id}
 					as={motion.div}
 					ref={itemRef}
-					minW={{ lg: "48%", xl: "40%" }}
+					w={{ lg: "48%", xl: "40%" }}
 					h="100%"
 					variants={carVariants}
 					animate={index === currentIndex ? "visible" : "hidden"}

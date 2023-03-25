@@ -47,6 +47,7 @@ export const Header = () => {
 				to="/"
 				color="#000000de"
 				display="flex"
+				userSelect="none"
 				alignItems="end"
 				gap={{ base: "6px", md: "14px" }}
 				textDecoration="none">

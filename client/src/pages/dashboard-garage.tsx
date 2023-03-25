@@ -1,3 +1,4 @@
+import { CarEmpty } from "@components/car-empty";
 import { CarsCards } from "@components/cars-cards";
 import { useUserData } from "@hooks/use-user-data";
 import { AddNewCar } from "@components/add-new-car";
@@ -5,18 +6,33 @@ import { ScrollAnimation } from "@components/scroll-animation";
 import { LoadingAnimation } from "@components/loading-animation";
 import { DragMobileAnimation } from "@components/drag-mobile-animation";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
+
+import { useState, WheelEvent, DragEvent } from "react";
 import { Flex, useMediaQuery } from "@chakra-ui/react";
 
 export const DashboardGarage = () => {
-	const [isAnimation, setIsAnimation] = useState(true);
+	const [isAnimationDesktop, setIsAnimationDesktop] = useState(true);
+	const [isAnimationMobile, setIsAnimationMobile] = useState(true);
 
 	const { user, isLoading } = useUserData();
 	const [isMediumDisplay] = useMediaQuery("(max-width: 768px)");
 
-	function handleAnimationFn() {
-		setIsAnimation(false);
+	const carsListLenght = !isLoading && user.cars.length;
+	const isExistsCars = !!carsListLenght;
+
+	const isAnimationScroll =
+		isAnimationDesktop && !isMediumDisplay && carsListLenght > 1;
+
+	const isAnimationDrag =
+		isAnimationMobile && isMediumDisplay && carsListLenght > 1;
+
+	function handleAnimationFn({
+		type,
+	}: WheelEvent<HTMLDivElement> | DragEvent<HTMLDivElement>) {
+		return type === "wheel"
+			? setIsAnimationDesktop(false)
+			: setIsAnimationMobile(false);
 	}
 
 	if (isLoading) return <LoadingAnimation />;
@@ -26,7 +42,7 @@ export const DashboardGarage = () => {
 			as={motion.div}
 			pos="relative"
 			direction={{ base: "column", lg: "row" }}
-			onWheel={isAnimation ? handleAnimationFn : undefined}
+			onWheel={isAnimationDesktop ? handleAnimationFn : undefined}
 			boxSize="100%"
 			overflow="hidden"
 			bgSize="cover"
@@ -37,13 +53,17 @@ export const DashboardGarage = () => {
 			align={{ base: "center", lg: "start" }}
 			gap="5"
 			p={{ base: 1, lg: 6 }}>
-			<CarsCards user={user} isMediumDisplay={isMediumDisplay} />
+			{isExistsCars ? (
+				<CarsCards user={user} isMediumDisplay={isMediumDisplay} />
+			) : (
+				<CarEmpty />
+			)}
 
 			<AddNewCar />
 
-			{isAnimation && !isMediumDisplay && <ScrollAnimation />}
+			{isAnimationScroll && <ScrollAnimation />}
 
-			{isAnimation && isMediumDisplay && (
+			{isAnimationDrag && (
 				<DragMobileAnimation handleAnimationFn={handleAnimationFn} />
 			)}
 		</Flex>
