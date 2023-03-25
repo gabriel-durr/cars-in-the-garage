@@ -35,11 +35,11 @@ export const SignOutConfirm = ({
 				<AlertDialogHeader
 					fontFamily="Roboto Slab"
 					color="my.mustard"
-					fontSize={["md", "2xl"]}
+					fontSize={["1.22rem", "1.36rem", "2xl"]}
 					fontWeight="medium">
 					Tem certeza que deseja sair?
 				</AlertDialogHeader>
-				<AlertDialogCloseButton />
+
 				<AlertDialogFooter w="100%">
 					<Button
 						w="50%"

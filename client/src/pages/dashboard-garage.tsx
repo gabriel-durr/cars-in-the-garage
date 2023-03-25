@@ -18,14 +18,14 @@ export const DashboardGarage = () => {
 	const { user, isLoading } = useUserData();
 	const [isMediumDisplay] = useMediaQuery("(max-width: 768px)");
 
-	const carsListLenght = !isLoading && user.cars.length;
-	const isExistsCars = !!carsListLenght;
+	const carListLenght = !isLoading && user.cars.length;
+	const isExistsCars = !!carListLenght;
 
 	const isAnimationScroll =
-		isAnimationDesktop && !isMediumDisplay && carsListLenght > 1;
+		isAnimationDesktop && !isMediumDisplay && carListLenght > 1;
 
 	const isAnimationDrag =
-		isAnimationMobile && isMediumDisplay && carsListLenght > 1;
+		isAnimationMobile && isMediumDisplay && carListLenght > 1;
 
 	function handleAnimationFn({
 		type,

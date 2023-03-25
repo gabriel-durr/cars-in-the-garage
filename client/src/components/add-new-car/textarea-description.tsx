@@ -6,7 +6,7 @@ type TextAreaProps = FormTextAreaProps;
 
 export const TextareaDescription = ({ register, errors }: TextAreaProps) => {
 	return (
-		<FormControl isRequired>
+		<FormControl isRequired w={{ base: "96%", md: "100%" }}>
 			<>
 				<FormLabel
 					textTransform="uppercase"

@@ -14,7 +14,7 @@ export const CarDescription = ({ description }: DescriptionProps) => {
 		sm: 204,
 		md: 418,
 		lg: 184,
-		xl: 362,
+		xl: 286,
 	});
 
 	const fullText = description;
