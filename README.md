@@ -45,7 +45,7 @@ Além disso a aplicação está em produção, realizei o <b>deploy</b> do proje
 
 <br/>
 
-Quer visualizar como ficou o projeto? [Clique aqui](https://cars-in-the-garage.netlify.app/ "Clique para ser redirecionado!").
+Quer visualizar como ficou o projeto? [Clique aqui](https://cars-in-the-garage.netlify.app/ "Clique para ser redirecionado!"){:target="_blank"}.
 
 <br/><br/>
 
