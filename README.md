@@ -45,7 +45,8 @@ Além disso a aplicação está em produção, realizei o <b>deploy</b> do proje
 
 <br/>
 
-Quer visualizar como ficou o projeto? [Clique aqui](https://cars-in-the-garage.netlify.app/ "Clique para ser redirecionado!"){:target="_blank"}.
+Quer visualizar como ficou o projeto? <a href="https://cars-in-the-garage.netlify.app" target="_blank"> Clique aqui</a>
+
 
 <br/><br/>
 
@@ -144,15 +145,17 @@ Quer visualizar como ficou o projeto? [Clique aqui](https://cars-in-the-garage.n
 
 <br/><br/>
 
-Toss out that granular state management, manual refetching... [Saber mais](https://tanstack.com/query/latest/docs/react/overview "Clique para ser redirecionado!").
 
-Framer Motion is a simple yet powerful motion library for React. It powers the amazing animations ... [Saber mais](https://www.framer.com/motion/ "Clique para ser redirecionado!")
+Toss out that granular state management, manual refetching...  <a href="https://tanstack.com/query/latest/docs/react/overview" target="_blank">Clique para ser redirecionado!</a>
 
-JSON Web Tokens are an open, industry standard... [Saber mais](https://tanstack.com/query/latest/docs/react/overview "Clique para ser redirecionado!").
+Framer Motion is a simple yet powerful motion library for React. It powers the amazing animations ... <a href="https://www.framer.com/motion/" target="_blank">Clique para ser redirecionado!</a>
 
-Render is a unified cloud to build and run all your apps and websites with free TLS certificates, global CDN, private networks and auto deploys from Git... [Saber mais](https://tanstack.com/query/latest/docs/react/overview "Clique para ser redirecionado!").
+JSON Web Tokens are an open, industry standard... <a href="https://tanstack.com/query/latest/docs/react/overview " target="_blank">Clique para ser redirecionado!</a>
 
-The fastest way to combine your favorite tools and APIs to build the fastest sites, stores, and ... [Saber mais](https://tanstack.com/query/latest/docs/react/overview "Clique para ser redirecionado!").
+Render is a unified cloud to build and run all your apps and websites with free TLS certificates, global CDN, private networks and auto deploys from Git... <a href="https://tanstack.com/query/latest/docs/react/overview" target="_blank">Clique para ser redirecionado!</a>
+
+The fastest way to combine your favorite tools and APIs to build the fastest sites, stores, and ... <a href="https://tanstack.com/query/latest/docs/react/overview" target="_blank">Clique para ser redirecionado!</a>
+
 
 <br/> <br/> <br/>
 
